@@ -119,14 +119,15 @@ class QMS:
         b = tto.strftime("%Y%m%d%H%M%S")
         df = self.data.query(f"{a} < date < {b}")
 
-        fig = plt.figure(figsize=(8, 6), facecolor="w")
+        figsize = kws.get("figsize", (8, 6))
+
+        fig = plt.figure(figsize=figsize, facecolor="w")
         ax = plt.gca()
 
         masslist = kws.get("masslist", self.masslist)
 
         [plt.plot(df["date"], df[f"m{i}"], label=f"m{i}") for i in masslist]
-
-        plt.legend(loc=1, bbox_to_anchor=[1.23, 1.1])
+        
         ax.set_xlabel("time")
         ax.set_ylabel("QMS Current, A")
         plt.xticks(rotation=25, ha="right")
@@ -147,9 +148,11 @@ class QMS:
 
         axt = ax.twinx()
         trigger = self.data["Trigger"].values
-        axt.plot(df["date"], df["Trigger"] / df["Trigger"].max(), "k")
+        axt.plot(df["date"], df["Trigger"] / df["Trigger"].max(), "r")
         axt.set_ylim(0, 20)
         axt.axes.yaxis.set_ticks([])
+
+        ax.legend(loc=1, bbox_to_anchor=[1, 1])
 
 
 def t2s(t):
