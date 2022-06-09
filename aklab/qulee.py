@@ -125,9 +125,10 @@ class QMS:
         ax = plt.gca()
 
         masslist = kws.get("masslist", self.masslist)
+        rasterized = kws.get("rasterized", False)
 
-        [plt.plot(df["date"], df[f"m{i}"], label=f"m{i}") for i in masslist]
-        
+        [plt.plot(df["date"], df[f"m{i}"], label=f"m{i}", rasterized=rasterized) for i in masslist]
+
         ax.set_xlabel("time")
         ax.set_ylabel("QMS Current, A")
         plt.xticks(rotation=25, ha="right")
