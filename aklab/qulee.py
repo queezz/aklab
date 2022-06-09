@@ -15,6 +15,7 @@ class QMS:
         self.path = datapath
         self.qms_file_parser()
         self.load_data()
+        self.generate_colors()
 
     def qms_file_parser(self):
         """ " Given filepath to ULVAC's Qulee BGM QMS file, converted to *.csv,
@@ -100,6 +101,18 @@ class QMS:
 
         self.data = qmsdata
 
+    def generate_colors(self):
+        """ Generate colors based on masslist"""
+        import matplotlib.pylab as plt
+        import numpy as np
+
+        color = plt.cm.hsv(np.linspace(0.1, 0.9, len(self.masslist)))
+        clr = {i: j for i, j in zip(self.masslist, color)}
+        clr[2] = "#ff421c"
+        clr[3] = "#ffa305"
+        clr[4] = "#6fff1c"
+        self.clr = clr
+
     def plot(self, **kws):
         """plot time traces
         kws:
@@ -126,8 +139,9 @@ class QMS:
 
         masslist = kws.get("masslist", self.masslist)
         rasterized = kws.get("rasterized", False)
+        clrs = kws.get("colors", self.clr)
 
-        [plt.plot(df["date"], df[f"m{i}"], label=f"m{i}", rasterized=rasterized) for i in masslist]
+        [plt.plot(df["date"], df[f"m{i}"], label=f"m{i}", rasterized=rasterized, c=clrs[i]) for i in masslist]
 
         ax.set_xlabel("time")
         ax.set_ylabel("QMS Current, A")
