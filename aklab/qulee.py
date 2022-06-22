@@ -222,3 +222,49 @@ def customticks(ax):
         [a.set_tick_params(width=j, length=i, which=k) for i, j, k in zip(ls, ws, ["major", "minor"])]
         for a in xys
     ]
+
+
+def tocsv(filename, **kws):
+    """ Convert native binary into csv with Quelee software installed."""
+    import platform, sys, subprocess, os, time
+
+    if not platform.system() == "Darwin":
+        import win32api, win32con, win32com.client  # mouse control
+
+        shell = win32com.client.Dispatch("WScript.Shell")  # this is to make a kay press
+
+    try:
+        retcode = subprocess.call("start " + filename, shell=True)
+        if retcode < 0:
+            print("Child was terminated by signal", retcode, file=sys.stderr)
+        else:
+            print("Child returned", file=sys.stderr)
+    except OSError as e:
+        print("Execution failed:", e, file=sys.stderr)
+
+    """Convert data to *.csv using this macro"""
+    size = os.stat(os.path.join(filename)).st_size
+    if size / 1.8e6 < 1:
+        tsave = 1
+    else:
+        tsave = int(size / 2e6) + 1
+    """ windows script to convert *.qst to *.csv"""
+    tt = 0.2
+    time.sleep(tt)
+    shell.SendKeys("{ESC}")
+    time.sleep(tt)
+    shell.SendKeys("{ENTER}")
+    time.sleep(tt + 1)
+    shell.SendKeys("%ft")
+    time.sleep(tt)
+    shell.SendKeys("{ENTER}")
+    time.sleep(tt)
+    shell.SendKeys("y")
+    time.sleep(tt)
+    shell.SendKeys("{ESC}")
+    time.sleep(tt + tsave)
+    shell.SendKeys("%fc")
+    time.sleep(tt)
+    shell.SendKeys("{ESC}")
+    """ close Qulee"""
+    shell.SendKeys("%{F4}")

@@ -4,6 +4,8 @@ __latexindent_temp.tex
 test.py
 *.pptx
 *.csv
+queleeconvert.ipynb
+convertquelee.py
 
 # Microsoft Office
 *.tmp
