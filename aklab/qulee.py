@@ -303,7 +303,7 @@ def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
     """
     import os, matplotlib.pylab as plt, numpy as np
     from matplotlib.backends.backend_pdf import PdfPages
-    import aklab.mplconvenience as akmpl
+    import aklab.mpls as akmpl
 
     ext = kws.get("ext", "CSV")
     if not len(ls):
