@@ -36,6 +36,8 @@ setup(
         matplotlib>=3.0
         pandas>=1.3
       """,
+    package_data={"": ["notex.mplstyle"]},
+    include_package_data=True,
     classifiers=[
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
