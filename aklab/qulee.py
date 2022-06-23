@@ -4,6 +4,7 @@
 Tools to work with Qulee mass spectrometer outputs (CSV) and maybe later with Qulee software?
 Created 2021/06/11 by queezz
 """
+from aklab.constants import *
 
 
 class QMS:
@@ -268,3 +269,67 @@ def tocsv(filename, **kws):
     shell.SendKeys("{ESC}")
     """ close Qulee"""
     shell.SendKeys("%{F4}")
+
+
+def generate_colors(masslist, **kws):
+    """ Generate colors based on masslist"""
+    import matplotlib.pylab as plt, numpy as np
+
+    cmap = kws.get("cmap", plt.cm.twilight)
+
+    color = cmap(np.linspace(0.1, 0.9, len(masslist)))
+    clr = {i: j for i, j in zip(masslist, color)}
+    clr[2] = "#ff421c"
+    clr[3] = "#ffa305"
+    clr[4] = "#6fff1c"
+    clr[18] = "#05ffde"
+    clr[28] = "#5983ff"
+    clr[40] = "#ff4596"
+    clr[32] = "#86ebc1"
+    return clr
+
+
+def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
+    """ Provided dir, reads all converted Quelee *.csv's and plots into a PDF
+    ls: list of absolute paths to files to plot
+        OR
+    dir: directory to scan and plot
+    out: output pdf file name or absolute path
+    ext = kws.get('ext','CSV')
+    figsize = kws.get('figsize',500)
+    anchor= kws.get('anhcor',[1,1])
+    rasterized = kws.get('rasterized',True)
+    ylim = kws.get('ylim',[1e-14,1e-5])
+    """
+    import os, matplotlib.pylab as plt, numpy as np
+    from matplotlib.backends.backend_pdf import PdfPages
+    import aklab.mplconvenience as akmpl
+
+    ext = kws.get("ext", "CSV")
+    if not len(ls):
+        if not len(dir):
+            raise ValueError("either dir or ls must be provided, now both are empty")
+        ls = os.listdir(dir)
+        ls = [i for i in ls if i.endswith(ext)]
+        ls = sorted(ls)[::-1]
+
+    figsize = kws.get("figsize", 500)
+    anchor = kws.get("anhcor", [1, 1])
+    rasterized = kws.get("rasterized", True)
+    ylim = kws.get("ylim", [1e-14, 1e-5])
+    with PdfPages(out) as pdf:
+        for i in ls:
+            plt.style.use(os.path.join(package_directory, "mplstyles", "notex.mplstyle"))
+            qms = QMS(i)
+            qms.plot(
+                rasterized=rasterized, ylim=ylim, colors=generate_colors(qms.masslist, cmap=plt.cm.twilight)
+            )
+            fig = plt.gcf()
+            fig.set_size_inches(akmpl.set_size(figsize))
+            axs = fig.get_axes()
+            axs[0].legend(bbox_to_anchor=anchor)
+            # TODO: derive ticks from ylim
+            axs[0].set_yticks(np.logspace(-14, -5, 14 - 5 + 1))
+            akmpl.set_tick_size(plt.gca(), *(1, 4, 0.5, 2))
+            pdf.savefig(dpi=300)
+            plt.close()

@@ -5,7 +5,9 @@ test.py
 *.pptx
 *.csv
 queleeconvert.ipynb
+quelee_binary.ipynb
 convertquelee.py
+*.pdf
 
 # Microsoft Office
 *.tmp
