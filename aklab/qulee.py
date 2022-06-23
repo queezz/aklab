@@ -319,7 +319,7 @@ def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
     ylim = kws.get("ylim", [1e-14, 1e-5])
     with PdfPages(out) as pdf:
         for i in ls:
-            plt.style.use(os.path.join(package_directory, "mplstyles", "notex.mplstyle"))
+            plt.style.use(os.path.join(package_directory, "notex.mplstyle"))
             qms = QMS(i)
             qms.plot(
                 rasterized=rasterized, ylim=ylim, colors=generate_colors(qms.masslist, cmap=plt.cm.twilight)
