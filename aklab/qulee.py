@@ -75,13 +75,7 @@ class QMS:
             self.masslist = [int(i[1:]) for i in self.colnames if i.startswith("m")]
 
     def load_data(self):
-        """Return qms data with proper datetime column for time
-        1. parse header using qms_file_parser
-        2. read csv file
-        Convert time
-        3. convert qms time format from '000:00:00.00' to
-        a) seconds and append to dataframe, and
-        b) proper datetime object with correct time and date
+        """Generates DataFrame from qms data with proper datetime column for time
         """
         import pandas as pd
         from pandas import read_csv
@@ -116,12 +110,25 @@ class QMS:
 
     def plot(self, **kws):
         """plot time traces
-        kws:
-        masslist: specify list of masses to plot. Plots all by default.
-        from: starting time, self.start by default.
-        to: ending time, self.end by default
-        ylim: axis ylims
-        gridalpha: transparancy of the grid lines
+        
+        Parameters
+        ----------
+        masslist: list
+            Specify list of masses to plot. Plots all by default.
+        fro: datetime
+            starting time, self.start by default.
+        to: datetime
+            ending time, self.end by default
+        ylim: list or tuple 
+            axis ylims
+        gridalpha: float
+             transparancy of the grid lines
+        figsize: tuple
+            figure size, (8,6) by default
+        rasterized: bool
+            rasterized option for matplotlib
+        colors: list
+            list of colors for color cycle
         """
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
@@ -226,7 +233,8 @@ def customticks(ax):
 
 
 def tocsv(filename, **kws):
-    """ Convert native binary into csv with Quelee software installed."""
+    """ Convert native binary into csv with Quelee software installed.
+    """
     import platform, sys, subprocess, os, time
 
     if not platform.system() == "Darwin":
@@ -272,7 +280,19 @@ def tocsv(filename, **kws):
 
 
 def generate_colors(masslist, **kws):
-    """ Generate colors based on masslist"""
+    """ Generate colors based on masslist
+    
+    Parameters
+    ----------
+    masslist: list
+            list of masses to be plotted
+    cmap: matplotlib colormap for color cycle
+    
+    Returns
+    -------
+    clr: list
+        list of colors
+    """
     import matplotlib.pylab as plt, numpy as np
 
     cmap = kws.get("cmap", plt.cm.twilight)
@@ -291,15 +311,25 @@ def generate_colors(masslist, **kws):
 
 def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
     """ Provided dir, reads all converted Quelee *.csv's and plots into a PDF
+
+    Parameters
+    ----------
     ls: list of absolute paths to files to plot
         OR
-    dir: directory to scan and plot
-    out: output pdf file name or absolute path
-    ext = kws.get('ext','CSV')
-    figsize = kws.get('figsize',500)
-    anchor= kws.get('anhcor',[1,1])
-    rasterized = kws.get('rasterized',True)
-    ylim = kws.get('ylim',[1e-14,1e-5])
+    dir: string
+            directory to scan and plot
+    out: string 
+        output pdf file name or absolute path
+    ext: string
+        files extention, CSV by default
+    figsize: float
+        figure width, 500 by default
+    anchor: list
+        Matplotlib bbox_to_inches [1,1]
+    rasterized: bool
+        Matplotlib's rasterized option, when there are too many lines for a PDF
+    ylim: list or tuple
+           by default [1e-14,1e-5]        
     """
     import os, matplotlib.pylab as plt, numpy as np
     from matplotlib.backends.backend_pdf import PdfPages

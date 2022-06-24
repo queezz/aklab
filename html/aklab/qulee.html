@@ -106,7 +106,13 @@ class QMS:
             self.masslist = [int(i[1:]) for i in self.colnames if i.startswith(&#34;m&#34;)]
 
     def load_data(self):
-        &#34;&#34;&#34;Generates DataFrame from qms data with proper datetime column for time
+        &#34;&#34;&#34;Return qms data with proper datetime column for time
+        1. parse header using qms_file_parser
+        2. read csv file
+        Convert time
+        3. convert qms time format from &#39;000:00:00.00&#39; to
+        a) seconds and append to dataframe, and
+        b) proper datetime object with correct time and date
         &#34;&#34;&#34;
         import pandas as pd
         from pandas import read_csv
@@ -141,25 +147,12 @@ class QMS:
 
     def plot(self, **kws):
         &#34;&#34;&#34;plot time traces
-        
-        Parameters
-        ----------
-        masslist: list
-            Specify list of masses to plot. Plots all by default.
-        fro: datetime
-            starting time, self.start by default.
-        to: datetime
-            ending time, self.end by default
-        ylim: list or tuple 
-            axis ylims
-        gridalpha: float
-             transparancy of the grid lines
-        figsize: tuple
-            figure size, (8,6) by default
-        rasterized: bool
-            rasterized option for matplotlib
-        colors: list
-            list of colors for color cycle
+        kws:
+        masslist: specify list of masses to plot. Plots all by default.
+        from: starting time, self.start by default.
+        to: ending time, self.end by default
+        ylim: axis ylims
+        gridalpha: transparancy of the grid lines
         &#34;&#34;&#34;
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
@@ -264,8 +257,7 @@ def customticks(ax):
 
 
 def tocsv(filename, **kws):
-    &#34;&#34;&#34; Convert native binary into csv with Quelee software installed.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Convert native binary into csv with Quelee software installed.&#34;&#34;&#34;
     import platform, sys, subprocess, os, time
 
     if not platform.system() == &#34;Darwin&#34;:
@@ -311,19 +303,7 @@ def tocsv(filename, **kws):
 
 
 def generate_colors(masslist, **kws):
-    &#34;&#34;&#34; Generate colors based on masslist
-    
-    Parameters
-    ----------
-    masslist: list
-            list of masses to be plotted
-    cmap: matplotlib colormap for color cycle
-    
-    Returns
-    -------
-    clr: list
-        list of colors
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Generate colors based on masslist&#34;&#34;&#34;
     import matplotlib.pylab as plt, numpy as np
 
     cmap = kws.get(&#34;cmap&#34;, plt.cm.twilight)
@@ -342,25 +322,15 @@ def generate_colors(masslist, **kws):
 
 def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws):
     &#34;&#34;&#34; Provided dir, reads all converted Quelee *.csv&#39;s and plots into a PDF
-
-    Parameters
-    ----------
     ls: list of absolute paths to files to plot
         OR
-    dir: string
-            directory to scan and plot
-    out: string 
-        output pdf file name or absolute path
-    ext: string
-        files extention, CSV by default
-    figsize: float
-        figure width, 500 by default
-    anchor: list
-        Matplotlib bbox_to_inches [1,1]
-    rasterized: bool
-        Matplotlib&#39;s rasterized option, when there are too many lines for a PDF
-    ylim: list or tuple
-           by default [1e-14,1e-5]        
+    dir: directory to scan and plot
+    out: output pdf file name or absolute path
+    ext = kws.get(&#39;ext&#39;,&#39;CSV&#39;)
+    figsize = kws.get(&#39;figsize&#39;,500)
+    anchor= kws.get(&#39;anhcor&#39;,[1,1])
+    rasterized = kws.get(&#39;rasterized&#39;,True)
+    ylim = kws.get(&#39;ylim&#39;,[1e-14,1e-5])
     &#34;&#34;&#34;
     import os, matplotlib.pylab as plt, numpy as np
     from matplotlib.backends.backend_pdf import PdfPages
@@ -446,37 +416,13 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>def <span class="ident">generate_colors</span></span>(<span>masslist, **kws)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generate colors based on masslist</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>masslist</code></strong> :&ensp;<code>list</code></dt>
-<dd>list of masses to be plotted</dd>
-<dt><strong><code>cmap</code></strong> :&ensp;<code>matplotlib colormap for color cycle</code></dt>
-<dd>&nbsp;</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><strong><code>clr</code></strong> :&ensp;<code>list</code></dt>
-<dd>list of colors</dd>
-</dl></div>
+<div class="desc"><p>Generate colors based on masslist</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def generate_colors(masslist, **kws):
-    &#34;&#34;&#34; Generate colors based on masslist
-    
-    Parameters
-    ----------
-    masslist: list
-            list of masses to be plotted
-    cmap: matplotlib colormap for color cycle
-    
-    Returns
-    -------
-    clr: list
-        list of colors
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Generate colors based on masslist&#34;&#34;&#34;
     import matplotlib.pylab as plt, numpy as np
 
     cmap = kws.get(&#34;cmap&#34;, plt.cm.twilight)
@@ -497,51 +443,31 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>def <span class="ident">plot_qms_dir</span></span>(<span>dir='', ls=[], out='batch_qms_plot.pdf', **kws)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Provided dir, reads all converted Quelee *.csv's and plots into a PDF</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>ls</code></strong> :&ensp;<code>list</code> of <code>absolute paths to files to plot</code></dt>
-<dd>OR</dd>
-<dt><strong><code>dir</code></strong> :&ensp;<code>string</code></dt>
-<dd>directory to scan and plot</dd>
-<dt><strong><code>out</code></strong> :&ensp;<code>string </code></dt>
-<dd>output pdf file name or absolute path</dd>
-<dt><strong><code>ext</code></strong> :&ensp;<code>string</code></dt>
-<dd>files extention, CSV by default</dd>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>float</code></dt>
-<dd>figure width, 500 by default</dd>
-<dt><strong><code>anchor</code></strong> :&ensp;<code>list</code></dt>
-<dd>Matplotlib bbox_to_inches [1,1]</dd>
-<dt><strong><code>rasterized</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Matplotlib's rasterized option, when there are too many lines for a PDF</dd>
-<dt><strong><code>ylim</code></strong> :&ensp;<code>list</code> or <code>tuple</code></dt>
-<dd>by default [1e-14,1e-5]</dd>
-</dl></div>
+<div class="desc"><p>Provided dir, reads all converted Quelee *.csv's and plots into a PDF
+ls: list of absolute paths to files to plot
+OR
+dir: directory to scan and plot
+out: output pdf file name or absolute path
+ext = kws.get('ext','CSV')
+figsize = kws.get('figsize',500)
+anchor= kws.get('anhcor',[1,1])
+rasterized = kws.get('rasterized',True)
+ylim = kws.get('ylim',[1e-14,1e-5])</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws):
     &#34;&#34;&#34; Provided dir, reads all converted Quelee *.csv&#39;s and plots into a PDF
-
-    Parameters
-    ----------
     ls: list of absolute paths to files to plot
         OR
-    dir: string
-            directory to scan and plot
-    out: string 
-        output pdf file name or absolute path
-    ext: string
-        files extention, CSV by default
-    figsize: float
-        figure width, 500 by default
-    anchor: list
-        Matplotlib bbox_to_inches [1,1]
-    rasterized: bool
-        Matplotlib&#39;s rasterized option, when there are too many lines for a PDF
-    ylim: list or tuple
-           by default [1e-14,1e-5]        
+    dir: directory to scan and plot
+    out: output pdf file name or absolute path
+    ext = kws.get(&#39;ext&#39;,&#39;CSV&#39;)
+    figsize = kws.get(&#39;figsize&#39;,500)
+    anchor= kws.get(&#39;anhcor&#39;,[1,1])
+    rasterized = kws.get(&#39;rasterized&#39;,True)
+    ylim = kws.get(&#39;ylim&#39;,[1e-14,1e-5])
     &#34;&#34;&#34;
     import os, matplotlib.pylab as plt, numpy as np
     from matplotlib.backends.backend_pdf import PdfPages
@@ -639,8 +565,7 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def tocsv(filename, **kws):
-    &#34;&#34;&#34; Convert native binary into csv with Quelee software installed.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Convert native binary into csv with Quelee software installed.&#34;&#34;&#34;
     import platform, sys, subprocess, os, time
 
     if not platform.system() == &#34;Darwin&#34;:
@@ -768,7 +693,13 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
             self.masslist = [int(i[1:]) for i in self.colnames if i.startswith(&#34;m&#34;)]
 
     def load_data(self):
-        &#34;&#34;&#34;Generates DataFrame from qms data with proper datetime column for time
+        &#34;&#34;&#34;Return qms data with proper datetime column for time
+        1. parse header using qms_file_parser
+        2. read csv file
+        Convert time
+        3. convert qms time format from &#39;000:00:00.00&#39; to
+        a) seconds and append to dataframe, and
+        b) proper datetime object with correct time and date
         &#34;&#34;&#34;
         import pandas as pd
         from pandas import read_csv
@@ -803,25 +734,12 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 
     def plot(self, **kws):
         &#34;&#34;&#34;plot time traces
-        
-        Parameters
-        ----------
-        masslist: list
-            Specify list of masses to plot. Plots all by default.
-        fro: datetime
-            starting time, self.start by default.
-        to: datetime
-            ending time, self.end by default
-        ylim: list or tuple 
-            axis ylims
-        gridalpha: float
-             transparancy of the grid lines
-        figsize: tuple
-            figure size, (8,6) by default
-        rasterized: bool
-            rasterized option for matplotlib
-        colors: list
-            list of colors for color cycle
+        kws:
+        masslist: specify list of masses to plot. Plots all by default.
+        from: starting time, self.start by default.
+        to: ending time, self.end by default
+        ylim: axis ylims
+        gridalpha: transparancy of the grid lines
         &#34;&#34;&#34;
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
@@ -898,13 +816,25 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>def <span class="ident">load_data</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Generates DataFrame from qms data with proper datetime column for time</p></div>
+<div class="desc"><p>Return qms data with proper datetime column for time
+1. parse header using qms_file_parser
+2. read csv file
+Convert time
+3. convert qms time format from '000:00:00.00' to
+a) seconds and append to dataframe, and
+b) proper datetime object with correct time and date</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def load_data(self):
-    &#34;&#34;&#34;Generates DataFrame from qms data with proper datetime column for time
+    &#34;&#34;&#34;Return qms data with proper datetime column for time
+    1. parse header using qms_file_parser
+    2. read csv file
+    Convert time
+    3. convert qms time format from &#39;000:00:00.00&#39; to
+    a) seconds and append to dataframe, and
+    b) proper datetime object with correct time and date
     &#34;&#34;&#34;
     import pandas as pd
     from pandas import read_csv
@@ -930,51 +860,25 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>def <span class="ident">plot</span></span>(<span>self, **kws)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>plot time traces</p>
-<h2 id="parameters">Parameters</h2>
-<dl>
-<dt><strong><code>masslist</code></strong> :&ensp;<code>list</code></dt>
-<dd>Specify list of masses to plot. Plots all by default.</dd>
-<dt><strong><code>fro</code></strong> :&ensp;<code>datetime</code></dt>
-<dd>starting time, self.start by default.</dd>
-<dt><strong><code>to</code></strong> :&ensp;<code>datetime</code></dt>
-<dd>ending time, self.end by default</dd>
-<dt><strong><code>ylim</code></strong> :&ensp;<code>list</code> or <code>tuple </code></dt>
-<dd>axis ylims</dd>
-<dt><strong><code>gridalpha</code></strong> :&ensp;<code>float</code></dt>
-<dd>transparancy of the grid lines</dd>
-<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
-<dd>figure size, (8,6) by default</dd>
-<dt><strong><code>rasterized</code></strong> :&ensp;<code>bool</code></dt>
-<dd>rasterized option for matplotlib</dd>
-<dt><strong><code>colors</code></strong> :&ensp;<code>list</code></dt>
-<dd>list of colors for color cycle</dd>
-</dl></div>
+<div class="desc"><p>plot time traces
+kws:
+masslist: specify list of masses to plot. Plots all by default.
+from: starting time, self.start by default.
+to: ending time, self.end by default
+ylim: axis ylims
+gridalpha: transparancy of the grid lines</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def plot(self, **kws):
     &#34;&#34;&#34;plot time traces
-    
-    Parameters
-    ----------
-    masslist: list
-        Specify list of masses to plot. Plots all by default.
-    fro: datetime
-        starting time, self.start by default.
-    to: datetime
-        ending time, self.end by default
-    ylim: list or tuple 
-        axis ylims
-    gridalpha: float
-         transparancy of the grid lines
-    figsize: tuple
-        figure size, (8,6) by default
-    rasterized: bool
-        rasterized option for matplotlib
-    colors: list
-        list of colors for color cycle
+    kws:
+    masslist: specify list of masses to plot. Plots all by default.
+    from: starting time, self.start by default.
+    to: ending time, self.end by default
+    ylim: axis ylims
+    gridalpha: transparancy of the grid lines
     &#34;&#34;&#34;
     import matplotlib.pylab as plt
     from matplotlib.ticker import AutoMinorLocator
