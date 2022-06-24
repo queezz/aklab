@@ -8,7 +8,13 @@ from aklab.constants import *
 
 
 class QMS:
-    """Class for reading, processing, and storing Qulee QMS data"""
+    """Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.
+    
+    Parameters
+    ----------
+    datapath: string
+            path to converted to `csv` format Qulee QMS data.
+    """
 
     def __init__(self, datapath):
         """ """
