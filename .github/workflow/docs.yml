@@ -20,6 +20,7 @@ jobs:
 
       # ADJUST THIS: install all dependencies (including pdoc)
       - run: pip install -e .
+      - run: pip install pdoc
       # ADJUST THIS: build your documentation into docs/.
       - run: 'pdoc aklab -o docs/ --html'
       # docs/make.py  
