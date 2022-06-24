@@ -39,7 +39,13 @@ from aklab.constants import *
 
 
 class QMS:
-    &#34;&#34;&#34;Class for reading, processing, and storing Qulee QMS data&#34;&#34;&#34;
+    &#34;&#34;&#34;Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.
+    
+    Parameters
+    ----------
+    datapath: string
+            path to converted to `csv` format Qulee QMS data.
+    &#34;&#34;&#34;
 
     def __init__(self, datapath):
         &#34;&#34;&#34; &#34;&#34;&#34;
@@ -695,13 +701,24 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>(</span><span>datapath)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Class for reading, processing, and storing Qulee QMS data</p></div>
+<div class="desc"><p>Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>datapath</code></strong> :&ensp;<code>string</code></dt>
+<dd>path to converted to <code>csv</code> format Qulee QMS data.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class QMS:
-    &#34;&#34;&#34;Class for reading, processing, and storing Qulee QMS data&#34;&#34;&#34;
+    &#34;&#34;&#34;Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.
+    
+    Parameters
+    ----------
+    datapath: string
+            path to converted to `csv` format Qulee QMS data.
+    &#34;&#34;&#34;
 
     def __init__(self, datapath):
         &#34;&#34;&#34; &#34;&#34;&#34;
