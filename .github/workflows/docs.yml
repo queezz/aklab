@@ -2,9 +2,7 @@ name: website
 
 # build the documentation whenever there are new commits on main
 on:
-  push:
-    branches:
-      - main
+  push
     # Alternative: only build for tags.
     # tags:
     #   - '*'
