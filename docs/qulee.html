@@ -145,6 +145,23 @@ class QMS:
         clr[4] = &#34;#6fff1c&#34;
         self.clr = clr
 
+    def slice(self, delta):
+        &#34;&#34;&#34; Slice DataFrame by datetime interval
+
+        Parameters
+        ----------
+        delta: list
+            list of datetime.dateme objects for the start and the end of an interval
+
+        Returns
+        -------
+        data: pandas.DataFrame
+            sliced qms dataframe
+        &#34;&#34;&#34;
+        a = delta[0].strftime(&#34;%Y%m%d%H%M%S&#34;)
+        b = delta[1].strftime(&#34;%Y%m%d%H%M%S&#34;)
+        return self.data.query(f&#34;{a} &lt; date &lt; {b}&#34;)
+
     def plot(self, **kws):
         &#34;&#34;&#34;plot time traces
         
@@ -818,6 +835,23 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
         clr[4] = &#34;#6fff1c&#34;
         self.clr = clr
 
+    def slice(self, delta):
+        &#34;&#34;&#34; Slice DataFrame by datetime interval
+
+        Parameters
+        ----------
+        delta: list
+            list of datetime.dateme objects for the start and the end of an interval
+
+        Returns
+        -------
+        data: pandas.DataFrame
+            sliced qms dataframe
+        &#34;&#34;&#34;
+        a = delta[0].strftime(&#34;%Y%m%d%H%M%S&#34;)
+        b = delta[1].strftime(&#34;%Y%m%d%H%M%S&#34;)
+        return self.data.query(f&#34;{a} &lt; date &lt; {b}&#34;)
+
     def plot(self, **kws):
         &#34;&#34;&#34;plot time traces
         
@@ -1108,6 +1142,43 @@ Parses the header, extracts column names, QMS settings, and line number where da
         self.masslist = [int(i[1:]) for i in self.colnames if i.startswith(&#34;m&#34;)]</code></pre>
 </details>
 </dd>
+<dt id="aklab.qulee.QMS.slice"><code class="name flex">
+<span>def <span class="ident">slice</span></span>(<span>self, delta)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Slice DataFrame by datetime interval</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>delta</code></strong> :&ensp;<code>list</code></dt>
+<dd>list of datetime.dateme objects for the start and the end of an interval</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pandas.DataFrame</code></dt>
+<dd>sliced qms dataframe</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def slice(self, delta):
+    &#34;&#34;&#34; Slice DataFrame by datetime interval
+
+    Parameters
+    ----------
+    delta: list
+        list of datetime.dateme objects for the start and the end of an interval
+
+    Returns
+    -------
+    data: pandas.DataFrame
+        sliced qms dataframe
+    &#34;&#34;&#34;
+    a = delta[0].strftime(&#34;%Y%m%d%H%M%S&#34;)
+    b = delta[1].strftime(&#34;%Y%m%d%H%M%S&#34;)
+    return self.data.query(f&#34;{a} &lt; date &lt; {b}&#34;)</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -1144,6 +1215,7 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <li><code><a title="aklab.qulee.QMS.load_data" href="#aklab.qulee.QMS.load_data">load_data</a></code></li>
 <li><code><a title="aklab.qulee.QMS.plot" href="#aklab.qulee.QMS.plot">plot</a></code></li>
 <li><code><a title="aklab.qulee.QMS.qms_file_parser" href="#aklab.qulee.QMS.qms_file_parser">qms_file_parser</a></code></li>
+<li><code><a title="aklab.qulee.QMS.slice" href="#aklab.qulee.QMS.slice">slice</a></code></li>
 </ul>
 </li>
 </ul>

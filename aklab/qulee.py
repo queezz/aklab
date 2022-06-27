@@ -114,6 +114,23 @@ class QMS:
         clr[4] = "#6fff1c"
         self.clr = clr
 
+    def slice(self, delta):
+        """ Slice DataFrame by datetime interval
+
+        Parameters
+        ----------
+        delta: list
+            list of datetime.dateme objects for the start and the end of an interval
+
+        Returns
+        -------
+        data: pandas.DataFrame
+            sliced qms dataframe
+        """
+        a = delta[0].strftime("%Y%m%d%H%M%S")
+        b = delta[1].strftime("%Y%m%d%H%M%S")
+        return self.data.query(f"{a} < date < {b}")
+
     def plot(self, **kws):
         """plot time traces
         
