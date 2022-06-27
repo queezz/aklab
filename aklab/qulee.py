@@ -152,6 +152,8 @@ class QMS:
             rasterized option for matplotlib
         colors: list
             list of colors for color cycle
+        bbox_to_anchor: list or tuple
+            bbox_to_anchor argument for matplotlib legend
         """
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
@@ -198,7 +200,8 @@ class QMS:
         axt.set_ylim(0, 20)
         axt.axes.yaxis.set_ticks([])
 
-        ax.legend(loc=1, bbox_to_anchor=[1, 1])
+        bbox_to_anchor = kws.get("bbox_to_anchor", [1, 1])
+        ax.legend(loc=1, bbox_to_anchor=bbox_to_anchor)
 
 
 def t2s(t):

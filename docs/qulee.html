@@ -183,6 +183,8 @@ class QMS:
             rasterized option for matplotlib
         colors: list
             list of colors for color cycle
+        bbox_to_anchor: list or tuple
+            bbox_to_anchor argument for matplotlib legend
         &#34;&#34;&#34;
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
@@ -229,7 +231,8 @@ class QMS:
         axt.set_ylim(0, 20)
         axt.axes.yaxis.set_ticks([])
 
-        ax.legend(loc=1, bbox_to_anchor=[1, 1])
+        bbox_to_anchor = kws.get(&#34;bbox_to_anchor&#34;, [1, 1])
+        ax.legend(loc=1, bbox_to_anchor=bbox_to_anchor)
 
 
 def t2s(t):
@@ -873,6 +876,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
             rasterized option for matplotlib
         colors: list
             list of colors for color cycle
+        bbox_to_anchor: list or tuple
+            bbox_to_anchor argument for matplotlib legend
         &#34;&#34;&#34;
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
@@ -919,7 +924,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
         axt.set_ylim(0, 20)
         axt.axes.yaxis.set_ticks([])
 
-        ax.legend(loc=1, bbox_to_anchor=[1, 1])</code></pre>
+        bbox_to_anchor = kws.get(&#34;bbox_to_anchor&#34;, [1, 1])
+        ax.legend(loc=1, bbox_to_anchor=bbox_to_anchor)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -1000,6 +1006,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <dd>rasterized option for matplotlib</dd>
 <dt><strong><code>colors</code></strong> :&ensp;<code>list</code></dt>
 <dd>list of colors for color cycle</dd>
+<dt><strong><code>bbox_to_anchor</code></strong> :&ensp;<code>list</code> or <code>tuple</code></dt>
+<dd>bbox_to_anchor argument for matplotlib legend</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -1026,6 +1034,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
         rasterized option for matplotlib
     colors: list
         list of colors for color cycle
+    bbox_to_anchor: list or tuple
+        bbox_to_anchor argument for matplotlib legend
     &#34;&#34;&#34;
     import matplotlib.pylab as plt
     from matplotlib.ticker import AutoMinorLocator
@@ -1072,7 +1082,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
     axt.set_ylim(0, 20)
     axt.axes.yaxis.set_ticks([])
 
-    ax.legend(loc=1, bbox_to_anchor=[1, 1])</code></pre>
+    bbox_to_anchor = kws.get(&#34;bbox_to_anchor&#34;, [1, 1])
+    ax.legend(loc=1, bbox_to_anchor=bbox_to_anchor)</code></pre>
 </details>
 </dd>
 <dt id="aklab.qulee.QMS.qms_file_parser"><code class="name flex">
