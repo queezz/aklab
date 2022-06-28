@@ -76,7 +76,7 @@ def font_setup(size=13, weight="normal", family="serif", color="None", fontname=
          font name, e.g. ['Sans' | 'Courier' | 'Helvetica' ...]
     """
 
-    font = {"family": family, "weight": weight, "size": size, "name": fontname}
+    font = {"family": family, "weight": weight, "size": size, "fontname": fontname}
     plt.rc("font", **font)
     plt.rcParams.update(
         {"mathtext.default": "regular", "figure.facecolor": color,}
