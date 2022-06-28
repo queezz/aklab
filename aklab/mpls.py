@@ -61,6 +61,7 @@ def gritix(**kws):
 
 def font_setup(size=13, weight="normal", family="serif", color="None", fontname="Sans"):
     """Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+    specific for `family` fontnames: ['Sans' | 'Courier' | 'Helvetica' ...]
 
     Parameters
     ----------
@@ -71,12 +72,10 @@ def font_setup(size=13, weight="normal", family="serif", color="None", fontname=
     size: float
          18 by default
     color: string
-        any matplotlib color
-    fontname: string
-         font name, e.g. ['Sans' | 'Courier' | 'Helvetica' ...]
+        any matplotlib color    
     """
 
-    font = {"family": family, "weight": weight, "size": size, "fontname": fontname}
+    font = {"family": family, "weight": weight, "size": size}
     plt.rc("font", **font)
     plt.rcParams.update(
         {"mathtext.default": "regular", "figure.facecolor": color,}

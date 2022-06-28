@@ -91,6 +91,7 @@ def gritix(**kws):
 
 def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;, fontname=&#34;Sans&#34;):
     &#34;&#34;&#34;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+    specific for `family` fontnames: [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
 
     Parameters
     ----------
@@ -101,12 +102,10 @@ def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&
     size: float
          18 by default
     color: string
-        any matplotlib color
-    fontname: string
-         font name, e.g. [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
+        any matplotlib color    
     &#34;&#34;&#34;
 
-    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size, &#34;name&#34;: fontname}
+    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size}
     plt.rc(&#34;font&#34;, **font)
     plt.rcParams.update(
         {&#34;mathtext.default&#34;: &#34;regular&#34;, &#34;figure.facecolor&#34;: color,}
@@ -336,7 +335,8 @@ for <code>kws</code> see <code><a title="aklab.mpls.set_size" href="#aklab.mpls.
 <span>def <span class="ident">font_setup</span></span>(<span>size=13, weight='normal', family='serif', color='None', fontname='Sans')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set-up font for matplotlib using rc, see <a href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a></p>
+<div class="desc"><p>Set-up font for matplotlib using rc, see <a href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a>
+specific for <code>family</code> fontnames: ['Sans' | 'Courier' | 'Helvetica' &hellip;]</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>family</code></strong> :&ensp;<code>string</code></dt>
@@ -347,8 +347,6 @@ for <code>kws</code> see <code><a title="aklab.mpls.set_size" href="#aklab.mpls.
 <dd>18 by default</dd>
 <dt><strong><code>color</code></strong> :&ensp;<code>string</code></dt>
 <dd>any matplotlib color</dd>
-<dt><strong><code>fontname</code></strong> :&ensp;<code>string</code></dt>
-<dd>font name, e.g. ['Sans' | 'Courier' | 'Helvetica' &hellip;]</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -356,6 +354,7 @@ for <code>kws</code> see <code><a title="aklab.mpls.set_size" href="#aklab.mpls.
 </summary>
 <pre><code class="python">def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;, fontname=&#34;Sans&#34;):
     &#34;&#34;&#34;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+    specific for `family` fontnames: [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
 
     Parameters
     ----------
@@ -366,12 +365,10 @@ for <code>kws</code> see <code><a title="aklab.mpls.set_size" href="#aklab.mpls.
     size: float
          18 by default
     color: string
-        any matplotlib color
-    fontname: string
-         font name, e.g. [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
+        any matplotlib color    
     &#34;&#34;&#34;
 
-    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size, &#34;name&#34;: fontname}
+    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size}
     plt.rc(&#34;font&#34;, **font)
     plt.rcParams.update(
         {&#34;mathtext.default&#34;: &#34;regular&#34;, &#34;figure.facecolor&#34;: color,}
