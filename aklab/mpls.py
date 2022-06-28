@@ -1,8 +1,7 @@
 """
 Convinience function for Matplotlib
 """
-""" Matploblib adjustments
-"""
+
 import matplotlib.pylab as plt
 
 
@@ -33,6 +32,13 @@ def ticks_visual(ax, **kwarg):
 def grid_visual(ax, alpha=[0.1, 0.3]):
     """
     Sets grid on and adjusts the grid style.
+    
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        Axes where the grid will be displayed.
+    alpha: array-like
+        alpha = [minor alpha, major alpha] - transparancy of grid lines 
     """
     ax.grid(which="minor", linestyle="-", alpha=alpha[0])
     ax.grid(which="major", linestyle="-", alpha=alpha[1])
@@ -41,8 +47,7 @@ def grid_visual(ax, alpha=[0.1, 0.3]):
 
 def gritix(**kws):
     """
-    Automatically apply ticks_visual and grid_visual to the
-    currently active pylab axes.
+    Apply ticks_visual and grid_visual to the active pylab axes.
     """
 
     ticks_visual(plt.gca())
@@ -50,24 +55,45 @@ def gritix(**kws):
     return
 
 
-def font_setup(size=13, weight="normal", family="serif", color="None"):
-    """Set-up font for Matplotlib plots
-    'family':'Times New Roman','weight':'heavy','size': 18
+def font_setup(size=13, weight="normal", family="serif", color="None", name="Sans"):
+    """Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+    Parameters
+    ----------
+    family: string
+        [ 'serif' | 'sans-serif' | 'cursive' | 'fantasy' | 'monospace' ]
+    weight:
+        [ 'normal' | 'bold' | 'heavy' | 'light' | 'ultrabold' | 'ultralight']
+    size: float
+         18 by default
+    color: string
+        any matplotlib color
+    name: string
+         e.g., ['Sans' | 'Courier' | 'Helvetica' ...]
     """
 
-    font = {"family": family, "weight": weight, "size": size}
+    font = {"family": family, "weight": weight, "size": size, "name": name}
     plt.rc("font", **font)
     plt.rcParams.update(
         {"mathtext.default": "regular", "figure.facecolor": color,}
     )
 
 
-def ltexp(exp, decplace=1, short=False):
-    """ converts 1e29 float to the scientific notation LaTeX string """
+def ltexp(val, decplace=1, short=False):
+    """ converts float to the scientific notation as a LaTeX string
+    
+    Parameters
+    ----------
+    val: float
+        number to convert
+    decplace: int
+        number of decimal places to display in the pre-exponent
+    short: bool
+        if True, only shows exponent part 
+    """
     import numpy as np
 
-    exponent = int(np.floor(np.log10(abs(exp))))
-    coeff = round(exp / np.float64(10 ** exponent), decplace)
+    exponent = int(np.floor(np.log10(abs(val))))
+    coeff = round(val / np.float64(10 ** exponent), decplace)
     if not short:
         return f"{coeff}\\times 10^{{{exponent}}}"
     else:
@@ -75,7 +101,7 @@ def ltexp(exp, decplace=1, short=False):
 
 
 def font_ishihara(size=14):
-    """ font and plot settings by Ishihara-kun"""
+    """ font and tick settings used by Ishihara-kun"""
     font = {"family": "serif", "weight": "normal", "size": size}
     plt.rc("font", **font)
     plt.rcParams["xtick.direction"] = "in"  # x axis in
@@ -143,9 +169,67 @@ def set_size(width, fraction=1, subplots=(1, 1), ratio="golden"):
 def set_tick_size(ax, *size):
     """ Set matplotlib axis tick sizes
     For some reason the length from style is ignored.
+
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        axes for adjustment
+    size: array-like
+        size = [width_major, length_major, width_minor, length_minor]
     """
     width_major, length_major, width_minor, length_minor = size
     ax.xaxis.set_tick_params(width=width_major, length=length_major, which="major")
     ax.xaxis.set_tick_params(width=width_minor, length=length_minor, which="minor")
     ax.yaxis.set_tick_params(width=width_major, length=length_major, which="major")
     ax.yaxis.set_tick_params(width=width_minor, length=length_minor, which="minor")
+
+
+def figprep(width=246, **kws):
+    """ Create matplotlib figure with given width in points
+    
+    Parameters
+    ----------
+    width: float
+        figure width in points
+
+    Keyword Arguments for aklab.mpls.set_size
+    -----------------
+    subplots: aray-like
+            The number of rows and columns
+    ratio: float or string
+            ratio=fig_hight_pt/fig_width_pt
+
+    Returns
+    -------
+    (fig, axs): tuple
+            matplotlib.pylab.subplots
+    """
+    subplots = kws.get("subplots", [1, 1])
+    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=200)
+
+
+def figprep(width=246, dpi=200, **kws):
+    """ Create matplotlib figure with given width in points
+    
+    Parameters
+    ----------
+    width: float
+        figure width in points
+    dpi: float
+        figure dpi, use to increase displayed figure in a notebook
+
+    Keyword Arguments for aklab.mpls.set_size
+    -----------------
+    subplots: aray-like
+            The number of rows and columns
+    ratio: float or string
+            ratio=fig_hight_pt/fig_width_pt
+
+    Returns
+    -------
+    (fig, axs): tuple
+            matplotlib.pylab.subplots
+    """
+    subplots = kws.get("subplots", [1, 1])
+    return plt.subplots(subplots[0], subplots[1], figsize=akmp.set_size(width, **kws), dpi=dpi)
+

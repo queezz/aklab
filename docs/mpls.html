@@ -30,8 +30,7 @@
 <pre><code class="python">&#34;&#34;&#34;
 Convinience function for Matplotlib
 &#34;&#34;&#34;
-&#34;&#34;&#34; Matploblib adjustments
-&#34;&#34;&#34;
+
 import matplotlib.pylab as plt
 
 
@@ -62,6 +61,13 @@ def ticks_visual(ax, **kwarg):
 def grid_visual(ax, alpha=[0.1, 0.3]):
     &#34;&#34;&#34;
     Sets grid on and adjusts the grid style.
+    
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        Axes where the grid will be displayed.
+    alpha: array-like
+        alpha = [minor alpha, major alpha] - transparancy of grid lines 
     &#34;&#34;&#34;
     ax.grid(which=&#34;minor&#34;, linestyle=&#34;-&#34;, alpha=alpha[0])
     ax.grid(which=&#34;major&#34;, linestyle=&#34;-&#34;, alpha=alpha[1])
@@ -70,8 +76,7 @@ def grid_visual(ax, alpha=[0.1, 0.3]):
 
 def gritix(**kws):
     &#34;&#34;&#34;
-    Automatically apply ticks_visual and grid_visual to the
-    currently active pylab axes.
+    Apply ticks_visual and grid_visual to the active pylab axes.
     &#34;&#34;&#34;
 
     ticks_visual(plt.gca())
@@ -79,24 +84,45 @@ def gritix(**kws):
     return
 
 
-def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;):
-    &#34;&#34;&#34;Set-up font for Matplotlib plots
-    &#39;family&#39;:&#39;Times New Roman&#39;,&#39;weight&#39;:&#39;heavy&#39;,&#39;size&#39;: 18
+def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;, name=&#34;Sans&#34;):
+    &#34;&#34;&#34;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+    Parameters
+    ----------
+    family: string
+        [ &#39;serif&#39; | &#39;sans-serif&#39; | &#39;cursive&#39; | &#39;fantasy&#39; | &#39;monospace&#39; ]
+    weight:
+        [ &#39;normal&#39; | &#39;bold&#39; | &#39;heavy&#39; | &#39;light&#39; | &#39;ultrabold&#39; | &#39;ultralight&#39;]
+    size: float
+         18 by default
+    color: string
+        any matplotlib color
+    name: string
+         e.g., [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
     &#34;&#34;&#34;
 
-    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size}
+    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size, &#34;name&#34;: name}
     plt.rc(&#34;font&#34;, **font)
     plt.rcParams.update(
         {&#34;mathtext.default&#34;: &#34;regular&#34;, &#34;figure.facecolor&#34;: color,}
     )
 
 
-def ltexp(exp, decplace=1, short=False):
-    &#34;&#34;&#34; converts 1e29 float to the scientific notation LaTeX string &#34;&#34;&#34;
+def ltexp(val, decplace=1, short=False):
+    &#34;&#34;&#34; converts float to the scientific notation as a LaTeX string
+    
+    Parameters
+    ----------
+    val: float
+        number to convert
+    decplace: int
+        number of decimal places to display in the pre-exponent
+    short: bool
+        if True, only shows exponent part 
+    &#34;&#34;&#34;
     import numpy as np
 
-    exponent = int(np.floor(np.log10(abs(exp))))
-    coeff = round(exp / np.float64(10 ** exponent), decplace)
+    exponent = int(np.floor(np.log10(abs(val))))
+    coeff = round(val / np.float64(10 ** exponent), decplace)
     if not short:
         return f&#34;{coeff}\\times 10^{{{exponent}}}&#34;
     else:
@@ -104,7 +130,7 @@ def ltexp(exp, decplace=1, short=False):
 
 
 def font_ishihara(size=14):
-    &#34;&#34;&#34; font and plot settings by Ishihara-kun&#34;&#34;&#34;
+    &#34;&#34;&#34; font and tick settings used by Ishihara-kun&#34;&#34;&#34;
     font = {&#34;family&#34;: &#34;serif&#34;, &#34;weight&#34;: &#34;normal&#34;, &#34;size&#34;: size}
     plt.rc(&#34;font&#34;, **font)
     plt.rcParams[&#34;xtick.direction&#34;] = &#34;in&#34;  # x axis in
@@ -172,12 +198,69 @@ def set_size(width, fraction=1, subplots=(1, 1), ratio=&#34;golden&#34;):
 def set_tick_size(ax, *size):
     &#34;&#34;&#34; Set matplotlib axis tick sizes
     For some reason the length from style is ignored.
+
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        axes for adjustment
+    size: array-like
+        size = [width_major, length_major, width_minor, length_minor]
     &#34;&#34;&#34;
     width_major, length_major, width_minor, length_minor = size
     ax.xaxis.set_tick_params(width=width_major, length=length_major, which=&#34;major&#34;)
     ax.xaxis.set_tick_params(width=width_minor, length=length_minor, which=&#34;minor&#34;)
     ax.yaxis.set_tick_params(width=width_major, length=length_major, which=&#34;major&#34;)
-    ax.yaxis.set_tick_params(width=width_minor, length=length_minor, which=&#34;minor&#34;)</code></pre>
+    ax.yaxis.set_tick_params(width=width_minor, length=length_minor, which=&#34;minor&#34;)
+
+
+def figprep(width=246, **kws):
+    &#34;&#34;&#34; Create matplotlib figure with given width in points
+    
+    Parameters
+    ----------
+    width: float
+        figure width in points
+
+    Keyword Arguments for aklab.mpls.set_size
+    -----------------
+    subplots: aray-like
+            The number of rows and columns
+    ratio: float or string
+            ratio=fig_hight_pt/fig_width_pt
+
+    Returns
+    -------
+    (fig, axs): tuple
+            matplotlib.pylab.subplots
+    &#34;&#34;&#34;
+    subplots = kws.get(&#34;subplots&#34;, [1, 1])
+    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=200)
+
+
+def figprep(width=246, dpi=200, **kws):
+    &#34;&#34;&#34; Create matplotlib figure with given width in points
+    
+    Parameters
+    ----------
+    width: float
+        figure width in points
+    dpi: float
+        figure dpi, use to increase displayed figure in a notebook
+
+    Keyword Arguments for aklab.mpls.set_size
+    -----------------
+    subplots: aray-like
+            The number of rows and columns
+    ratio: float or string
+            ratio=fig_hight_pt/fig_width_pt
+
+    Returns
+    -------
+    (fig, axs): tuple
+            matplotlib.pylab.subplots
+    &#34;&#34;&#34;
+    subplots = kws.get(&#34;subplots&#34;, [1, 1])
+    return plt.subplots(subplots[0], subplots[1], figsize=akmp.set_size(width, **kws), dpi=dpi)</code></pre>
 </details>
 </section>
 <section>
@@ -187,17 +270,67 @@ def set_tick_size(ax, *size):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="aklab.mpls.figprep"><code class="name flex">
+<span>def <span class="ident">figprep</span></span>(<span>width=246, dpi=200, **kws)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create matplotlib figure with given width in points</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>width</code></strong> :&ensp;<code>float</code></dt>
+<dd>figure width in points</dd>
+<dt><strong><code>dpi</code></strong> :&ensp;<code>float</code></dt>
+<dd>figure dpi, use to increase displayed figure in a notebook</dd>
+</dl>
+<h2 id="keyword-arguments-for-aklabmplsset_size">Keyword Arguments for aklab.mpls.set_size</h2>
+<p>subplots: aray-like
+The number of rows and columns
+ratio: float or string
+ratio=fig_hight_pt/fig_width_pt</p>
+<h2 id="returns">Returns</h2>
+<p>(fig, axs): tuple
+matplotlib.pylab.subplots</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def figprep(width=246, dpi=200, **kws):
+    &#34;&#34;&#34; Create matplotlib figure with given width in points
+    
+    Parameters
+    ----------
+    width: float
+        figure width in points
+    dpi: float
+        figure dpi, use to increase displayed figure in a notebook
+
+    Keyword Arguments for aklab.mpls.set_size
+    -----------------
+    subplots: aray-like
+            The number of rows and columns
+    ratio: float or string
+            ratio=fig_hight_pt/fig_width_pt
+
+    Returns
+    -------
+    (fig, axs): tuple
+            matplotlib.pylab.subplots
+    &#34;&#34;&#34;
+    subplots = kws.get(&#34;subplots&#34;, [1, 1])
+    return plt.subplots(subplots[0], subplots[1], figsize=akmp.set_size(width, **kws), dpi=dpi)</code></pre>
+</details>
+</dd>
 <dt id="aklab.mpls.font_ishihara"><code class="name flex">
 <span>def <span class="ident">font_ishihara</span></span>(<span>size=14)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>font and plot settings by Ishihara-kun</p></div>
+<div class="desc"><p>font and tick settings used by Ishihara-kun</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def font_ishihara(size=14):
-    &#34;&#34;&#34; font and plot settings by Ishihara-kun&#34;&#34;&#34;
+    &#34;&#34;&#34; font and tick settings used by Ishihara-kun&#34;&#34;&#34;
     font = {&#34;family&#34;: &#34;serif&#34;, &#34;weight&#34;: &#34;normal&#34;, &#34;size&#34;: size}
     plt.rc(&#34;font&#34;, **font)
     plt.rcParams[&#34;xtick.direction&#34;] = &#34;in&#34;  # x axis in
@@ -207,21 +340,45 @@ def set_tick_size(ax, *size):
 </details>
 </dd>
 <dt id="aklab.mpls.font_setup"><code class="name flex">
-<span>def <span class="ident">font_setup</span></span>(<span>size=13, weight='normal', family='serif', color='None')</span>
+<span>def <span class="ident">font_setup</span></span>(<span>size=13, weight='normal', family='serif', color='None', name='Sans')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set-up font for Matplotlib plots
-'family':'Times New Roman','weight':'heavy','size': 18</p></div>
+<div class="desc"><p>Set-up font for matplotlib using rc, see <a href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a>
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>family</code></strong> :&ensp;<code>string</code></dt>
+<dd>[ 'serif' | 'sans-serif' | 'cursive' | 'fantasy' | 'monospace' ]</dd>
+<dt>weight:</dt>
+<dt>[ 'normal' | 'bold' | 'heavy' | 'light' | 'ultrabold' | 'ultralight']</dt>
+<dt><strong><code>size</code></strong> :&ensp;<code>float</code></dt>
+<dd>18 by default</dd>
+<dt><strong><code>color</code></strong> :&ensp;<code>string</code></dt>
+<dd>any matplotlib color</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>string</code></dt>
+<dd>e.g., ['Sans' | 'Courier' | 'Helvetica' &hellip;]</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;):
-    &#34;&#34;&#34;Set-up font for Matplotlib plots
-    &#39;family&#39;:&#39;Times New Roman&#39;,&#39;weight&#39;:&#39;heavy&#39;,&#39;size&#39;: 18
+<pre><code class="python">def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;, name=&#34;Sans&#34;):
+    &#34;&#34;&#34;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+    Parameters
+    ----------
+    family: string
+        [ &#39;serif&#39; | &#39;sans-serif&#39; | &#39;cursive&#39; | &#39;fantasy&#39; | &#39;monospace&#39; ]
+    weight:
+        [ &#39;normal&#39; | &#39;bold&#39; | &#39;heavy&#39; | &#39;light&#39; | &#39;ultrabold&#39; | &#39;ultralight&#39;]
+    size: float
+         18 by default
+    color: string
+        any matplotlib color
+    name: string
+         e.g., [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
     &#34;&#34;&#34;
 
-    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size}
+    font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size, &#34;name&#34;: name}
     plt.rc(&#34;font&#34;, **font)
     plt.rcParams.update(
         {&#34;mathtext.default&#34;: &#34;regular&#34;, &#34;figure.facecolor&#34;: color,}
@@ -232,7 +389,14 @@ def set_tick_size(ax, *size):
 <span>def <span class="ident">grid_visual</span></span>(<span>ax, alpha=[0.1, 0.3])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Sets grid on and adjusts the grid style.</p></div>
+<div class="desc"><p>Sets grid on and adjusts the grid style.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ax</code></strong> :&ensp;<code>matplotlib.pylab.axes</code></dt>
+<dd>Axes where the grid will be displayed.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>alpha = [minor alpha, major alpha] - transparancy of grid lines</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -240,6 +404,13 @@ def set_tick_size(ax, *size):
 <pre><code class="python">def grid_visual(ax, alpha=[0.1, 0.3]):
     &#34;&#34;&#34;
     Sets grid on and adjusts the grid style.
+    
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        Axes where the grid will be displayed.
+    alpha: array-like
+        alpha = [minor alpha, major alpha] - transparancy of grid lines 
     &#34;&#34;&#34;
     ax.grid(which=&#34;minor&#34;, linestyle=&#34;-&#34;, alpha=alpha[0])
     ax.grid(which=&#34;major&#34;, linestyle=&#34;-&#34;, alpha=alpha[1])
@@ -250,16 +421,14 @@ def set_tick_size(ax, *size):
 <span>def <span class="ident">gritix</span></span>(<span>**kws)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Automatically apply ticks_visual and grid_visual to the
-currently active pylab axes.</p></div>
+<div class="desc"><p>Apply ticks_visual and grid_visual to the active pylab axes.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def gritix(**kws):
     &#34;&#34;&#34;
-    Automatically apply ticks_visual and grid_visual to the
-    currently active pylab axes.
+    Apply ticks_visual and grid_visual to the active pylab axes.
     &#34;&#34;&#34;
 
     ticks_visual(plt.gca())
@@ -268,20 +437,39 @@ currently active pylab axes.</p></div>
 </details>
 </dd>
 <dt id="aklab.mpls.ltexp"><code class="name flex">
-<span>def <span class="ident">ltexp</span></span>(<span>exp, decplace=1, short=False)</span>
+<span>def <span class="ident">ltexp</span></span>(<span>val, decplace=1, short=False)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>converts 1e29 float to the scientific notation LaTeX string</p></div>
+<div class="desc"><p>converts float to the scientific notation as a LaTeX string</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>val</code></strong> :&ensp;<code>float</code></dt>
+<dd>number to convert</dd>
+<dt><strong><code>decplace</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of decimal places to display in the pre-exponent</dd>
+<dt><strong><code>short</code></strong> :&ensp;<code>bool</code></dt>
+<dd>if True, only shows exponent part</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ltexp(exp, decplace=1, short=False):
-    &#34;&#34;&#34; converts 1e29 float to the scientific notation LaTeX string &#34;&#34;&#34;
+<pre><code class="python">def ltexp(val, decplace=1, short=False):
+    &#34;&#34;&#34; converts float to the scientific notation as a LaTeX string
+    
+    Parameters
+    ----------
+    val: float
+        number to convert
+    decplace: int
+        number of decimal places to display in the pre-exponent
+    short: bool
+        if True, only shows exponent part 
+    &#34;&#34;&#34;
     import numpy as np
 
-    exponent = int(np.floor(np.log10(abs(exp))))
-    coeff = round(exp / np.float64(10 ** exponent), decplace)
+    exponent = int(np.floor(np.log10(abs(val))))
+    coeff = round(val / np.float64(10 ** exponent), decplace)
     if not short:
         return f&#34;{coeff}\\times 10^{{{exponent}}}&#34;
     else:
@@ -378,7 +566,14 @@ Returns</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Set matplotlib axis tick sizes
-For some reason the length from style is ignored.</p></div>
+For some reason the length from style is ignored.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ax</code></strong> :&ensp;<code>matplotlib.pylab.axes</code></dt>
+<dd>axes for adjustment</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>size = [width_major, length_major, width_minor, length_minor]</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -386,6 +581,13 @@ For some reason the length from style is ignored.</p></div>
 <pre><code class="python">def set_tick_size(ax, *size):
     &#34;&#34;&#34; Set matplotlib axis tick sizes
     For some reason the length from style is ignored.
+
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        axes for adjustment
+    size: array-like
+        size = [width_major, length_major, width_minor, length_minor]
     &#34;&#34;&#34;
     width_major, length_major, width_minor, length_minor = size
     ax.xaxis.set_tick_params(width=width_major, length=length_major, which=&#34;major&#34;)
@@ -461,6 +663,7 @@ makes minor and major ticks thicker and longer</p></div>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
+<li><code><a title="aklab.mpls.figprep" href="#aklab.mpls.figprep">figprep</a></code></li>
 <li><code><a title="aklab.mpls.font_ishihara" href="#aklab.mpls.font_ishihara">font_ishihara</a></code></li>
 <li><code><a title="aklab.mpls.font_setup" href="#aklab.mpls.font_setup">font_setup</a></code></li>
 <li><code><a title="aklab.mpls.grid_visual" href="#aklab.mpls.grid_visual">grid_visual</a></code></li>
