@@ -158,10 +158,8 @@ class QMS:
         ----------
         masslist: list
             Specify list of masses to plot. Plots all by default.
-        fro: datetime
-            starting time, self.start by default.
-        to: datetime
-            ending time, self.end by default
+        delta: list
+            delta = [self.start, self.end] by default, datetime.datetime &#34;window&#34;
         ylim: list or tuple 
             axis ylims
         gridalpha: float
@@ -178,8 +176,7 @@ class QMS:
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
 
-        fro = kws.get(&#34;fro&#34;, self.start)
-        tto = kws.get(&#34;tto&#34;, self.end)
+        fro, tto = kws.get(&#34;delta&#34;, [self.start, self.end])
 
         a = fro.strftime(&#34;%Y%m%d%H%M%S&#34;)
         b = tto.strftime(&#34;%Y%m%d%H%M%S&#34;)
@@ -930,10 +927,8 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
         ----------
         masslist: list
             Specify list of masses to plot. Plots all by default.
-        fro: datetime
-            starting time, self.start by default.
-        to: datetime
-            ending time, self.end by default
+        delta: list
+            delta = [self.start, self.end] by default, datetime.datetime &#34;window&#34;
         ylim: list or tuple 
             axis ylims
         gridalpha: float
@@ -950,8 +945,7 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
 
-        fro = kws.get(&#34;fro&#34;, self.start)
-        tto = kws.get(&#34;tto&#34;, self.end)
+        fro, tto = kws.get(&#34;delta&#34;, [self.start, self.end])
 
         a = fro.strftime(&#34;%Y%m%d%H%M%S&#34;)
         b = tto.strftime(&#34;%Y%m%d%H%M%S&#34;)
@@ -1038,10 +1032,8 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
 <dl>
 <dt><strong><code>masslist</code></strong> :&ensp;<code>list</code></dt>
 <dd>Specify list of masses to plot. Plots all by default.</dd>
-<dt><strong><code>fro</code></strong> :&ensp;<code>datetime</code></dt>
-<dd>starting time, self.start by default.</dd>
-<dt><strong><code>to</code></strong> :&ensp;<code>datetime</code></dt>
-<dd>ending time, self.end by default</dd>
+<dt><strong><code>delta</code></strong> :&ensp;<code>list</code></dt>
+<dd>delta = [self.start, self.end] by default, datetime.datetime "window"</dd>
 <dt><strong><code>ylim</code></strong> :&ensp;<code>list</code> or <code>tuple </code></dt>
 <dd>axis ylims</dd>
 <dt><strong><code>gridalpha</code></strong> :&ensp;<code>float</code></dt>
@@ -1066,10 +1058,8 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
     ----------
     masslist: list
         Specify list of masses to plot. Plots all by default.
-    fro: datetime
-        starting time, self.start by default.
-    to: datetime
-        ending time, self.end by default
+    delta: list
+        delta = [self.start, self.end] by default, datetime.datetime &#34;window&#34;
     ylim: list or tuple 
         axis ylims
     gridalpha: float
@@ -1086,8 +1076,7 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
     import matplotlib.pylab as plt
     from matplotlib.ticker import AutoMinorLocator
 
-    fro = kws.get(&#34;fro&#34;, self.start)
-    tto = kws.get(&#34;tto&#34;, self.end)
+    fro, tto = kws.get(&#34;delta&#34;, [self.start, self.end])
 
     a = fro.strftime(&#34;%Y%m%d%H%M%S&#34;)
     b = tto.strftime(&#34;%Y%m%d%H%M%S&#34;)

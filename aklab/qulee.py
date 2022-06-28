@@ -126,10 +126,8 @@ class QMS:
         ----------
         masslist: list
             Specify list of masses to plot. Plots all by default.
-        fro: datetime
-            starting time, self.start by default.
-        to: datetime
-            ending time, self.end by default
+        delta: list
+            delta = [self.start, self.end] by default, datetime.datetime "window"
         ylim: list or tuple 
             axis ylims
         gridalpha: float
@@ -146,8 +144,7 @@ class QMS:
         import matplotlib.pylab as plt
         from matplotlib.ticker import AutoMinorLocator
 
-        fro = kws.get("fro", self.start)
-        tto = kws.get("tto", self.end)
+        fro, tto = kws.get("delta", [self.start, self.end])
 
         a = fro.strftime("%Y%m%d%H%M%S")
         b = tto.strftime("%Y%m%d%H%M%S")
