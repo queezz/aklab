@@ -35,6 +35,8 @@ setup(
         numpy>=1.10
         matplotlib>=3.0
         pandas>=1.3
+        xarray
+        statsmodels
       """,
     package_data={"": ["notex.mplstyle"]},
     include_package_data=True,

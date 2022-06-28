@@ -1,9 +1,24 @@
+"""
+Tools to read logger data from plasma control unit https://github.com/queezz/ControlUnit
+"""
+
 import pandas as pd
+import aklab.mpls as akmp
+
 
 class Raspi:
     def __init__(self, bpath="", timestamp=""):
-        # from os.path import join, exists, expanduser
-        # from os import makedirs
+        """
+        Read two files from basepath `bpath` with same `timestamp`, 
+        one with ADC signals, another with Thermocouple signal.
+
+        Parameters
+        ----------
+        bpath: string
+            path to datafolder
+        timestamp: string
+            timestamp for both files
+        """
         from datetime import date
 
         self.bpath = bpath
@@ -28,13 +43,20 @@ class Raspi:
         self.adc.insert(0, "date", start + pd.to_timedelta(self.adc["time"], unit="s"))
         self.tc.insert(0, "date", start + pd.to_timedelta(self.tc["time"], unit="s"))
         self.start = datetime.strptime(self.stamp, "%Y%m%d_%H%M%S")
-        self.end = self.tc['date'][len(self.tc)-1].to_pydatetime()
+        self.end = self.tc["date"][len(self.tc) - 1].to_pydatetime()
 
     def convert_signals(self):
         """convert ADC signals from raw volts to proper units
-        pu: upstream pressure, plasma chamber
-        pd: downstream pressure, permeation chamber
-        ip: plasma current
+
+        Parameters
+        ----------
+
+        self.pu: numpy.array
+         upstream pressure, plasma chamber
+        self.pd: numpy.array
+         downstream pressure, permeation chamber
+        self.ip:   numpy.array
+         plasma current
 
         """
         # 11.46 convert Pfeiffer signal to pressure
@@ -104,12 +126,11 @@ class Raspi:
         plt.xticks(rotation=25, ha="right")
 
         gridalpha = kws.get("gridalpha", [0.1, 0.3])
-        [customgrid(ax, gridalpha=gridalpha) for ax in axs]
-        [customticks(ax) for ax in axs]
+        [akmp.grid_visual(ax, gridalpha=gridalpha) for ax in axs]
+        [akmp.ticks_visual(ax) for ax in axs]
         axs[0].set_yscale("log")
 
-
-        lbls = ["P [Torr]", "$I_p$ [A]", "T [$^{\circ }$C]"]
+        lbls = ["P [Torr]", "$I_p$ [A]", "T [$^{\\circ }$C]"]
         [ax.set_ylabel(l) for l, ax in zip(lbls, axs)]
         axs[-1].set_xlabel(f"time")
 
@@ -138,21 +159,3 @@ class Raspi:
 
         # return fig
 
-def customgrid(ax, **kws):
-    # Setup grid
-    gridalpha = kws.get("gridalpha", [0.1, 0.3])
-    ax.grid(which="minor", linestyle="-", alpha=gridalpha[0])
-    ax.grid(which="major", linestyle="-", alpha=gridalpha[1])
-
-def customticks(ax):
-    from matplotlib.ticker import LogLocator, AutoMinorLocator
-
-    # Setup ticks
-    xys = [ax.xaxis, ax.yaxis]
-    [a.set_minor_locator(AutoMinorLocator()) for a in xys]
-    ls = [7, 4]
-    ws = [1, 0.8]
-    [
-        [a.set_tick_params(width=j, length=i, which=k) for i, j, k in zip(ls, ws, ["major", "minor"])]
-        for a in xys
-    ]
