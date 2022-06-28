@@ -22,7 +22,7 @@ class QMS:
         self.path = datapath
         self.qms_file_parser()
         self.load_data()
-        self.generate_colors()
+        self.clr = generate_colors(self.masslist)
 
     def qms_file_parser(self):
         """ " Given filepath to ULVAC's Qulee BGM QMS file, converted to *.csv,
@@ -101,18 +101,6 @@ class QMS:
         qmsdata.insert(0, "date", timesec)
 
         self.data = qmsdata
-
-    def generate_colors(self):
-        """ Generate colors based on masslist"""
-        import matplotlib.pylab as plt
-        import numpy as np
-
-        color = plt.cm.hsv(np.linspace(0.1, 0.9, len(self.masslist)))
-        clr = {i: j for i, j in zip(self.masslist, color)}
-        clr[2] = "#ff421c"
-        clr[3] = "#ffa305"
-        clr[4] = "#6fff1c"
-        self.clr = clr
 
     def slice(self, delta):
         """ Slice DataFrame by datetime interval

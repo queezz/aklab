@@ -54,7 +54,7 @@ class QMS:
         self.path = datapath
         self.qms_file_parser()
         self.load_data()
-        self.generate_colors()
+        self.clr = generate_colors(self.masslist)
 
     def qms_file_parser(self):
         &#34;&#34;&#34; &#34; Given filepath to ULVAC&#39;s Qulee BGM QMS file, converted to *.csv,
@@ -133,18 +133,6 @@ class QMS:
         qmsdata.insert(0, &#34;date&#34;, timesec)
 
         self.data = qmsdata
-
-    def generate_colors(self):
-        &#34;&#34;&#34; Generate colors based on masslist&#34;&#34;&#34;
-        import matplotlib.pylab as plt
-        import numpy as np
-
-        color = plt.cm.hsv(np.linspace(0.1, 0.9, len(self.masslist)))
-        clr = {i: j for i, j in zip(self.masslist, color)}
-        clr[2] = &#34;#ff421c&#34;
-        clr[3] = &#34;#ffa305&#34;
-        clr[4] = &#34;#6fff1c&#34;
-        self.clr = clr
 
     def slice(self, delta):
         &#34;&#34;&#34; Slice DataFrame by datetime interval
@@ -838,7 +826,7 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
         self.path = datapath
         self.qms_file_parser()
         self.load_data()
-        self.generate_colors()
+        self.clr = generate_colors(self.masslist)
 
     def qms_file_parser(self):
         &#34;&#34;&#34; &#34; Given filepath to ULVAC&#39;s Qulee BGM QMS file, converted to *.csv,
@@ -917,18 +905,6 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
         qmsdata.insert(0, &#34;date&#34;, timesec)
 
         self.data = qmsdata
-
-    def generate_colors(self):
-        &#34;&#34;&#34; Generate colors based on masslist&#34;&#34;&#34;
-        import matplotlib.pylab as plt
-        import numpy as np
-
-        color = plt.cm.hsv(np.linspace(0.1, 0.9, len(self.masslist)))
-        clr = {i: j for i, j in zip(self.masslist, color)}
-        clr[2] = &#34;#ff421c&#34;
-        clr[3] = &#34;#ffa305&#34;
-        clr[4] = &#34;#6fff1c&#34;
-        self.clr = clr
 
     def slice(self, delta):
         &#34;&#34;&#34; Slice DataFrame by datetime interval
@@ -1021,28 +997,6 @@ Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></c
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="aklab.qulee.QMS.generate_colors"><code class="name flex">
-<span>def <span class="ident">generate_colors</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Generate colors based on masslist</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def generate_colors(self):
-    &#34;&#34;&#34; Generate colors based on masslist&#34;&#34;&#34;
-    import matplotlib.pylab as plt
-    import numpy as np
-
-    color = plt.cm.hsv(np.linspace(0.1, 0.9, len(self.masslist)))
-    clr = {i: j for i, j in zip(self.masslist, color)}
-    clr[2] = &#34;#ff421c&#34;
-    clr[3] = &#34;#ffa305&#34;
-    clr[4] = &#34;#6fff1c&#34;
-    self.clr = clr</code></pre>
-</details>
-</dd>
 <dt id="aklab.qulee.QMS.load_data"><code class="name flex">
 <span>def <span class="ident">load_data</span></span>(<span>self)</span>
 </code></dt>
@@ -1314,7 +1268,6 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <li>
 <h4><code><a title="aklab.qulee.QMS" href="#aklab.qulee.QMS">QMS</a></code></h4>
 <ul class="">
-<li><code><a title="aklab.qulee.QMS.generate_colors" href="#aklab.qulee.QMS.generate_colors">generate_colors</a></code></li>
 <li><code><a title="aklab.qulee.QMS.load_data" href="#aklab.qulee.QMS.load_data">load_data</a></code></li>
 <li><code><a title="aklab.qulee.QMS.plot" href="#aklab.qulee.QMS.plot">plot</a></code></li>
 <li><code><a title="aklab.qulee.QMS.qms_file_parser" href="#aklab.qulee.QMS.qms_file_parser">qms_file_parser</a></code></li>
