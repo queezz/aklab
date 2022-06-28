@@ -51,7 +51,7 @@ def grid_visual(ax, alpha=[0.1, 0.3]):
 
 def gritix(**kws):
     """
-    Apply ticks_visual and grid_visual to the active pylab axes.
+    Apply `ticks_visual` and `grid_visual` to the active pylab axes.
     """
 
     ticks_visual(plt.gca())
@@ -223,13 +223,6 @@ def figprep(width=246, dpi=200, **kws):
         figure width in points
     dpi: float
         figure dpi, use to increase displayed figure in a notebook
-
-    Keyword Arguments for aklab.mpls.set_size
-    -----------------
-    subplots: aray-like
-            The number of rows and columns
-    ratio: float or string
-            ratio=fig_hight_pt/fig_width_pt
 
     Returns
     -------

@@ -81,7 +81,7 @@ def grid_visual(ax, alpha=[0.1, 0.3]):
 
 def gritix(**kws):
     &#34;&#34;&#34;
-    Apply ticks_visual and grid_visual to the active pylab axes.
+    Apply `ticks_visual` and `grid_visual` to the active pylab axes.
     &#34;&#34;&#34;
 
     ticks_visual(plt.gca())
@@ -254,13 +254,6 @@ def figprep(width=246, dpi=200, **kws):
     dpi: float
         figure dpi, use to increase displayed figure in a notebook
 
-    Keyword Arguments for aklab.mpls.set_size
-    -----------------
-    subplots: aray-like
-            The number of rows and columns
-    ratio: float or string
-            ratio=fig_hight_pt/fig_width_pt
-
     Returns
     -------
     subplots: tuple
@@ -290,11 +283,6 @@ for <code>kws</code> see <code><a title="aklab.mpls.set_size" href="#aklab.mpls.
 <dt><strong><code>dpi</code></strong> :&ensp;<code>float</code></dt>
 <dd>figure dpi, use to increase displayed figure in a notebook</dd>
 </dl>
-<h2 id="keyword-arguments-for-aklabmplsset_size">Keyword Arguments for aklab.mpls.set_size</h2>
-<p>subplots: aray-like
-The number of rows and columns
-ratio: float or string
-ratio=fig_hight_pt/fig_width_pt</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><strong><code>subplots</code></strong> :&ensp;<code>tuple</code></dt>
@@ -314,13 +302,6 @@ ratio=fig_hight_pt/fig_width_pt</p>
         figure width in points
     dpi: float
         figure dpi, use to increase displayed figure in a notebook
-
-    Keyword Arguments for aklab.mpls.set_size
-    -----------------
-    subplots: aray-like
-            The number of rows and columns
-    ratio: float or string
-            ratio=fig_hight_pt/fig_width_pt
 
     Returns
     -------
@@ -432,14 +413,14 @@ ratio=fig_hight_pt/fig_width_pt</p>
 <span>def <span class="ident">gritix</span></span>(<span>**kws)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Apply ticks_visual and grid_visual to the active pylab axes.</p></div>
+<div class="desc"><p>Apply <code><a title="aklab.mpls.ticks_visual" href="#aklab.mpls.ticks_visual">ticks_visual()</a></code> and <code><a title="aklab.mpls.grid_visual" href="#aklab.mpls.grid_visual">grid_visual()</a></code> to the active pylab axes.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def gritix(**kws):
     &#34;&#34;&#34;
-    Apply ticks_visual and grid_visual to the active pylab axes.
+    Apply `ticks_visual` and `grid_visual` to the active pylab axes.
     &#34;&#34;&#34;
 
     ticks_visual(plt.gca())

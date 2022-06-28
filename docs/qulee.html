@@ -222,8 +222,8 @@ class QMS:
         ax.text(-0.15, 1.05, txt, transform=ax.transAxes)
 
         gridalpha = kws.get(&#34;gridalpha&#34;, [0.1, 0.3])
-        customgrid(ax, gridalpha=gridalpha)
-        customticks(ax)
+        qmsplotgrid(ax, gridalpha=gridalpha)
+        qmsplotticks(ax)
         ax.set_yscale(&#34;log&#34;)
 
         axt = ax.twinx()
@@ -238,7 +238,19 @@ class QMS:
 
 def t2s(t):
     &#34;&#34;&#34;
-    Converts QMS timing into seconds.
+    Convert a time string of the Qulee format,
+    &#39;000:00:00.625&#39; -&gt; &#39;hhh:mm:ss.ms&#39; to time in seconds.
+    E.g &#39;000:00:00.625&#39; to 0.625 (s)
+    
+    Parameters
+    ----------
+    t: string
+        Qulee time stamp string
+
+    Returns
+    -------
+    t: datetime.timedelta
+        datetime timedelta in seconds
     &#34;&#34;&#34;
     import datetime, time
 
@@ -261,22 +273,37 @@ def t2s(t):
 
 def t2sa(ta):
     &#34;&#34;&#34;
-    convert an array of strings of the Qulee format: &#39;000:00:00.625&#39; to time in seconds.
-    &#39;000:00:00.625&#39; -&gt; &#39;hhh:mm:ss.ms&#39;
+    Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
+    Just calls `t2s` in a loop.
+
+    Parameters
+    ----------
+    ta: array-like
+        array of time-strings from Qulee QMS
+    
+    Returns
+    -------
+    timearray: numpy.array
+        numpy array with datetime.timedelta in seconds
     &#34;&#34;&#34;
     import numpy as np
 
     return np.array([t2s(tt) for tt in ta])
 
 
-def customgrid(ax, **kws):
-    # Setup grid
+def qmsplotgrid(ax, **kws):
+    &#34;&#34;&#34;
+    QMS plot grid
+    &#34;&#34;&#34;
     gridalpha = kws.get(&#34;gridalpha&#34;, [0.1, 0.3])
     ax.grid(which=&#34;minor&#34;, linestyle=&#34;-&#34;, alpha=gridalpha[0])
     ax.grid(which=&#34;major&#34;, linestyle=&#34;-&#34;, alpha=gridalpha[1])
 
 
-def customticks(ax):
+def qmsplotticks(ax):
+    &#34;&#34;&#34;
+    QMS plot ticks
+    &#34;&#34;&#34;
     from matplotlib.ticker import LogLocator, AutoMinorLocator
 
     # Setup ticks
@@ -291,7 +318,12 @@ def customticks(ax):
 
 
 def tocsv(filename, **kws):
-    &#34;&#34;&#34; Convert native binary into csv with Quelee software installed.
+    &#34;&#34;&#34; Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.
+
+    Parameters
+    ----------
+    filename: string
+        path to `*.qst` file.
     &#34;&#34;&#34;
     import platform, sys, subprocess, os, time
 
@@ -430,45 +462,6 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="aklab.qulee.customgrid"><code class="name flex">
-<span>def <span class="ident">customgrid</span></span>(<span>ax, **kws)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def customgrid(ax, **kws):
-    # Setup grid
-    gridalpha = kws.get(&#34;gridalpha&#34;, [0.1, 0.3])
-    ax.grid(which=&#34;minor&#34;, linestyle=&#34;-&#34;, alpha=gridalpha[0])
-    ax.grid(which=&#34;major&#34;, linestyle=&#34;-&#34;, alpha=gridalpha[1])</code></pre>
-</details>
-</dd>
-<dt id="aklab.qulee.customticks"><code class="name flex">
-<span>def <span class="ident">customticks</span></span>(<span>ax)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def customticks(ax):
-    from matplotlib.ticker import LogLocator, AutoMinorLocator
-
-    # Setup ticks
-    xys = [ax.xaxis, ax.yaxis]
-    [a.set_minor_locator(AutoMinorLocator()) for a in xys]
-    ls = [7, 4]
-    ws = [1, 0.8]
-    [
-        [a.set_tick_params(width=j, length=i, which=k) for i, j, k in zip(ls, ws, [&#34;major&#34;, &#34;minor&#34;])]
-        for a in xys
-    ]</code></pre>
-</details>
-</dd>
 <dt id="aklab.qulee.generate_colors"><code class="name flex">
 <span>def <span class="ident">generate_colors</span></span>(<span>masslist, **kws)</span>
 </code></dt>
@@ -604,18 +597,86 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
             plt.close()</code></pre>
 </details>
 </dd>
+<dt id="aklab.qulee.qmsplotgrid"><code class="name flex">
+<span>def <span class="ident">qmsplotgrid</span></span>(<span>ax, **kws)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>QMS plot grid</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def qmsplotgrid(ax, **kws):
+    &#34;&#34;&#34;
+    QMS plot grid
+    &#34;&#34;&#34;
+    gridalpha = kws.get(&#34;gridalpha&#34;, [0.1, 0.3])
+    ax.grid(which=&#34;minor&#34;, linestyle=&#34;-&#34;, alpha=gridalpha[0])
+    ax.grid(which=&#34;major&#34;, linestyle=&#34;-&#34;, alpha=gridalpha[1])</code></pre>
+</details>
+</dd>
+<dt id="aklab.qulee.qmsplotticks"><code class="name flex">
+<span>def <span class="ident">qmsplotticks</span></span>(<span>ax)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>QMS plot ticks</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def qmsplotticks(ax):
+    &#34;&#34;&#34;
+    QMS plot ticks
+    &#34;&#34;&#34;
+    from matplotlib.ticker import LogLocator, AutoMinorLocator
+
+    # Setup ticks
+    xys = [ax.xaxis, ax.yaxis]
+    [a.set_minor_locator(AutoMinorLocator()) for a in xys]
+    ls = [7, 4]
+    ws = [1, 0.8]
+    [
+        [a.set_tick_params(width=j, length=i, which=k) for i, j, k in zip(ls, ws, [&#34;major&#34;, &#34;minor&#34;])]
+        for a in xys
+    ]</code></pre>
+</details>
+</dd>
 <dt id="aklab.qulee.t2s"><code class="name flex">
 <span>def <span class="ident">t2s</span></span>(<span>t)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Converts QMS timing into seconds.</p></div>
+<div class="desc"><p>Convert a time string of the Qulee format,
+'000:00:00.625' -&gt; 'hhh:mm:ss.ms' to time in seconds.
+E.g '000:00:00.625' to 0.625 (s)</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>t</code></strong> :&ensp;<code>string</code></dt>
+<dd>Qulee time stamp string</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>t</code></strong> :&ensp;<code>datetime.timedelta</code></dt>
+<dd>datetime timedelta in seconds</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def t2s(t):
     &#34;&#34;&#34;
-    Converts QMS timing into seconds.
+    Convert a time string of the Qulee format,
+    &#39;000:00:00.625&#39; -&gt; &#39;hhh:mm:ss.ms&#39; to time in seconds.
+    E.g &#39;000:00:00.625&#39; to 0.625 (s)
+    
+    Parameters
+    ----------
+    t: string
+        Qulee time stamp string
+
+    Returns
+    -------
+    t: datetime.timedelta
+        datetime timedelta in seconds
     &#34;&#34;&#34;
     import datetime, time
 
@@ -640,16 +701,36 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>def <span class="ident">t2sa</span></span>(<span>ta)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>convert an array of strings of the Qulee format: '000:00:00.625' to time in seconds.
-'000:00:00.625' -&gt; 'hhh:mm:ss.ms'</p></div>
+<div class="desc"><p>Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
+Just calls <code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s()</a></code> in a loop.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ta</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>array of time-strings from Qulee QMS</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>timearray</code></strong> :&ensp;<code>numpy.array</code></dt>
+<dd>numpy array with datetime.timedelta in seconds</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def t2sa(ta):
     &#34;&#34;&#34;
-    convert an array of strings of the Qulee format: &#39;000:00:00.625&#39; to time in seconds.
-    &#39;000:00:00.625&#39; -&gt; &#39;hhh:mm:ss.ms&#39;
+    Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
+    Just calls `t2s` in a loop.
+
+    Parameters
+    ----------
+    ta: array-like
+        array of time-strings from Qulee QMS
+    
+    Returns
+    -------
+    timearray: numpy.array
+        numpy array with datetime.timedelta in seconds
     &#34;&#34;&#34;
     import numpy as np
 
@@ -660,13 +741,23 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
 <span>def <span class="ident">tocsv</span></span>(<span>filename, **kws)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Convert native binary into csv with Quelee software installed.</p></div>
+<div class="desc"><p>Convert <code>*.qst</code> binary into a <code>*.csv</code>. Works only with Quelee QMS software installed.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;<code>string</code></dt>
+<dd>path to <code>*.qst</code> file.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def tocsv(filename, **kws):
-    &#34;&#34;&#34; Convert native binary into csv with Quelee software installed.
+    &#34;&#34;&#34; Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.
+
+    Parameters
+    ----------
+    filename: string
+        path to `*.qst` file.
     &#34;&#34;&#34;
     import platform, sys, subprocess, os, time
 
@@ -915,8 +1006,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
         ax.text(-0.15, 1.05, txt, transform=ax.transAxes)
 
         gridalpha = kws.get(&#34;gridalpha&#34;, [0.1, 0.3])
-        customgrid(ax, gridalpha=gridalpha)
-        customticks(ax)
+        qmsplotgrid(ax, gridalpha=gridalpha)
+        qmsplotticks(ax)
         ax.set_yscale(&#34;log&#34;)
 
         axt = ax.twinx()
@@ -1073,8 +1164,8 @@ def plot_qms_dir(dir=&#34;&#34;, ls=[], out=&#34;batch_qms_plot.pdf&#34;, **kws)
     ax.text(-0.15, 1.05, txt, transform=ax.transAxes)
 
     gridalpha = kws.get(&#34;gridalpha&#34;, [0.1, 0.3])
-    customgrid(ax, gridalpha=gridalpha)
-    customticks(ax)
+    qmsplotgrid(ax, gridalpha=gridalpha)
+    qmsplotticks(ax)
     ax.set_yscale(&#34;log&#34;)
 
     axt = ax.twinx()
@@ -1209,10 +1300,10 @@ Parses the header, extracts column names, QMS settings, and line number where da
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="aklab.qulee.customgrid" href="#aklab.qulee.customgrid">customgrid</a></code></li>
-<li><code><a title="aklab.qulee.customticks" href="#aklab.qulee.customticks">customticks</a></code></li>
 <li><code><a title="aklab.qulee.generate_colors" href="#aklab.qulee.generate_colors">generate_colors</a></code></li>
 <li><code><a title="aklab.qulee.plot_qms_dir" href="#aklab.qulee.plot_qms_dir">plot_qms_dir</a></code></li>
+<li><code><a title="aklab.qulee.qmsplotgrid" href="#aklab.qulee.qmsplotgrid">qmsplotgrid</a></code></li>
+<li><code><a title="aklab.qulee.qmsplotticks" href="#aklab.qulee.qmsplotticks">qmsplotticks</a></code></li>
 <li><code><a title="aklab.qulee.t2s" href="#aklab.qulee.t2s">t2s</a></code></li>
 <li><code><a title="aklab.qulee.t2sa" href="#aklab.qulee.t2sa">t2sa</a></code></li>
 <li><code><a title="aklab.qulee.tocsv" href="#aklab.qulee.tocsv">tocsv</a></code></li>

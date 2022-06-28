@@ -190,8 +190,8 @@ class QMS:
         ax.text(-0.15, 1.05, txt, transform=ax.transAxes)
 
         gridalpha = kws.get("gridalpha", [0.1, 0.3])
-        customgrid(ax, gridalpha=gridalpha)
-        customticks(ax)
+        qmsplotgrid(ax, gridalpha=gridalpha)
+        qmsplotticks(ax)
         ax.set_yscale("log")
 
         axt = ax.twinx()
@@ -206,7 +206,19 @@ class QMS:
 
 def t2s(t):
     """
-    Converts QMS timing into seconds.
+    Convert a time string of the Qulee format,
+    '000:00:00.625' -> 'hhh:mm:ss.ms' to time in seconds.
+    E.g '000:00:00.625' to 0.625 (s)
+    
+    Parameters
+    ----------
+    t: string
+        Qulee time stamp string
+
+    Returns
+    -------
+    t: datetime.timedelta
+        datetime timedelta in seconds
     """
     import datetime, time
 
@@ -229,22 +241,37 @@ def t2s(t):
 
 def t2sa(ta):
     """
-    convert an array of strings of the Qulee format: '000:00:00.625' to time in seconds.
-    '000:00:00.625' -> 'hhh:mm:ss.ms'
+    Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
+    Just calls `t2s` in a loop.
+
+    Parameters
+    ----------
+    ta: array-like
+        array of time-strings from Qulee QMS
+    
+    Returns
+    -------
+    timearray: numpy.array
+        numpy array with datetime.timedelta in seconds
     """
     import numpy as np
 
     return np.array([t2s(tt) for tt in ta])
 
 
-def customgrid(ax, **kws):
-    # Setup grid
+def qmsplotgrid(ax, **kws):
+    """
+    QMS plot grid
+    """
     gridalpha = kws.get("gridalpha", [0.1, 0.3])
     ax.grid(which="minor", linestyle="-", alpha=gridalpha[0])
     ax.grid(which="major", linestyle="-", alpha=gridalpha[1])
 
 
-def customticks(ax):
+def qmsplotticks(ax):
+    """
+    QMS plot ticks
+    """
     from matplotlib.ticker import LogLocator, AutoMinorLocator
 
     # Setup ticks
@@ -259,7 +286,12 @@ def customticks(ax):
 
 
 def tocsv(filename, **kws):
-    """ Convert native binary into csv with Quelee software installed.
+    """ Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.
+
+    Parameters
+    ----------
+    filename: string
+        path to `*.qst` file.
     """
     import platform, sys, subprocess, os, time
 
