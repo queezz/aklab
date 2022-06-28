@@ -86,18 +86,19 @@ def gritix(**kws):
 
 def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;, name=&#34;Sans&#34;):
     &#34;&#34;&#34;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+
     Parameters
     ----------
     family: string
         [ &#39;serif&#39; | &#39;sans-serif&#39; | &#39;cursive&#39; | &#39;fantasy&#39; | &#39;monospace&#39; ]
-    weight:
+    weight: string
         [ &#39;normal&#39; | &#39;bold&#39; | &#39;heavy&#39; | &#39;light&#39; | &#39;ultrabold&#39; | &#39;ultralight&#39;]
     size: float
          18 by default
     color: string
         any matplotlib color
     name: string
-         e.g., [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
+         font name, e.g. [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
     &#34;&#34;&#34;
 
     font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size, &#34;name&#34;: name}
@@ -108,7 +109,7 @@ def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&
 
 
 def ltexp(val, decplace=1, short=False):
-    &#34;&#34;&#34; converts float to the scientific notation as a LaTeX string
+    &#34;&#34;&#34; Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $`1.23^{31}$.
     
     Parameters
     ----------
@@ -256,11 +257,11 @@ def figprep(width=246, dpi=200, **kws):
 
     Returns
     -------
-    (fig, axs): tuple
-            matplotlib.pylab.subplots
+    subplots: tuple
+            (fig, axs), a matplotlib.pylab.subplots
     &#34;&#34;&#34;
     subplots = kws.get(&#34;subplots&#34;, [1, 1])
-    return plt.subplots(subplots[0], subplots[1], figsize=akmp.set_size(width, **kws), dpi=dpi)</code></pre>
+    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi)</code></pre>
 </details>
 </section>
 <section>
@@ -288,8 +289,10 @@ The number of rows and columns
 ratio: float or string
 ratio=fig_hight_pt/fig_width_pt</p>
 <h2 id="returns">Returns</h2>
-<p>(fig, axs): tuple
-matplotlib.pylab.subplots</p></div>
+<dl>
+<dt><strong><code>subplots</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>(fig, axs), a matplotlib.pylab.subplots</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -313,11 +316,11 @@ matplotlib.pylab.subplots</p></div>
 
     Returns
     -------
-    (fig, axs): tuple
-            matplotlib.pylab.subplots
+    subplots: tuple
+            (fig, axs), a matplotlib.pylab.subplots
     &#34;&#34;&#34;
     subplots = kws.get(&#34;subplots&#34;, [1, 1])
-    return plt.subplots(subplots[0], subplots[1], figsize=akmp.set_size(width, **kws), dpi=dpi)</code></pre>
+    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi)</code></pre>
 </details>
 </dd>
 <dt id="aklab.mpls.font_ishihara"><code class="name flex">
@@ -343,20 +346,19 @@ matplotlib.pylab.subplots</p></div>
 <span>def <span class="ident">font_setup</span></span>(<span>size=13, weight='normal', family='serif', color='None', name='Sans')</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Set-up font for matplotlib using rc, see <a href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a>
-Parameters</p>
-<hr>
+<div class="desc"><p>Set-up font for matplotlib using rc, see <a href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a></p>
+<h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>family</code></strong> :&ensp;<code>string</code></dt>
 <dd>[ 'serif' | 'sans-serif' | 'cursive' | 'fantasy' | 'monospace' ]</dd>
-<dt>weight:</dt>
-<dt>[ 'normal' | 'bold' | 'heavy' | 'light' | 'ultrabold' | 'ultralight']</dt>
+<dt><strong><code>weight</code></strong> :&ensp;<code>string</code></dt>
+<dd>[ 'normal' | 'bold' | 'heavy' | 'light' | 'ultrabold' | 'ultralight']</dd>
 <dt><strong><code>size</code></strong> :&ensp;<code>float</code></dt>
 <dd>18 by default</dd>
 <dt><strong><code>color</code></strong> :&ensp;<code>string</code></dt>
 <dd>any matplotlib color</dd>
 <dt><strong><code>name</code></strong> :&ensp;<code>string</code></dt>
-<dd>e.g., ['Sans' | 'Courier' | 'Helvetica' &hellip;]</dd>
+<dd>font name, e.g. ['Sans' | 'Courier' | 'Helvetica' &hellip;]</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -364,18 +366,19 @@ Parameters</p>
 </summary>
 <pre><code class="python">def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&#34;None&#34;, name=&#34;Sans&#34;):
     &#34;&#34;&#34;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+
     Parameters
     ----------
     family: string
         [ &#39;serif&#39; | &#39;sans-serif&#39; | &#39;cursive&#39; | &#39;fantasy&#39; | &#39;monospace&#39; ]
-    weight:
+    weight: string
         [ &#39;normal&#39; | &#39;bold&#39; | &#39;heavy&#39; | &#39;light&#39; | &#39;ultrabold&#39; | &#39;ultralight&#39;]
     size: float
          18 by default
     color: string
         any matplotlib color
     name: string
-         e.g., [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
+         font name, e.g. [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]
     &#34;&#34;&#34;
 
     font = {&#34;family&#34;: family, &#34;weight&#34;: weight, &#34;size&#34;: size, &#34;name&#34;: name}
@@ -440,7 +443,7 @@ Parameters</p>
 <span>def <span class="ident">ltexp</span></span>(<span>val, decplace=1, short=False)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>converts float to the scientific notation as a LaTeX string</p>
+<div class="desc"><p>Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $`1.23^{31}$.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>val</code></strong> :&ensp;<code>float</code></dt>
@@ -455,7 +458,7 @@ Parameters</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def ltexp(val, decplace=1, short=False):
-    &#34;&#34;&#34; converts float to the scientific notation as a LaTeX string
+    &#34;&#34;&#34; Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $`1.23^{31}$.
     
     Parameters
     ----------

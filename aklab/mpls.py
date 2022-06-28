@@ -57,18 +57,19 @@ def gritix(**kws):
 
 def font_setup(size=13, weight="normal", family="serif", color="None", name="Sans"):
     """Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
+
     Parameters
     ----------
     family: string
         [ 'serif' | 'sans-serif' | 'cursive' | 'fantasy' | 'monospace' ]
-    weight:
+    weight: string
         [ 'normal' | 'bold' | 'heavy' | 'light' | 'ultrabold' | 'ultralight']
     size: float
          18 by default
     color: string
         any matplotlib color
     name: string
-         e.g., ['Sans' | 'Courier' | 'Helvetica' ...]
+         font name, e.g. ['Sans' | 'Courier' | 'Helvetica' ...]
     """
 
     font = {"family": family, "weight": weight, "size": size, "name": name}
@@ -79,7 +80,7 @@ def font_setup(size=13, weight="normal", family="serif", color="None", name="San
 
 
 def ltexp(val, decplace=1, short=False):
-    """ converts float to the scientific notation as a LaTeX string
+    """ Converts float to the scientific notation as a LaTeX string, 1.23e31 -> $`1.23^{31}$.
     
     Parameters
     ----------
@@ -227,9 +228,9 @@ def figprep(width=246, dpi=200, **kws):
 
     Returns
     -------
-    (fig, axs): tuple
-            matplotlib.pylab.subplots
+    subplots: tuple
+            (fig, axs), a matplotlib.pylab.subplots
     """
     subplots = kws.get("subplots", [1, 1])
-    return plt.subplots(subplots[0], subplots[1], figsize=akmp.set_size(width, **kws), dpi=dpi)
+    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi)
 
