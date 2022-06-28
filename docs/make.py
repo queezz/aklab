@@ -16,8 +16,8 @@ def generatedocs():
     bpth = "./docs/aklab"
     npth = "./docs/"
     clear(bpth)
-
-    subprocess.check_output("pdoc aklab -o ./docs/ --html --force")
+    
+    subprocess.check_output(f"pdoc aklab -o ./docs/ --html --force -c latex_math=True ")
     ls = os.listdir(bpth)
     ols = [os.path.join(bpth, i) for i in ls]
     nls = [os.path.join(npth, i) for i in ls]

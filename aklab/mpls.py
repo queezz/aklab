@@ -7,8 +7,7 @@ import matplotlib.pylab as plt
 
 def ticks_visual(ax, size=[7, 4, 1, 0.8], which="both"):
     """
-    makes auto minor and major ticks for matplotlib figure
-    makes minor and major ticks thicker and longer
+    Makes auto minor and major ticks for matplotlib figure and adjusts ticks sizes.
 
     Parameters
     ----------
@@ -17,7 +16,7 @@ def ticks_visual(ax, size=[7, 4, 1, 0.8], which="both"):
     size: array-like
         size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks
     which: string
-        which = ['x','y','both'] - set auto minor locator
+        which = ['x'| 'y' | 'both'] - set auto minor locator
     """
     from matplotlib.ticker import AutoMinorLocator
 
@@ -60,7 +59,7 @@ def gritix(**kws):
     return
 
 
-def font_setup(size=13, weight="normal", family="serif", color="None", name="Sans"):
+def font_setup(size=13, weight="normal", family="serif", color="None", fontname="Sans"):
     """Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html
 
     Parameters
@@ -73,11 +72,11 @@ def font_setup(size=13, weight="normal", family="serif", color="None", name="San
          18 by default
     color: string
         any matplotlib color
-    name: string
+    fontname: string
          font name, e.g. ['Sans' | 'Courier' | 'Helvetica' ...]
     """
 
-    font = {"family": family, "weight": weight, "size": size, "name": name}
+    font = {"family": family, "weight": weight, "size": size, "name": fontname}
     plt.rc("font", **font)
     plt.rcParams.update(
         {"mathtext.default": "regular", "figure.facecolor": color,}
@@ -85,8 +84,8 @@ def font_setup(size=13, weight="normal", family="serif", color="None", name="San
 
 
 def ltexp(val, decplace=1, short=False):
-    """ Converts float to the scientific notation as a LaTeX string, 1.23e31 -> $1.23^{31}$.
-    
+    """ Converts float to the scientific notation LaTeX string, \\(1.23e31 \\rightarrow  1.23\\times 10^{31} \\)
+        
     Parameters
     ----------
     val: float
@@ -216,6 +215,7 @@ def figprep(width=246, **kws):
 
 def figprep(width=246, dpi=200, **kws):
     """ Create matplotlib figure with given width in points
+    for `kws` see `set_size`
     
     Parameters
     ----------
