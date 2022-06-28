@@ -7,6 +7,7 @@ import numpy as np
 
 def fft_filtering(sample, dt, fc):
     """ Lowpass filter
+    *TODO*: calculate sampling time with numpy.gradient, no need to manually suply it
 
     Parameters
     ----------
