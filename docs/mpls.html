@@ -34,12 +34,20 @@ Convinience function for Matplotlib
 import matplotlib.pylab as plt
 
 
-def ticks_visual(ax, **kwarg):
+def ticks_visual(ax, size=[7, 4, 1, 0.8], which=&#34;both&#34;):
     &#34;&#34;&#34;
     makes auto minor and major ticks for matplotlib figure
     makes minor and major ticks thicker and longer
+
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        axes
+    size: array-like
+        size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks
+    which: string
+        which = [&#39;x&#39;,&#39;y&#39;,&#39;both&#39;] - set auto minor locator
     &#34;&#34;&#34;
-    which = kwarg.get(&#34;which&#34;, &#34;both&#34;)
     from matplotlib.ticker import AutoMinorLocator
 
     if which == &#34;both&#34; or which == &#34;x&#34;:
@@ -47,15 +55,12 @@ def ticks_visual(ax, **kwarg):
     if which == &#34;both&#34; or which == &#34;y&#34;:
         ax.yaxis.set_minor_locator(AutoMinorLocator())
 
-    l1 = kwarg.get(&#34;l1&#34;, 7)
-    l2 = kwarg.get(&#34;l2&#34;, 4)
-    w1 = kwarg.get(&#34;w1&#34;, 1.0)
-    w2 = kwarg.get(&#34;w2&#34;, 0.8)
+    l1, l2, w1, w2 = size
+
     ax.xaxis.set_tick_params(width=w1, length=l1, which=&#34;major&#34;)
     ax.xaxis.set_tick_params(width=w2, length=l2, which=&#34;minor&#34;)
     ax.yaxis.set_tick_params(width=w1, length=l1, which=&#34;major&#34;)
     ax.yaxis.set_tick_params(width=w2, length=l2, which=&#34;minor&#34;)
-    return
 
 
 def grid_visual(ax, alpha=[0.1, 0.3]):
@@ -109,7 +114,7 @@ def font_setup(size=13, weight=&#34;normal&#34;, family=&#34;serif&#34;, color=&
 
 
 def ltexp(val, decplace=1, short=False):
-    &#34;&#34;&#34; Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $`1.23^{31}$.
+    &#34;&#34;&#34; Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $1.23^{31}$.
     
     Parameters
     ----------
@@ -196,7 +201,7 @@ def set_size(width, fraction=1, subplots=(1, 1), ratio=&#34;golden&#34;):
     return (fig_width_in, fig_height_in)
 
 
-def set_tick_size(ax, *size):
+def set_tick_size(ax, size):
     &#34;&#34;&#34; Set matplotlib axis tick sizes
     For some reason the length from style is ignored.
 
@@ -443,7 +448,7 @@ ratio=fig_hight_pt/fig_width_pt</p>
 <span>def <span class="ident">ltexp</span></span>(<span>val, decplace=1, short=False)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $`1.23^{31}$.</p>
+<div class="desc"><p>Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $1.23^{31}$.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
 <dt><strong><code>val</code></strong> :&ensp;<code>float</code></dt>
@@ -458,7 +463,7 @@ ratio=fig_hight_pt/fig_width_pt</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def ltexp(val, decplace=1, short=False):
-    &#34;&#34;&#34; Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $`1.23^{31}$.
+    &#34;&#34;&#34; Converts float to the scientific notation as a LaTeX string, 1.23e31 -&gt; $1.23^{31}$.
     
     Parameters
     ----------
@@ -565,7 +570,7 @@ Returns</p>
 </details>
 </dd>
 <dt id="aklab.mpls.set_tick_size"><code class="name flex">
-<span>def <span class="ident">set_tick_size</span></span>(<span>ax, *size)</span>
+<span>def <span class="ident">set_tick_size</span></span>(<span>ax, size)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Set matplotlib axis tick sizes
@@ -581,7 +586,7 @@ For some reason the length from style is ignored.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def set_tick_size(ax, *size):
+<pre><code class="python">def set_tick_size(ax, size):
     &#34;&#34;&#34; Set matplotlib axis tick sizes
     For some reason the length from style is ignored.
 
@@ -615,21 +620,38 @@ For some reason the length from style is ignored.</p>
 </details>
 </dd>
 <dt id="aklab.mpls.ticks_visual"><code class="name flex">
-<span>def <span class="ident">ticks_visual</span></span>(<span>ax, **kwarg)</span>
+<span>def <span class="ident">ticks_visual</span></span>(<span>ax, size=[7, 4, 1, 0.8], which='both')</span>
 </code></dt>
 <dd>
 <div class="desc"><p>makes auto minor and major ticks for matplotlib figure
-makes minor and major ticks thicker and longer</p></div>
+makes minor and major ticks thicker and longer</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ax</code></strong> :&ensp;<code>matplotlib.pylab.axes</code></dt>
+<dd>axes</dd>
+<dt><strong><code>size</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks</dd>
+<dt><strong><code>which</code></strong> :&ensp;<code>string</code></dt>
+<dd>which = ['x','y','both'] - set auto minor locator</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def ticks_visual(ax, **kwarg):
+<pre><code class="python">def ticks_visual(ax, size=[7, 4, 1, 0.8], which=&#34;both&#34;):
     &#34;&#34;&#34;
     makes auto minor and major ticks for matplotlib figure
     makes minor and major ticks thicker and longer
+
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        axes
+    size: array-like
+        size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks
+    which: string
+        which = [&#39;x&#39;,&#39;y&#39;,&#39;both&#39;] - set auto minor locator
     &#34;&#34;&#34;
-    which = kwarg.get(&#34;which&#34;, &#34;both&#34;)
     from matplotlib.ticker import AutoMinorLocator
 
     if which == &#34;both&#34; or which == &#34;x&#34;:
@@ -637,15 +659,12 @@ makes minor and major ticks thicker and longer</p></div>
     if which == &#34;both&#34; or which == &#34;y&#34;:
         ax.yaxis.set_minor_locator(AutoMinorLocator())
 
-    l1 = kwarg.get(&#34;l1&#34;, 7)
-    l2 = kwarg.get(&#34;l2&#34;, 4)
-    w1 = kwarg.get(&#34;w1&#34;, 1.0)
-    w2 = kwarg.get(&#34;w2&#34;, 0.8)
+    l1, l2, w1, w2 = size
+
     ax.xaxis.set_tick_params(width=w1, length=l1, which=&#34;major&#34;)
     ax.xaxis.set_tick_params(width=w2, length=l2, which=&#34;minor&#34;)
     ax.yaxis.set_tick_params(width=w1, length=l1, which=&#34;major&#34;)
-    ax.yaxis.set_tick_params(width=w2, length=l2, which=&#34;minor&#34;)
-    return</code></pre>
+    ax.yaxis.set_tick_params(width=w2, length=l2, which=&#34;minor&#34;)</code></pre>
 </details>
 </dd>
 </dl>

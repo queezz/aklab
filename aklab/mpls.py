@@ -5,12 +5,20 @@ Convinience function for Matplotlib
 import matplotlib.pylab as plt
 
 
-def ticks_visual(ax, **kwarg):
+def ticks_visual(ax, size=[7, 4, 1, 0.8], which="both"):
     """
     makes auto minor and major ticks for matplotlib figure
     makes minor and major ticks thicker and longer
+
+    Parameters
+    ----------
+    ax: matplotlib.pylab.axes
+        axes
+    size: array-like
+        size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks
+    which: string
+        which = ['x','y','both'] - set auto minor locator
     """
-    which = kwarg.get("which", "both")
     from matplotlib.ticker import AutoMinorLocator
 
     if which == "both" or which == "x":
@@ -18,15 +26,12 @@ def ticks_visual(ax, **kwarg):
     if which == "both" or which == "y":
         ax.yaxis.set_minor_locator(AutoMinorLocator())
 
-    l1 = kwarg.get("l1", 7)
-    l2 = kwarg.get("l2", 4)
-    w1 = kwarg.get("w1", 1.0)
-    w2 = kwarg.get("w2", 0.8)
+    l1, l2, w1, w2 = size
+
     ax.xaxis.set_tick_params(width=w1, length=l1, which="major")
     ax.xaxis.set_tick_params(width=w2, length=l2, which="minor")
     ax.yaxis.set_tick_params(width=w1, length=l1, which="major")
     ax.yaxis.set_tick_params(width=w2, length=l2, which="minor")
-    return
 
 
 def grid_visual(ax, alpha=[0.1, 0.3]):
@@ -80,7 +85,7 @@ def font_setup(size=13, weight="normal", family="serif", color="None", name="San
 
 
 def ltexp(val, decplace=1, short=False):
-    """ Converts float to the scientific notation as a LaTeX string, 1.23e31 -> $`1.23^{31}$.
+    """ Converts float to the scientific notation as a LaTeX string, 1.23e31 -> $1.23^{31}$.
     
     Parameters
     ----------
@@ -167,7 +172,7 @@ def set_size(width, fraction=1, subplots=(1, 1), ratio="golden"):
     return (fig_width_in, fig_height_in)
 
 
-def set_tick_size(ax, *size):
+def set_tick_size(ax, size):
     """ Set matplotlib axis tick sizes
     For some reason the length from style is ignored.
 
