@@ -139,6 +139,7 @@ def set_size(width, fraction=1, subplots=(1, 1), ratio="golden"):
             The number of rows and columns of subplots.
     ratio: float or string.
             ratio = fig_hight_pt/fig_width_pt. If 'golden' equals to golden ratio
+            
     Returns
     -------
     fig_dim: tuple
