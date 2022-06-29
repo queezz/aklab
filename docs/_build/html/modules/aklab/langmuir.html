@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>aklab.langmuir &mdash; aklab  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> aklab
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">aklab</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">aklab</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>aklab.langmuir</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for aklab.langmuir</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Langmuir probe data processing</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">aklab.mpls</span> <span class="k">as</span> <span class="nn">akmp</span>
+<span class="kn">import</span> <span class="nn">aklab.signal</span> <span class="k">as</span> <span class="nn">aksig</span>
+
+
+<div class="viewcode-block" id="Langmuirprobe"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe">[docs]</a><span class="k">class</span> <span class="nc">Langmuirprobe</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add docstring</span>
+<span class="sd">    *TODO*: </span>
+<span class="sd">    - add base path to data as an argument to this class</span>
+<span class="sd">    - move plot functions from `__init__` to separate method</span>
+<span class="sd">    - separate calculations over dataframe from plots</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">species</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bp</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="s2">&quot;../../data/langmuirprobe&quot;</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="n">species</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bp</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+                    <span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bp</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;Signal1&quot;</span><span class="p">,</span> <span class="s2">&quot;Signal2&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_row_image</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_vp_ip</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitting_and_dividing</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Langmuirprobe.plot_row_image"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.plot_row_image">[docs]</a>    <span class="k">def</span> <span class="nf">plot_row_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">r1</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">r2</span> <span class="o">=</span> <span class="mf">1e3</span>
+        <span class="n">r3</span> <span class="o">=</span> <span class="mf">1e6</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Signal2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="n">r2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Signal1&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">r1</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Signal2&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">r2</span> <span class="o">*</span> <span class="mi">1000</span>
+
+        <span class="k">if</span> <span class="n">disp</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vp&quot;</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span></div>
+
+<div class="viewcode-block" id="Langmuirprobe.plot_vp_ip"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.plot_vp_ip">[docs]</a>    <span class="k">def</span> <span class="nf">plot_vp_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">xdivision</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;28&quot;</span><span class="p">)</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T$${\ }$$({\rm s})$&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$V_{\rm p}$${\ }$$({\rm V})$&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vp&quot;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="n">xdivision</span><span class="p">))</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T$${\ }$$({\rm s})$&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$I_{\rm p}$${\ }$$({\rm mA})$&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="n">xdivision</span><span class="p">))</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Langmuirprobe.fitting_and_dividing"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.fitting_and_dividing">[docs]</a>    <span class="k">def</span> <span class="nf">fitting_and_dividing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">df_c</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)):</span>
+            <span class="n">vp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">ip</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                <span class="n">vp</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp&quot;</span><span class="p">][</span><span class="mi">100000</span> <span class="o">*</span> <span class="n">j</span> <span class="p">:</span> <span class="mi">100000</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">ip</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">][</span><span class="mi">100000</span> <span class="o">*</span> <span class="n">j</span> <span class="p">:</span> <span class="mi">100000</span> <span class="o">*</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">df_c_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">,</span> <span class="s2">&quot;vp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">])</span>
+            <span class="n">df_c_temp</span><span class="p">[</span><span class="s2">&quot;vp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vp</span> <span class="o">/</span> <span class="mi">5</span>
+            <span class="n">df_c_temp</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip</span> <span class="o">/</span> <span class="mi">5</span>
+            <span class="n">df_c_temp</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">100001</span><span class="p">]</span>
+            <span class="n">df_c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_c_temp</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_c</span><span class="p">)):</span>
+            <span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aksig</span><span class="o">.</span><span class="n">fft_filtering</span><span class="p">(</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp&quot;</span><span class="p">],</span> <span class="n">dt</span><span class="p">,</span> <span class="n">fc</span><span class="p">)</span>
+            <span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aksig</span><span class="o">.</span><span class="n">fft_filtering</span><span class="p">(</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">],</span> <span class="n">dt</span><span class="p">,</span> <span class="n">fc</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ip&quot;</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vp&quot;</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Time&quot;</span><span class="p">],</span> <span class="n">df_c</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">])</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df_c</span></div>
+
+<div class="viewcode-block" id="Langmuirprobe.line_cross_point"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.line_cross_point">[docs]</a>    <span class="k">def</span> <span class="nf">line_cross_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">borders</span><span class="p">):</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">borders</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">borders</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">borders</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">borders</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">a0</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">-</span> <span class="n">x0</span>
+        <span class="n">b0</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">y0</span>
+        <span class="n">a2</span> <span class="o">=</span> <span class="n">x3</span> <span class="o">-</span> <span class="n">x2</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="n">y3</span> <span class="o">-</span> <span class="n">y2</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="n">a0</span> <span class="o">*</span> <span class="n">b2</span> <span class="o">-</span> <span class="n">a2</span> <span class="o">*</span> <span class="n">b0</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sn</span> <span class="o">=</span> <span class="n">b2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="o">-</span> <span class="n">a2</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">a0</span> <span class="o">*</span> <span class="n">sn</span> <span class="o">/</span> <span class="n">d</span><span class="p">,</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">b0</span> <span class="o">*</span> <span class="n">sn</span> <span class="o">/</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="Langmuirprobe.set_point"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.set_point">[docs]</a>    <span class="k">def</span> <span class="nf">set_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="o">=</span><span class="p">[[</span><span class="mi">50000</span><span class="p">,</span> <span class="mi">50200</span><span class="p">,</span> <span class="mi">51000</span><span class="p">,</span> <span class="mi">52000</span><span class="p">]]):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+        <span class="kn">import</span> <span class="nn">math</span>
+
+        <span class="n">bd_range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">40000</span><span class="p">,</span> <span class="mi">60000</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bd</span> <span class="o">=</span> <span class="p">[</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bd</span> <span class="o">=</span> <span class="n">point</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_vp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)):</span>
+            <span class="n">borders</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]],</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]]))</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_cross_point</span><span class="p">(</span><span class="n">borders</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_vp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">line_cross_point</span><span class="p">(</span><span class="n">borders</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+                            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bd_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bd_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+                            <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_vp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="o">+</span> <span class="n">bd_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_vp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)):</span>
+            <span class="n">xdivision</span> <span class="o">=</span> <span class="mf">2.5</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$V_{\rm p}$${\ }$$({\rm V})$&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$I_{\rm p}$${\ }$$({\rm mA})$&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="n">bd_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="n">bd_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="n">bd_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="n">bd_range</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+                <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">28</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="n">xdivision</span><span class="p">))</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+            <span class="n">akmp</span><span class="o">.</span><span class="n">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;28&quot;</span><span class="p">)</span>
+            <span class="n">akmp</span><span class="o">.</span><span class="n">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+            <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span>
+
+            <span class="n">j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cross_point_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Langmuirprobe.calc"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.calc">[docs]</a>    <span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">noffset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">e</span><span class="p">,</span> <span class="n">m_e</span><span class="p">,</span> <span class="n">k</span>
+        <span class="kn">import</span> <span class="nn">math</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="mf">0.25e-3</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="mf">3.5e-3</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">h</span>  <span class="c1"># Surface area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ev</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)</span>  <span class="c1"># Electron temperature [eV]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ne</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)</span>  <span class="c1"># Electron density [/m^3]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;vp_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+                <span class="o">/</span> <span class="p">(</span>
+                    <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]])</span>
+                    <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">bd</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]])</span>
+                <span class="p">)</span>
+                <span class="o">*</span> <span class="n">e</span>
+                <span class="o">/</span> <span class="n">k</span>
+                <span class="o">/</span> <span class="mi">11609</span>
+                <span class="o">*</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">df_c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;ip_f&quot;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">cross_point_index</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+                <span class="o">/</span> <span class="mf">1000.0</span>
+                <span class="o">/</span> <span class="p">(</span><span class="n">e</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mf">11609.0</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">m_e</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_result</span><span class="p">(</span><span class="n">ylim1</span><span class="o">=</span><span class="n">nlim</span><span class="p">,</span> <span class="n">ylim2</span><span class="o">=</span><span class="n">tlim</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">noffset</span><span class="o">=</span><span class="n">noffset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Langmuirprobe.plot_result"><a class="viewcode-back" href="../../aklab.html#aklab.langmuir.Langmuirprobe.plot_result">[docs]</a>    <span class="k">def</span> <span class="nf">plot_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ylim1</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">8e16</span><span class="p">],</span> <span class="n">ylim2</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">noffset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+        <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ev</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;${\rm measured}$${\ }$$T_{\rm e}$&quot;</span>
+        <span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim2</span><span class="p">)</span>
+
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$O_2$ concentration (%)&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$T_{\rm e}$${\ }$$({\rm eV})$&quot;</span><span class="p">)</span>
+        <span class="n">xdivision</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="n">xdivision</span><span class="p">))</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">&quot;28&quot;</span><span class="p">)</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">ticks_visual</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+        <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ne</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;${\rm measured}$${\ }$$n_{\rm e}$&quot;</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim1</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">style</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">offsetText</span><span class="o">.</span><span class="n">set_fontsize</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">noffset</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;$n_{\rm e}$${\ }$$({\rm {\times}10^{&quot;</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">noffset</span><span class="p">)</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;}{\ }m^{-3}})$&quot;</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">noffset</span><span class="p">:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$n_{\rm e}$${\ }$$({\rm m^{-3}})$&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$n_{\rm e}$${\ }$$({\rm m^{-3}})$&quot;</span><span class="p">)</span>
+
+        <span class="n">h1</span><span class="p">,</span> <span class="n">l1</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+        <span class="n">h2</span><span class="p">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">h1</span> <span class="o">+</span> <span class="n">h2</span><span class="p">,</span> <span class="n">l1</span> <span class="o">+</span> <span class="n">l2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, A.K.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
