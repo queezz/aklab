@@ -42,7 +42,7 @@ templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # shpinx.ext.napoleon settings
-napoleon_google_docstring = False
+# napoleon_google_docstring = False
 
 # The master toctree document.
 master_doc = "index"
