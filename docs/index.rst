@@ -10,6 +10,7 @@ Welcome to aklab's documentation!
    :maxdepth: 3
    :caption: Contents:
    
+   qulee
    modules
 
 
@@ -19,4 +20,4 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
+.. * :ref:`search`
