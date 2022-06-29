@@ -83,7 +83,7 @@ def font_setup(size=13, weight="normal", family="serif", color="None", fontname=
 
 
 def ltexp(val, decplace=1, short=False):
-    """ Converts float to the scientific notation LaTeX string, \\(1.23e31 \\rightarrow  1.23\\times 10^{31} \\)
+    """ Converts float to the scientific notation LaTeX string, \\( :math: `1.23e31 \\rightarrow  1.23\\times 10^{31}` \\)
         
     Parameters
     ----------
