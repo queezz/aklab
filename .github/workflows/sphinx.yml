@@ -12,6 +12,7 @@ jobs:
   build-and-deploy:
     name: Build and gh-pages
     runs-on: ubuntu-latest
+    working-directory: ./docs/
     steps:
       # https://github.com/marketplace/actions/checkout
       - uses: actions/checkout@v2
@@ -56,8 +57,7 @@ jobs:
           pip list
       # Build
       - uses: ammaraskar/sphinx-problem-matcher@master
-      - name: Build Sphinx docs
-        working-directory: ./docs/
+      - name: Build Sphinx docs        
         run: |
           make html
           # This fixes broken copy button icons, as explained in
