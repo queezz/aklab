@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>aklab.Recombination module &mdash; aklab  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aklab.constants module" href="aklab.constants.html" />
+    <link rel="prev" title="aklab package" href="aklab.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> aklab
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controlunit.html">Controlunit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dirutil.html">Dirutil</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">aklab</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aklab.html">aklab package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aklab.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aklab.Recombination module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.constants.html">aklab.constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.controlunit.html">aklab.controlunit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.dirutil.html">aklab.dirutil module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.langmuir.html">aklab.langmuir module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.mpls.html">aklab.mpls module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.qulee.html">aklab.qulee module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.readbinary.html">aklab.readbinary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.signal.html">aklab.signal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.specparser.html">aklab.specparser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.vacuum.html">aklab.vacuum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aklab.html#module-aklab">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">aklab</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+<div class="git-ribbon">
+  <a href="http://github.com/SwissDataScienceCenter" rel="me">Join us on GitHub</a>
+</div>
+
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">aklab</a> &raquo;</li>
+        
+          <li><a href="aklab.html">aklab package</a> &raquo;</li>
+        
+      <li>aklab.Recombination module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/aklab.Recombination.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aklab.Recombination">
+<span id="aklab-recombination-module"></span><h1>aklab.Recombination module<a class="headerlink" href="#module-aklab.Recombination" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aklab.Recombination.</span></span><span class="sig-name descname"><span class="pre">Recombination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.1e-31</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_jf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.286246100559756</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">69.68</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.0385593350848646e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Add docstring</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination.calc_ku">
+<span class="sig-name descname"><span class="pre">calc_ku</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination.calc_ku"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination.calc_ku" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add docstring</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination.calc_loop">
+<span class="sig-name descname"><span class="pre">calc_loop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination.calc_loop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination.calc_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add docstring</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination.fitting">
+<span class="sig-name descname"><span class="pre">fitting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination.fitting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination.fitting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add docstring</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination.fitting_function">
+<span class="sig-name descname"><span class="pre">fitting_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination.fitting_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination.fitting_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add docstring</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination.fitting_function2">
+<span class="sig-name descname"><span class="pre">fitting_function2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination.fitting_function2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination.fitting_function2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add docstring</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.Recombination.Recombination.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scatter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">convert</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">co</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[8.733935665396627,</span> <span class="pre">69.68,</span> <span class="pre">2.978590280897269e-07]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subtract</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#Recombination.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.Recombination.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add docstring</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.Recombination.convert_itoj">
+<span class="sig-prename descclassname"><span class="pre">aklab.Recombination.</span></span><span class="sig-name descname"><span class="pre">convert_itoj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.73</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">69.68</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.97e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#convert_itoj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.convert_itoj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<em>float</em>) – </p></li>
+<li><p><strong>k1</strong> (<em>float</em>) – </p></li>
+<li><p><strong>k2</strong> (<em>float</em>) – </p></li>
+<li><p><strong>c1</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.Recombination.disp_table">
+<span class="sig-prename descclassname"><span class="pre">aklab.Recombination.</span></span><span class="sig-name descname"><span class="pre">disp_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titlefontname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#disp_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.disp_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – </p></li>
+<li><p><strong>index</strong> (<em>None</em>) – </p></li>
+<li><p><strong>save</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>dpi</strong> (<em>int</em>) – </p></li>
+<li><p><strong>figsize</strong> (<em>None</em>) – </p></li>
+<li><p><strong>fontsize</strong> (<em>int</em>) – </p></li>
+<li><p><strong>titlefontname</strong> (<em>string</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="aklab.constants.html" class="btn btn-neutral float-right" title="aklab.constants module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aklab.html" class="btn btn-neutral float-left" title="aklab package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, A.K..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

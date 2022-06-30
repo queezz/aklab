@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>aklab.mpls module &mdash; aklab  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aklab.qulee module" href="aklab.qulee.html" />
+    <link rel="prev" title="aklab.langmuir module" href="aklab.langmuir.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> aklab
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controlunit.html">Controlunit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dirutil.html">Dirutil</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">aklab</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aklab.html">aklab package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aklab.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aklab.Recombination.html">aklab.Recombination module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.constants.html">aklab.constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.controlunit.html">aklab.controlunit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.dirutil.html">aklab.dirutil module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.langmuir.html">aklab.langmuir module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aklab.mpls module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.qulee.html">aklab.qulee module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.readbinary.html">aklab.readbinary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.signal.html">aklab.signal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.specparser.html">aklab.specparser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.vacuum.html">aklab.vacuum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aklab.html#module-aklab">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">aklab</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+<div class="git-ribbon">
+  <a href="http://github.com/SwissDataScienceCenter" rel="me">Join us on GitHub</a>
+</div>
+
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">aklab</a> &raquo;</li>
+        
+          <li><a href="aklab.html">aklab package</a> &raquo;</li>
+        
+      <li>aklab.mpls module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/aklab.mpls.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aklab.mpls">
+<span id="aklab-mpls-module"></span><h1>aklab.mpls module<a class="headerlink" href="#module-aklab.mpls" title="Permalink to this headline">¶</a></h1>
+<p>Convinience function for Matplotlib</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.figprep">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">figprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">246</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#figprep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.figprep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create matplotlib figure with given width in points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>float</em>) – figure width in points</p></li>
+<li><p><strong>subplots</strong> (<em>aray-like</em>) – [1,1] by default. The number of rows and columns.</p></li>
+<li><p><strong>dpi</strong> (<em>int</em>) – figure dpi, useflu to adjust JupyterLab figure size</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(fig, axs), matplotlib.pylab.subplots</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.font_ishihara">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">font_ishihara</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">14</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#font_ishihara"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.font_ishihara" title="Permalink to this definition">¶</a></dt>
+<dd><p>font and tick settings used by Ishihara-kun</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.font_setup">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">font_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'serif'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Sans'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#font_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.font_setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set-up font for matplotlib using rc, see <a class="reference external" href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a>
+specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Helvetica’ …]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family</strong> (<em>string</em>) – [ ‘serif’ | ‘sans-serif’ | ‘cursive’ | ‘fantasy’ | ‘monospace’ ]</p></li>
+<li><p><strong>weight</strong> (<em>string</em>) – [ ‘normal’ | ‘bold’ | ‘heavy’ | ‘light’ | ‘ultrabold’ | ‘ultralight’]</p></li>
+<li><p><strong>size</strong> (<em>float</em>) – 18 by default</p></li>
+<li><p><strong>color</strong> (<em>string</em>) – any matplotlib color</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.grid_visual">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">grid_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.3]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#grid_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.grid_visual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets grid on and adjusts the grid style.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.pylab.axes</em>) – Axes where the grid will be displayed.</p></li>
+<li><p><strong>alpha</strong> (<em>array-like</em>) – alpha = [minor alpha, major alpha] - transparancy of grid lines</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.gritix">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">gritix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#gritix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.gritix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply <cite>ticks_visual</cite> and <cite>grid_visual</cite> to the active pylab axes.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.ltexp">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">ltexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#ltexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.ltexp" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Converts float to the scientific notation LaTeX string,</dt><dd><p><span class="math notranslate nohighlight">\(1.23e31 \rightarrow  1.23\times 10^{31}\)</span></p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>val</strong> (<em>float</em>) – number to convert</p></li>
+<li><p><strong>decplace</strong> (<em>int</em>) – number of decimal places to display in the pre-exponent</p></li>
+<li><p><strong>short</strong> (<em>bool</em>) – if True, only shows exponent part</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.reset_color_cycle">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">reset_color_cycle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#reset_color_cycle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.reset_color_cycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset color cycle</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.set_size">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">set_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'golden'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#set_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.set_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set figure dimensions to avoid scaling in LaTeX.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>float</em><em> or </em><em>string</em>) – Document width in points, or string of predined document type</p></li>
+<li><p><strong>fraction</strong> (<em>float</em><em>, </em><em>optional</em>) – Fraction of the width which you wish the figure to occupy</p></li>
+<li><p><strong>subplots</strong> (<em>array-like</em><em>, </em><em>optional</em>) – The number of rows and columns of subplots.</p></li>
+<li><p><strong>ratio</strong> (<em>float</em><em> or </em><em>string.</em>) – ratio = fig_hight_pt/fig_width_pt. If ‘golden’ equals to golden ratio</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig_dim</strong> – Dimensions of figure in inches</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.set_tick_size">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">set_tick_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#set_tick_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.set_tick_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set matplotlib axis tick sizes
+For some reason the length from style is ignored.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.pylab.axes</em>) – axes for adjustment</p></li>
+<li><p><strong>size</strong> (<em>array-like</em>) – size = [width_major, length_major, width_minor, length_minor]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.ticks_ishihara">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">ticks_ishihara</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#ticks_ishihara"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.ticks_ishihara" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ishihara’s ticks</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.ticks_visual">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">ticks_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[7,</span> <span class="pre">4,</span> <span class="pre">1,</span> <span class="pre">0.8]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#ticks_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.ticks_visual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes auto minor and major ticks for matplotlib figure and adjusts ticks sizes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.pylab.axes</em>) – axes</p></li>
+<li><p><strong>size</strong> (<em>array-like</em>) – size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks</p></li>
+<li><p><strong>which</strong> (<em>string</em>) – which = [‘x’| ‘y’ | ‘both’] - set auto minor locator</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="aklab.qulee.html" class="btn btn-neutral float-right" title="aklab.qulee module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aklab.langmuir.html" class="btn btn-neutral float-left" title="aklab.langmuir module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, A.K..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

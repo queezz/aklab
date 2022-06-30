@@ -14,6 +14,7 @@ import os
 import sys
 
 # sphinx-apidoc -o .\src ..\aklab 'setup.py' -f
+# sphinx-apidoc -o .\src ..\aklab 'setup.py' -f --separate
 # xcopy .\_build\html\ .\ /s /y
 
 sys.path.insert(0, os.path.abspath("..."))
@@ -60,7 +61,7 @@ add_function_parentheses = True
 
 # If true, the current module name will be prepended to all description
 # unit titles (such as .. function::).
-add_module_names = False
+add_module_names = True
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -71,7 +72,8 @@ pygments_style = "sphinx"
 # a list of builtin themes.
 #
 # html_theme = "sphinx_rtd_theme"
-html_theme = "python_docs_theme"
+# html_theme = "python_docs_theme"
+html_theme = "renku"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

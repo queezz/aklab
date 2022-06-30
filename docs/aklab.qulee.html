@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>aklab.qulee module &mdash; aklab  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/fonts.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="aklab.readbinary module" href="aklab.readbinary.html" />
+    <link rel="prev" title="aklab.mpls module" href="aklab.mpls.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> aklab
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controlunit.html">Controlunit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dirutil.html">Dirutil</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">aklab</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="aklab.html">aklab package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="aklab.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="aklab.Recombination.html">aklab.Recombination module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.constants.html">aklab.constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.controlunit.html">aklab.controlunit module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.dirutil.html">aklab.dirutil module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.langmuir.html">aklab.langmuir module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.mpls.html">aklab.mpls module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">aklab.qulee module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.readbinary.html">aklab.readbinary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.signal.html">aklab.signal module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.specparser.html">aklab.specparser module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="aklab.vacuum.html">aklab.vacuum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="aklab.html#module-aklab">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">aklab</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+<div class="git-ribbon">
+  <a href="http://github.com/SwissDataScienceCenter" rel="me">Join us on GitHub</a>
+</div>
+
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">aklab</a> &raquo;</li>
+        
+          <li><a href="aklab.html">aklab package</a> &raquo;</li>
+        
+      <li>aklab.qulee module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/aklab.qulee.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-aklab.qulee">
+<span id="aklab-qulee-module"></span><h1>aklab.qulee module<a class="headerlink" href="#module-aklab.qulee" title="Permalink to this headline">¶</a></h1>
+<p>“Qulee” (pronounced as “KLEE”), is ULVAC’s latest model for residual gas analysis.</p>
+<p>Tools to work with Qulee mass spectrometer outputs (CSV) and maybe later with Qulee software?
+Created 2021/06/11 by queezz</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="aklab.qulee.QMS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">QMS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datapath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>datapath</strong> (<em>string</em>) – path to converted to csv format Qulee QMS data.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.qulee.QMS.load_data">
+<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.load_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates DataFrame from qms data with proper datetime column for time</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.qulee.QMS.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot time traces</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masslist</strong> (<em>list</em>) – Specify list of masses to plot. Plots all by default.</p></li>
+<li><p><strong>delta</strong> (<em>list</em>) – delta = [self.start, self.end] by default, datetime.datetime “window”</p></li>
+<li><p><strong>ylim</strong> (<em>list</em><em> or </em><em>tuple</em>) – axis ylims</p></li>
+<li><p><strong>gridalpha</strong> (<em>float</em>) – transparancy of the grid lines</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – figure size, (8,6) by default</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – rasterized option for matplotlib</p></li>
+<li><p><strong>colors</strong> (<em>list</em>) – list of colors for color cycle</p></li>
+<li><p><strong>bbox_to_anchor</strong> (<em>list</em><em> or </em><em>tuple</em>) – bbox_to_anchor argument for matplotlib legend</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.qulee.QMS.qms_file_parser">
+<span class="sig-name descname"><span class="pre">qms_file_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.qms_file_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.qms_file_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the QMS csv file header.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.qulee.QMS.slice">
+<span class="sig-name descname"><span class="pre">slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice DataFrame by datetime interval</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delta</strong> (<em>list</em>) – list of datetime.dateme objects for the start and the end of an interval</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – sliced qms dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.generate_colors">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">generate_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">masslist</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#generate_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.generate_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate colors based on masslist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masslist</strong> (<em>list</em>) – list of masses to be plotted</p></li>
+<li><p><strong>cmap</strong> (<em>matplotlib colormap for color cycle</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>clr</strong> – list of colors</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.plot_qms_dir">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">plot_qms_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'batch_qms_plot.pdf'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#plot_qms_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.plot_qms_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot QMS files in a directory or from a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ls</strong> (<em>list</em>) – list of absolute paths to files to plot</p></li>
+<li><p><strong>dir</strong> (<em>string</em>) – directory to scan and plot</p></li>
+<li><p><strong>out</strong> (<em>string</em>) – output pdf file name or absolute path</p></li>
+<li><p><strong>ext</strong> (<em>string</em>) – files extention, CSV by default</p></li>
+<li><p><strong>figsize</strong> (<em>float</em>) – figure width, 500 by default</p></li>
+<li><p><strong>anchor</strong> (<em>list</em>) – Matplotlib bbox_to_inches [1,1]</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – Matplotlib s rasterized option, when there are too many lines for a PDF</p></li>
+<li><p><strong>ylim</strong> (<em>list</em><em> or </em><em>tuple</em>) – by default [1e-14,1e-5]</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.qmsplotgrid">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">qmsplotgrid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#qmsplotgrid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.qmsplotgrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>QMS plot grid</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.qmsplotticks">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">qmsplotticks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#qmsplotticks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.qmsplotticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>QMS plot ticks</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.t2s">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">t2s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#t2s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.t2s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a time string of the Qulee format,
+‘000:00:00.625’ -&gt; ‘hhh:mm:ss.ms’ to time in seconds.
+E.g ‘000:00:00.625’ to 0.625 (s)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>string</em>) – Qulee time stamp string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>t</strong> – datetime timedelta in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>datetime.timedelta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.t2sa">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">t2sa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#t2sa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.t2sa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
+Just calls <cite>t2s</cite> in a loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ta</strong> (<em>array-like</em>) – array of time-strings from Qulee QMS</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>timearray</strong> – numpy array with datetime.timedelta in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.qulee.tocsv">
+<span class="sig-prename descclassname"><span class="pre">aklab.qulee.</span></span><span class="sig-name descname"><span class="pre">tocsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#tocsv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.tocsv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert <cite>*.qst</cite> binary into a <cite>*.csv</cite>. Works only with Quelee QMS software installed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – path to <cite>*.qst</cite> file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="aklab.readbinary.html" class="btn btn-neutral float-right" title="aklab.readbinary module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="aklab.mpls.html" class="btn btn-neutral float-left" title="aklab.mpls module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, A.K..
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

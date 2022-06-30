@@ -1,165 +1,118 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>aklab.mpls &mdash; aklab  documentation</title>
-  
 
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aklab.mpls &#8212; aklab  documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/thebelab-helper.js"></script>
-        <script>let toggleHintShow = 'Click to show';</script>
-        <script>let toggleHintHide = 'Click to hide';</script>
-        <script>let toggleOpenOnPrint = 'true';</script>
-        <script src="../../_static/togglebutton.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css?2022.1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/mystnb.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/togglebutton.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../index.html" class="icon icon-home"> aklab
-          
-
-          
-          </a>
-
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../qulee.html">Qulee QMS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../controlunit.html">Controlunit</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../mpls.html">Matplotlib tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../dirutil.html">Dirutil</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">aklab</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
+    <link rel="search" title="Search" href="../../search.html" /><link rel="shortcut icon" type="image/png" href="../../_static/py.svg" />
+            <script type="text/javascript" src="../../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../../_static/menu.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="../../_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="../../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
     </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">aklab</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>aklab.mpls</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+<script>$('#searchbox').show(0);</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+          <li><img src="../../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="../../index.html">aklab  documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">aklab.mpls</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
             
   <h1>Source code for aklab.mpls</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
@@ -169,7 +122,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
-<div class="viewcode-block" id="ticks_visual"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.ticks_visual">[docs]</a><span class="k">def</span> <span class="nf">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="ticks_visual"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.ticks_visual">[docs]</a><span class="k">def</span> <span class="nf">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Makes auto minor and major ticks for matplotlib figure and adjusts ticks sizes.</span>
 
@@ -197,7 +150,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">w2</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">l2</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;minor&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="grid_visual"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.grid_visual">[docs]</a><span class="k">def</span> <span class="nf">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]):</span>
+<div class="viewcode-block" id="grid_visual"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.grid_visual">[docs]</a><span class="k">def</span> <span class="nf">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets grid on and adjusts the grid style.</span>
 <span class="sd">    </span>
@@ -213,7 +166,7 @@
     <span class="k">return</span></div>
 
 
-<div class="viewcode-block" id="gritix"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.gritix">[docs]</a><span class="k">def</span> <span class="nf">gritix</span><span class="p">(</span><span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+<div class="viewcode-block" id="gritix"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.gritix">[docs]</a><span class="k">def</span> <span class="nf">gritix</span><span class="p">(</span><span class="o">**</span><span class="n">kws</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply `ticks_visual` and `grid_visual` to the active pylab axes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -223,7 +176,7 @@
     <span class="k">return</span></div>
 
 
-<div class="viewcode-block" id="font_setup"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.font_setup">[docs]</a><span class="k">def</span> <span class="nf">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;serif&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">fontname</span><span class="o">=</span><span class="s2">&quot;Sans&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="font_setup"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.font_setup">[docs]</a><span class="k">def</span> <span class="nf">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;serif&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">fontname</span><span class="o">=</span><span class="s2">&quot;Sans&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set-up font for matplotlib using rc, see https://matplotlib.org/stable/tutorials/text/text_props.html</span>
 <span class="sd">    specific for `family` fontnames: [&#39;Sans&#39; | &#39;Courier&#39; | &#39;Helvetica&#39; ...]</span>
 
@@ -246,7 +199,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ltexp"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.ltexp">[docs]</a><span class="k">def</span> <span class="nf">ltexp</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">decplace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ltexp"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.ltexp">[docs]</a><span class="k">def</span> <span class="nf">ltexp</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">decplace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Converts float to the scientific notation LaTeX string,</span>
 <span class="sd">     :math:`1.23e31 \\rightarrow  1.23\\times 10^{31}`    </span>
 <span class="sd">   </span>
@@ -269,7 +222,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;10^</span><span class="se">{{</span><span class="si">{</span><span class="n">exponent</span><span class="si">}</span><span class="se">}}</span><span class="s2">&quot;</span></div>
 
 
-<div class="viewcode-block" id="font_ishihara"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.font_ishihara">[docs]</a><span class="k">def</span> <span class="nf">font_ishihara</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">):</span>
+<div class="viewcode-block" id="font_ishihara"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.font_ishihara">[docs]</a><span class="k">def</span> <span class="nf">font_ishihara</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; font and tick settings used by Ishihara-kun&quot;&quot;&quot;</span>
     <span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;family&quot;</span><span class="p">:</span> <span class="s2">&quot;serif&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">}</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">font</span><span class="p">)</span>
@@ -279,18 +232,18 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;axes.grid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># make grid</span></div>
 
 
-<div class="viewcode-block" id="ticks_ishihara"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.ticks_ishihara">[docs]</a><span class="k">def</span> <span class="nf">ticks_ishihara</span><span class="p">():</span>
+<div class="viewcode-block" id="ticks_ishihara"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.ticks_ishihara">[docs]</a><span class="k">def</span> <span class="nf">ticks_ishihara</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Ishihara&#39;s ticks &quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;major&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;minor&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="reset_color_cycle"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.reset_color_cycle">[docs]</a><span class="k">def</span> <span class="nf">reset_color_cycle</span><span class="p">():</span>
+<div class="viewcode-block" id="reset_color_cycle"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.reset_color_cycle">[docs]</a><span class="k">def</span> <span class="nf">reset_color_cycle</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Reset color cycle &quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_prop_cycle</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_size"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.set_size">[docs]</a><span class="k">def</span> <span class="nf">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ratio</span><span class="o">=</span><span class="s2">&quot;golden&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="set_size"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.set_size">[docs]</a><span class="k">def</span> <span class="nf">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ratio</span><span class="o">=</span><span class="s2">&quot;golden&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set figure dimensions to avoid scaling in LaTeX.</span>
 
 <span class="sd">    Parameters</span>
@@ -336,7 +289,7 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">fig_width_in</span><span class="p">,</span> <span class="n">fig_height_in</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_tick_size"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.set_tick_size">[docs]</a><span class="k">def</span> <span class="nf">set_tick_size</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+<div class="viewcode-block" id="set_tick_size"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.set_tick_size">[docs]</a><span class="k">def</span> <span class="nf">set_tick_size</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Set matplotlib axis tick sizes</span>
 <span class="sd">    For some reason the length from style is ignored.</span>
 
@@ -354,68 +307,108 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width_minor</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">length_minor</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;minor&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="figprep"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.figprep">[docs]</a><span class="k">def</span> <span class="nf">figprep</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">246</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+<div class="viewcode-block" id="figprep"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.figprep">[docs]</a><span class="k">def</span> <span class="nf">figprep</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">246</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Create matplotlib figure with given width in points</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    width: float</span>
 <span class="sd">        figure width in points</span>
-
-<span class="sd">    Keyword Arguments for aklab.mpls.set_size</span>
-<span class="sd">    -----------------</span>
 <span class="sd">    subplots: aray-like</span>
-<span class="sd">            The number of rows and columns</span>
-<span class="sd">    ratio: float or string</span>
-<span class="sd">            ratio=fig_hight_pt/fig_width_pt</span>
+<span class="sd">            [1,1] by default. The number of rows and columns.</span>
+<span class="sd">    dpi: int</span>
+<span class="sd">        figure dpi, useflu to adjust JupyterLab figure size</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    (fig, axs): tuple</span>
-<span class="sd">            matplotlib.pylab.subplots</span>
+<span class="sd">    tuple</span>
+<span class="sd">            (fig, axs), matplotlib.pylab.subplots</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">subplots</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subplots&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplots</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subplots</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="n">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+        <span class="n">subplots</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subplots</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="n">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span>
+    <span class="p">)</span></div>
 
 </pre></div>
 
-           </div>
-           
+            <div class="clearer"></div>
           </div>
-          <footer>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2022, A.K.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+          <li><img src="../../_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="../../index.html">aklab  documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">aklab.mpls</a></li>
+                <li class="right">
+                    
 
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; Copyright 2022, A.K..
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
     
-   
+    <br />
 
-</body>
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on None.
+    
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+
+  </body>
 </html>
