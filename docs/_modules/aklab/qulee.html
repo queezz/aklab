@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../qulee.html">Qulee QMS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../controlunit.html">Controlunit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dirutil.html">Dirutil</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">aklab</a></li>
 </ul>
 
@@ -171,12 +172,13 @@
 
 
 <div class="viewcode-block" id="QMS"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.QMS">[docs]</a><span class="k">class</span> <span class="nc">QMS</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    datapath: string</span>
-<span class="sd">            path to converted to `csv` format Qulee QMS data.</span>
+<span class="sd">            path to converted to csv format Qulee QMS data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datapath</span><span class="p">):</span>
@@ -188,8 +190,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">clr</span> <span class="o">=</span> <span class="n">generate_colors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">masslist</span><span class="p">)</span>
 
 <div class="viewcode-block" id="QMS.qms_file_parser"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.QMS.qms_file_parser">[docs]</a>    <span class="k">def</span> <span class="nf">qms_file_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; &quot; Given filepath to ULVAC&#39;s Qulee BGM QMS file, converted to *.csv,</span>
-<span class="sd">        Parses the header, extracts column names, QMS settings, and line number where data starts</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Parses the QMS csv file header.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">codecs</span>
         <span class="kn">import</span> <span class="nn">datetime</span>
@@ -244,7 +246,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">masslist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">colnames</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="QMS.load_data"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.QMS.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Generates DataFrame from qms data with proper datetime column for time</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates DataFrame from qms data with proper datetime column for time</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
         <span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">read_csv</span>
@@ -266,7 +269,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">qmsdata</span></div>
 
 <div class="viewcode-block" id="QMS.slice"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.QMS.slice">[docs]</a>    <span class="k">def</span> <span class="nf">slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Slice DataFrame by datetime interval</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Slice DataFrame by datetime interval</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -283,7 +287,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QMS.plot"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.QMS.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;plot time traces</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot time traces</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -304,7 +309,7 @@
 <span class="sd">        bbox_to_anchor: list or tuple</span>
 <span class="sd">            bbox_to_anchor argument for matplotlib legend</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
         <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">AutoMinorLocator</span>
 
         <span class="n">fro</span><span class="p">,</span> <span class="n">tto</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delta&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">])</span>
@@ -434,7 +439,8 @@
 
 
 <div class="viewcode-block" id="tocsv"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.tocsv">[docs]</a><span class="k">def</span> <span class="nf">tocsv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -486,7 +492,8 @@
 
 
 <div class="viewcode-block" id="generate_colors"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.generate_colors">[docs]</a><span class="k">def</span> <span class="nf">generate_colors</span><span class="p">(</span><span class="n">masslist</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Generate colors based on masslist</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate colors based on masslist</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -499,7 +506,7 @@
 <span class="sd">    clr: list</span>
 <span class="sd">        list of colors</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
     <span class="n">cmap</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">twilight</span><span class="p">)</span>
 
@@ -516,14 +523,15 @@
 
 
 <div class="viewcode-block" id="plot_qms_dir"><a class="viewcode-back" href="../../aklab.html#aklab.qulee.plot_qms_dir">[docs]</a><span class="k">def</span> <span class="nf">plot_qms_dir</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="p">[],</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;batch_qms_plot.pdf&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Provided dir, reads all converted Quelee *.csv&#39;s and plots into a PDF</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot QMS files in a directory or from a list.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    ls: list of absolute paths to files to plot</span>
-<span class="sd">        OR</span>
+<span class="sd">    ls: list </span>
+<span class="sd">        list of absolute paths to files to plot</span>
 <span class="sd">    dir: string</span>
-<span class="sd">            directory to scan and plot</span>
+<span class="sd">        directory to scan and plot</span>
 <span class="sd">    out: string </span>
 <span class="sd">        output pdf file name or absolute path</span>
 <span class="sd">    ext: string</span>
@@ -533,11 +541,11 @@
 <span class="sd">    anchor: list</span>
 <span class="sd">        Matplotlib bbox_to_inches [1,1]</span>
 <span class="sd">    rasterized: bool</span>
-<span class="sd">        Matplotlib&#39;s rasterized option, when there are too many lines for a PDF</span>
+<span class="sd">        Matplotlib s rasterized option, when there are too many lines for a PDF</span>
 <span class="sd">    ylim: list or tuple</span>
-<span class="sd">           by default [1e-14,1e-5]        </span>
+<span class="sd">           by default [1e-14,1e-5] </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
     <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
     <span class="kn">import</span> <span class="nn">aklab.mpls</span> <span class="k">as</span> <span class="nn">akmpl</span>
 
@@ -566,7 +574,7 @@
             <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="n">anchor</span><span class="p">)</span>
             <span class="c1"># TODO: derive ticks from ylim</span>
             <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">14</span> <span class="o">-</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="n">akmpl</span><span class="o">.</span><span class="n">set_tick_size</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">akmpl</span><span class="o">.</span><span class="n">set_tick_size</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
             <span class="n">pdf</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </pre></div>

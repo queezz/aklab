@@ -4,7 +4,19 @@
 Controlunit
 =====================================================
 
+Read and plot
+-------------
+
 Use :class:`~aklab.controlunit.Raspi` to read ADC and TC datafiles.
+
+.. jupyter-execute::
+     
+    %run ../aklab/controlunit.py
+    raspi = Raspi(bpath='../data',timestamp='20210219_124135')
+    raspi.plot()
+
+Signal conversion
+-----------------
 
 .. code-block::
     :caption: ADC convertion in :func:`~aklab.controlunit.Raspi.convert_signals`
@@ -20,11 +32,8 @@ Use :class:`~aklab.controlunit.Raspi` to read ADC and TC datafiles.
         self.ip = iconv(self.adc["Ip"])
         self.t = self.adc["date"]
 
-.. jupyter-execute::
-     
-    %run ../aklab/controlunit.py
-    raspi = Raspi(bpath='../data',timestamp='20210219_124135')
-    raspi.plot()
+Data format 
+-----------
 
 :class:`~aklab.controlunit.Raspi` contains two separate :class:`pandas.DataFrame` with ADC and TC data.
 

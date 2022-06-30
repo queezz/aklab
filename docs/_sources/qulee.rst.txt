@@ -15,7 +15,7 @@ Use :class:`~aklab.qulee.QMS` to read a converted `*.csv` QMS file.
     qms = QMS('../data/S1_210208_131938.CSV')
     qms.plot()
 
-Data formatting
+Data format
 ---------------
 
 Data is formatted as in this example. :code:`.iloc[:,:8]` is used to reduce the output table size.

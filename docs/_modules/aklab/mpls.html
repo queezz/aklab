@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../qulee.html">Qulee QMS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../controlunit.html">Controlunit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dirutil.html">Dirutil</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">aklab</a></li>
 </ul>
 
@@ -246,8 +247,9 @@
 
 
 <div class="viewcode-block" id="ltexp"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.ltexp">[docs]</a><span class="k">def</span> <span class="nf">ltexp</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">decplace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Converts float to the scientific notation LaTeX string, \\(1.23e31 \\rightarrow  1.23\\times 10^{31} \\)</span>
-<span class="sd">        </span>
+    <span class="sd">&quot;&quot;&quot; Converts float to the scientific notation LaTeX string,</span>
+<span class="sd">     :math:`1.23e31 \\rightarrow  1.23\\times 10^{31}`    </span>
+<span class="sd">   </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    val: float</span>
@@ -352,7 +354,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width_minor</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">length_minor</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s2">&quot;minor&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">figprep</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">246</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+<div class="viewcode-block" id="figprep"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.figprep">[docs]</a><span class="k">def</span> <span class="nf">figprep</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">246</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Create matplotlib figure with given width in points</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
@@ -373,27 +375,7 @@
 <span class="sd">            matplotlib.pylab.subplots</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">subplots</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subplots&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplots</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subplots</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="n">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-
-
-<div class="viewcode-block" id="figprep"><a class="viewcode-back" href="../../aklab.html#aklab.mpls.figprep">[docs]</a><span class="k">def</span> <span class="nf">figprep</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">246</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Create matplotlib figure with given width in points</span>
-<span class="sd">    for `kws` see `set_size`</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    width: float</span>
-<span class="sd">        figure width in points</span>
-<span class="sd">    dpi: float</span>
-<span class="sd">        figure dpi, use to increase displayed figure in a notebook</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    subplots: tuple</span>
-<span class="sd">            (fig, axs), a matplotlib.pylab.subplots</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">subplots</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;subplots&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplots</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subplots</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="n">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplots</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">subplots</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="n">set_size</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span></div>
 
 </pre></div>
 
