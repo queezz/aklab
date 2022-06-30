@@ -4,6 +4,14 @@ aklab package
 Submodules
 ----------
 
+aklab.Recombination module
+--------------------------
+
+.. automodule:: aklab.Recombination
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 aklab.constants module
 ----------------------
 
@@ -48,14 +56,6 @@ aklab.readbinary module
 -----------------------
 
 .. automodule:: aklab.readbinary
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-aklab.recombination module
---------------------------
-
-.. automodule:: aklab.recombination
    :members:
    :undoc-members:
    :show-inheritance:

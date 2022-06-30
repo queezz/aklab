@@ -25,6 +25,9 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -35,6 +38,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -82,6 +87,7 @@
             
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS parsing and converting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">aklab</a></li>
 </ul>
 
@@ -203,8 +209,6 @@
         <li><a href="aklab.html#module-aklab.mpls">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     aklab.qulee
 
@@ -212,11 +216,20 @@
         <li><a href="aklab.html#module-aklab.qulee">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     aklab.readbinary
 
       <ul>
         <li><a href="aklab.html#module-aklab.readbinary">module</a>
+</li>
+      </ul></li>
+      <li>
+    aklab.Recombination
+
+      <ul>
+        <li><a href="aklab.html#module-aklab.Recombination">module</a>
 </li>
       </ul></li>
       <li>
@@ -250,11 +263,17 @@
 </li>
       <li><a href="aklab.html#aklab.specparser.Spectrometer.calc_fwhm">calc_fwhm() (Spectrometer method)</a>
 </li>
-      <li><a href="aklab.html#aklab.specparser.Spectrometer.calc_temperature">calc_temperature() (Spectrometer method)</a>
+      <li><a href="aklab.html#aklab.Recombination.Recombination.calc_ku">calc_ku() (Recombination method)</a>
+</li>
+      <li><a href="aklab.html#aklab.Recombination.Recombination.calc_loop">calc_loop() (Recombination method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="aklab.html#aklab.specparser.Spectrometer.calc_temperature">calc_temperature() (Spectrometer method)</a>
+</li>
       <li><a href="aklab.html#aklab.specparser.Spectrometer.calcgauss">calcgauss() (Spectrometer method)</a>
+</li>
+      <li><a href="aklab.html#aklab.Recombination.convert_itoj">convert_itoj() (in module aklab.Recombination)</a>
 </li>
       <li><a href="aklab.html#aklab.specparser.Spectrometer.convert_nc">convert_nc() (Spectrometer method)</a>
 </li>
@@ -266,6 +285,8 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="aklab.html#aklab.Recombination.disp_table">disp_table() (in module aklab.Recombination)</a>
+</li>
       <li><a href="aklab.html#aklab.specparser.Spectrometer.display_data">display_data() (Spectrometer method)</a>
 </li>
   </ul></td>
@@ -284,9 +305,15 @@
 </li>
       <li><a href="aklab.html#aklab.mpls.figprep">figprep() (in module aklab.mpls)</a>
 </li>
+      <li><a href="aklab.html#aklab.Recombination.Recombination.fitting">fitting() (Recombination method)</a>
+</li>
+      <li><a href="aklab.html#aklab.langmuir.Langmuirprobe.fitting_and_dividing">fitting_and_dividing() (Langmuirprobe method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="aklab.html#aklab.langmuir.Langmuirprobe.fitting_and_dividing">fitting_and_dividing() (Langmuirprobe method)</a>
+      <li><a href="aklab.html#aklab.Recombination.Recombination.fitting_function">fitting_function() (Recombination method)</a>
+</li>
+      <li><a href="aklab.html#aklab.Recombination.Recombination.fitting_function2">fitting_function2() (Recombination method)</a>
 </li>
       <li><a href="aklab.html#aklab.mpls.font_ishihara">font_ishihara() (in module aklab.mpls)</a>
 </li>
@@ -366,6 +393,8 @@
 </li>
         <li><a href="aklab.html#module-aklab.readbinary">aklab.readbinary</a>
 </li>
+        <li><a href="aklab.html#module-aklab.Recombination">aklab.Recombination</a>
+</li>
         <li><a href="aklab.html#module-aklab.signal">aklab.signal</a>
 </li>
         <li><a href="aklab.html#module-aklab.specparser">aklab.specparser</a>
@@ -384,11 +413,13 @@
       <ul>
         <li><a href="aklab.html#aklab.controlunit.Raspi.plot">(Raspi method)</a>
 </li>
-      </ul></li>
-      <li><a href="aklab.html#aklab.qulee.plot_qms_dir">plot_qms_dir() (in module aklab.qulee)</a>
+        <li><a href="aklab.html#aklab.Recombination.Recombination.plot">(Recombination method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="aklab.html#aklab.qulee.plot_qms_dir">plot_qms_dir() (in module aklab.qulee)</a>
+</li>
       <li><a href="aklab.html#aklab.langmuir.Langmuirprobe.plot_result">plot_result() (Langmuirprobe method)</a>
 </li>
       <li><a href="aklab.html#aklab.langmuir.Langmuirprobe.plot_row_image">plot_row_image() (Langmuirprobe method)</a>
@@ -420,6 +451,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="aklab.html#aklab.controlunit.Raspi">Raspi (class in aklab.controlunit)</a>
+</li>
+      <li><a href="aklab.html#aklab.Recombination.Recombination">Recombination (class in aklab.Recombination)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
