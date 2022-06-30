@@ -410,6 +410,6 @@ def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
             axs[0].legend(bbox_to_anchor=anchor)
             # TODO: derive ticks from ylim
             axs[0].set_yticks(np.logspace(-14, -5, 14 - 5 + 1))
-            akmpl.set_tick_size(plt.gca(), *(1, 4, 0.5, 2))
+            akmpl.set_tick_size(plt.gca(), [1, 4, 0.5, 2])
             pdf.savefig(dpi=300)
             plt.close()
