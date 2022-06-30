@@ -107,6 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab.Recombination">aklab.Recombination module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab.constants">aklab.constants module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab.controlunit">aklab.controlunit module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aklab.dirutil">aklab.dirutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab.langmuir">aklab.langmuir module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab.mpls">aklab.mpls module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab.qulee">aklab.qulee module</a></li>
@@ -316,6 +317,30 @@
 converted ones</p>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="module-aklab.dirutil">
+<span id="aklab-dirutil-module"></span><h2>aklab.dirutil module<a class="headerlink" href="#module-aklab.dirutil" title="Permalink to this headline">¶</a></h2>
+<p>Tools to work with files and folders, uses <code class="code docutils literal notranslate"><span class="pre">os</span></code>, <code class="code docutils literal notranslate"><span class="pre">shutil</span></code>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.dirutil.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/dirutil.html#copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.dirutil.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy files</p>
+<dl class="simple">
+<dt>scrs: string</dt><dd><p>source directory</p>
+</dd>
+<dt>targ: string</dt><dd><p>target directory</p>
+</dd>
+<dt>key: str</dt><dd><p>search for key in <code class="xref py py-func docutils literal notranslate"><span class="pre">os.listdir(src)()</span></code></p>
+</dd>
+<dt>copy: bool</dt><dd><p>default False, if True - will copy</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>list or None</dt><dd><p>if no exception, will return list of matching filenames</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

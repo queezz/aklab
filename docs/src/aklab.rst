@@ -28,6 +28,14 @@ aklab.controlunit module
    :undoc-members:
    :show-inheritance:
 
+aklab.dirutil module
+--------------------
+
+.. automodule:: aklab.dirutil
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 aklab.langmuir module
 ---------------------
 

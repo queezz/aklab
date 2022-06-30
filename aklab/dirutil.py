@@ -8,7 +8,7 @@ def copy(src, targ, key, copy=False):
     """
     Copy files
 
-    Parameters:
+    Parameters
     -----------
     scrs: string
         source directory
@@ -19,7 +19,7 @@ def copy(src, targ, key, copy=False):
     copy: bool
         default False, if True - will copy
 
-    Returns:
+    Returns
     --------
     list or None
         if no exception, will return list of matching filenames
