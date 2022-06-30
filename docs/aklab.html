@@ -34,6 +34,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -99,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="controlunit.html">Controlunit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dirutil.html">Dirutil</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">aklab</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">aklab package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
@@ -271,6 +273,7 @@
 </section>
 <section id="module-aklab.constants">
 <span id="aklab-constants-module"></span><h2>aklab.constants module<a class="headerlink" href="#module-aklab.constants" title="Permalink to this headline">¶</a></h2>
+<p>package constants</p>
 </section>
 <section id="module-aklab.controlunit">
 <span id="aklab-controlunit-module"></span><h2>aklab.controlunit module<a class="headerlink" href="#module-aklab.controlunit" title="Permalink to this headline">¶</a></h2>
@@ -371,18 +374,20 @@ converted ones</p>
 <p>Convinience function for Matplotlib</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="aklab.mpls.figprep">
-<span class="sig-name descname"><span class="pre">figprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">246</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#figprep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.figprep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create matplotlib figure with given width in points
-for <cite>kws</cite> see <cite>set_size</cite></p>
+<span class="sig-name descname"><span class="pre">figprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">246</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#figprep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.figprep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create matplotlib figure with given width in points</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>width</strong> (<em>float</em>) – figure width in points</p></li>
-<li><p><strong>dpi</strong> (<em>float</em>) – figure dpi, use to increase displayed figure in a notebook</p></li>
+<li><p><strong>aklab.mpls.set_size</strong> (<em>Keyword Arguments for</em>) – </p></li>
+<li><p><strong>-----------------</strong> – </p></li>
+<li><p><strong>subplots</strong> (<em>aray-like</em>) – The number of rows and columns</p></li>
+<li><p><strong>ratio</strong> (<em>float</em><em> or </em><em>string</em>) – ratio=fig_hight_pt/fig_width_pt</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>subplots</strong> – (fig, axs), a matplotlib.pylab.subplots</p>
+<dd class="field-even"><p><strong>(fig, axs)</strong> – matplotlib.pylab.subplots</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
@@ -436,7 +441,10 @@ specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Hel
 <dl class="py function">
 <dt class="sig sig-object py" id="aklab.mpls.ltexp">
 <span class="sig-name descname"><span class="pre">ltexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#ltexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.ltexp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts float to the scientific notation LaTeX string, (1.23e31 rightarrow  1.23times 10^{31} )</p>
+<dd><dl class="simple">
+<dt>Converts float to the scientific notation LaTeX string,</dt><dd><p><span class="math notranslate nohighlight">\(1.23e31 \rightarrow  1.23\times 10^{31}\)</span></p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -525,7 +533,7 @@ Created 2021/06/11 by queezz</p>
 <p>Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>datapath</strong> (<em>string</em>) – path to converted to <cite>csv</cite> format Qulee QMS data.</p>
+<dd class="field-odd"><p><strong>datapath</strong> (<em>string</em>) – path to converted to csv format Qulee QMS data.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -537,7 +545,7 @@ Created 2021/06/11 by queezz</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="aklab.qulee.QMS.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>plot time traces</p>
+<dd><p>Plot time traces</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -557,8 +565,7 @@ Created 2021/06/11 by queezz</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="aklab.qulee.QMS.qms_file_parser">
 <span class="sig-name descname"><span class="pre">qms_file_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.qms_file_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.qms_file_parser" title="Permalink to this definition">¶</a></dt>
-<dd><p>” Given filepath to ULVAC’s Qulee BGM QMS file, converted to <a href="#id1"><span class="problematic" id="id2">*</span></a>.csv,
-Parses the header, extracts column names, QMS settings, and line number where data starts</p>
+<dd><p>Parses the QMS csv file header.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -603,17 +610,17 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <dl class="py function">
 <dt class="sig sig-object py" id="aklab.qulee.plot_qms_dir">
 <span class="sig-name descname"><span class="pre">plot_qms_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'batch_qms_plot.pdf'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#plot_qms_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.plot_qms_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provided dir, reads all converted Quelee <a href="#id3"><span class="problematic" id="id4">*</span></a>.csv’s and plots into a PDF</p>
+<dd><p>Plot QMS files in a directory or from a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ls</strong> (<em>list of absolute paths to files to plot</em>) – OR</p></li>
+<li><p><strong>ls</strong> (<em>list</em>) – list of absolute paths to files to plot</p></li>
 <li><p><strong>dir</strong> (<em>string</em>) – directory to scan and plot</p></li>
 <li><p><strong>out</strong> (<em>string</em>) – output pdf file name or absolute path</p></li>
 <li><p><strong>ext</strong> (<em>string</em>) – files extention, CSV by default</p></li>
 <li><p><strong>figsize</strong> (<em>float</em>) – figure width, 500 by default</p></li>
 <li><p><strong>anchor</strong> (<em>list</em>) – Matplotlib bbox_to_inches [1,1]</p></li>
-<li><p><strong>rasterized</strong> (<em>bool</em>) – Matplotlib’s rasterized option, when there are too many lines for a PDF</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – Matplotlib s rasterized option, when there are too many lines for a PDF</p></li>
 <li><p><strong>ylim</strong> (<em>list</em><em> or </em><em>tuple</em>) – by default [1e-14,1e-5]</p></li>
 </ul>
 </dd>
