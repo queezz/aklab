@@ -14,7 +14,7 @@ import os
 import sys
 
 # sphinx-apidoc -o .\src ..\aklab 'setup.py' -f
-# xcopy .\_build\html\ .\ /y
+# xcopy .\_build\html\ .\ /s /y
 
 sys.path.insert(0, os.path.abspath("..."))
 
