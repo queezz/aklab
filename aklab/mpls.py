@@ -190,26 +190,24 @@ def set_tick_size(ax, size):
     ax.yaxis.set_tick_params(width=width_minor, length=length_minor, which="minor")
 
 
-def figprep(width=246, **kws):
+def figprep(width=246, subplots=[1, 1], dpi=100, **kws):
     """ Create matplotlib figure with given width in points
     
     Parameters
     ----------
     width: float
         figure width in points
-
-    Keyword Arguments for aklab.mpls.set_size
-    -----------------
     subplots: aray-like
-            The number of rows and columns
-    ratio: float or string
-            ratio=fig_hight_pt/fig_width_pt
+            [1,1] by default. The number of rows and columns.
+    dpi: int
+        figure dpi, useflu to adjust JupyterLab figure size
 
     Returns
     -------
-    (fig, axs): tuple
-            matplotlib.pylab.subplots
+    tuple
+            (fig, axs), matplotlib.pylab.subplots
     """
-    subplots = kws.get("subplots", [1, 1])
-    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=200)
+    return plt.subplots(
+        subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi
+    )
 

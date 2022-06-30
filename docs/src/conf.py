@@ -38,7 +38,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "jupyter_sphinx",
     "sphinx.ext.napoleon",
-    "myst_nb",
+    "myst_nb",  # conda install -c conda-forge myst-nb
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -70,7 +70,8 @@ pygments_style = "sphinx"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+# html_theme = "sphinx_rtd_theme"
+html_theme = "python_docs_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
