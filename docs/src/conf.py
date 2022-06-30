@@ -14,6 +14,7 @@ import os
 import sys
 
 # sphinx-apidoc -o .\src ..\aklab 'setup.py' -f
+# Separate pages for each module
 # sphinx-apidoc -o .\src ..\aklab 'setup.py' -f --separate
 # xcopy .\_build\html\ .\ /s /y
 

@@ -6,6 +6,8 @@
 Welcome to aklab's documentation!
 =================================
 
+`github.com/queezz/aklab <https://github.com/queezz/aklab>`_
+
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
