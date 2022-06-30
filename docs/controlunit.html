@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Controlunit &mdash; aklab  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matplotlib tools" href="mpls.html" />
+    <link rel="prev" title="Qulee QMS" href="qulee.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> aklab
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Controlunit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpls.html">Matplotlib tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">aklab</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">aklab</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Controlunit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/controlunit.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="controlunit">
+<span id="id1"></span><h1>Controlunit<a class="headerlink" href="#controlunit" title="Permalink to this headline">¶</a></h1>
+<p>Use <a class="reference internal" href="aklab.html#aklab.controlunit.Raspi" title="aklab.controlunit.Raspi"><code class="xref py py-class docutils literal notranslate"><span class="pre">Raspi</span></code></a> to read ADC and TC datafiles.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">ADC convertion in <a class="reference internal" href="aklab.html#aklab.controlunit.Raspi.convert_signals" title="aklab.controlunit.Raspi.convert_signals"><code class="xref py py-func docutils literal notranslate"><span class="pre">convert_signals()</span></code></a></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="c1"># 11.46 convert Pfeiffer signal to pressure</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pu</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.667</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;P2&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">11.46</span><span class="p">)</span>
+    <span class="c1"># convert linear IG signal to pressure</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;P1&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;IGscale&quot;</span><span class="p">]</span>
+    <span class="c1"># plasma current from hall sensor</span>
+    <span class="k">def</span> <span class="nf">iconv</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="mf">2.52</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">iconv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;Ip&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">run</span> ../aklab/controlunit.py
+<span class="n">raspi</span> <span class="o">=</span> <span class="n">Raspi</span><span class="p">(</span><span class="n">bpath</span><span class="o">=</span><span class="s1">&#39;../data&#39;</span><span class="p">,</span><span class="n">timestamp</span><span class="o">=</span><span class="s1">&#39;20210219_124135&#39;</span><span class="p">)</span>
+<span class="n">raspi</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/controlunit_0_0.png" src="_images/controlunit_0_0.png" />
+</div>
+</div>
+<p><a class="reference internal" href="aklab.html#aklab.controlunit.Raspi" title="aklab.controlunit.Raspi"><code class="xref py py-class docutils literal notranslate"><span class="pre">Raspi</span></code></a> contains two separate <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> with ADC and TC data.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fmt</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%y%m</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">),</span><span class="s1">&#39;pd&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{:.1e}</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;pu&#39;</span><span class="p">:</span><span class="s1">&#39;</span><span class="si">{:.1e}</span><span class="s1">&#39;</span><span class="p">}</span>
+<span class="n">raspi</span><span class="o">.</span><span class="n">df_adc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_63c38">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_63c38_level0_col0" class="col_heading level0 col0" >date</th>
+      <th id="T_63c38_level0_col1" class="col_heading level0 col1" >ip</th>
+      <th id="T_63c38_level0_col2" class="col_heading level0 col2" >pd</th>
+      <th id="T_63c38_level0_col3" class="col_heading level0 col3" >pu</th>
+      <th id="T_63c38_level0_col4" class="col_heading level0 col4" >time</th>
+      <th id="T_63c38_level0_col5" class="col_heading level0 col5" >P1</th>
+      <th id="T_63c38_level0_col6" class="col_heading level0 col6" >P2</th>
+      <th id="T_63c38_level0_col7" class="col_heading level0 col7" >Ip</th>
+      <th id="T_63c38_level0_col8" class="col_heading level0 col8" >IGmode</th>
+      <th id="T_63c38_level0_col9" class="col_heading level0 col9" >IGscale</th>
+      <th id="T_63c38_level0_col10" class="col_heading level0 col10" >QMS_signal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_63c38_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_63c38_row0_col0" class="data row0 col0" >210219 12:41:35</td>
+      <td id="T_63c38_row0_col1" class="data row0 col1" >-0.4</td>
+      <td id="T_63c38_row0_col2" class="data row0 col2" >3.4e-07</td>
+      <td id="T_63c38_row0_col3" class="data row0 col3" >4.7e-07</td>
+      <td id="T_63c38_row0_col4" class="data row0 col4" >0.2</td>
+      <td id="T_63c38_row0_col5" class="data row0 col5" >0.3</td>
+      <td id="T_63c38_row0_col6" class="data row0 col6" >3.1</td>
+      <td id="T_63c38_row0_col7" class="data row0 col7" >2.4</td>
+      <td id="T_63c38_row0_col8" class="data row0 col8" >0.0</td>
+      <td id="T_63c38_row0_col9" class="data row0 col9" >-6.0</td>
+      <td id="T_63c38_row0_col10" class="data row0 col10" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_63c38_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_63c38_row1_col0" class="data row1 col0" >210219 12:41:35</td>
+      <td id="T_63c38_row1_col1" class="data row1 col1" >-0.4</td>
+      <td id="T_63c38_row1_col2" class="data row1 col2" >3.4e-07</td>
+      <td id="T_63c38_row1_col3" class="data row1 col3" >4.7e-07</td>
+      <td id="T_63c38_row1_col4" class="data row1 col4" >0.3</td>
+      <td id="T_63c38_row1_col5" class="data row1 col5" >0.3</td>
+      <td id="T_63c38_row1_col6" class="data row1 col6" >3.1</td>
+      <td id="T_63c38_row1_col7" class="data row1 col7" >2.4</td>
+      <td id="T_63c38_row1_col8" class="data row1 col8" >0.0</td>
+      <td id="T_63c38_row1_col9" class="data row1 col9" >-6.0</td>
+      <td id="T_63c38_row1_col10" class="data row1 col10" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_63c38_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_63c38_row2_col0" class="data row2 col0" >210219 12:41:35</td>
+      <td id="T_63c38_row2_col1" class="data row2 col1" >-0.4</td>
+      <td id="T_63c38_row2_col2" class="data row2 col2" >3.4e-07</td>
+      <td id="T_63c38_row2_col3" class="data row2 col3" >4.7e-07</td>
+      <td id="T_63c38_row2_col4" class="data row2 col4" >0.4</td>
+      <td id="T_63c38_row2_col5" class="data row2 col5" >0.3</td>
+      <td id="T_63c38_row2_col6" class="data row2 col6" >3.1</td>
+      <td id="T_63c38_row2_col7" class="data row2 col7" >2.4</td>
+      <td id="T_63c38_row2_col8" class="data row2 col8" >0.0</td>
+      <td id="T_63c38_row2_col9" class="data row2 col9" >-6.0</td>
+      <td id="T_63c38_row2_col10" class="data row2 col10" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_63c38_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_63c38_row3_col0" class="data row3 col0" >210219 12:41:35</td>
+      <td id="T_63c38_row3_col1" class="data row3 col1" >-0.4</td>
+      <td id="T_63c38_row3_col2" class="data row3 col2" >3.4e-07</td>
+      <td id="T_63c38_row3_col3" class="data row3 col3" >4.7e-07</td>
+      <td id="T_63c38_row3_col4" class="data row3 col4" >0.5</td>
+      <td id="T_63c38_row3_col5" class="data row3 col5" >0.3</td>
+      <td id="T_63c38_row3_col6" class="data row3 col6" >3.1</td>
+      <td id="T_63c38_row3_col7" class="data row3 col7" >2.4</td>
+      <td id="T_63c38_row3_col8" class="data row3 col8" >0.0</td>
+      <td id="T_63c38_row3_col9" class="data row3 col9" >-6.0</td>
+      <td id="T_63c38_row3_col10" class="data row3 col10" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_63c38_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_63c38_row4_col0" class="data row4 col0" >210219 12:41:35</td>
+      <td id="T_63c38_row4_col1" class="data row4 col1" >-0.4</td>
+      <td id="T_63c38_row4_col2" class="data row4 col2" >3.4e-07</td>
+      <td id="T_63c38_row4_col3" class="data row4 col3" >4.7e-07</td>
+      <td id="T_63c38_row4_col4" class="data row4 col4" >0.6</td>
+      <td id="T_63c38_row4_col5" class="data row4 col5" >0.3</td>
+      <td id="T_63c38_row4_col6" class="data row4 col6" >3.1</td>
+      <td id="T_63c38_row4_col7" class="data row4 col7" >2.4</td>
+      <td id="T_63c38_row4_col8" class="data row4 col8" >0.0</td>
+      <td id="T_63c38_row4_col9" class="data row4 col9" >-6.0</td>
+      <td id="T_63c38_row4_col10" class="data row4 col10" >0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raspi</span><span class="o">.</span><span class="n">df_tc</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span><span class="n">precision</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+</style>
+<table id="T_c39bf">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_c39bf_level0_col0" class="col_heading level0 col0" >date</th>
+      <th id="T_c39bf_level0_col1" class="col_heading level0 col1" >time</th>
+      <th id="T_c39bf_level0_col2" class="col_heading level0 col2" >T</th>
+      <th id="T_c39bf_level0_col3" class="col_heading level0 col3" >PresetT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_c39bf_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_c39bf_row0_col0" class="data row0 col0" >210219 12:41:35</td>
+      <td id="T_c39bf_row0_col1" class="data row0 col1" >0.3</td>
+      <td id="T_c39bf_row0_col2" class="data row0 col2" >27.5</td>
+      <td id="T_c39bf_row0_col3" class="data row0 col3" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_c39bf_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_c39bf_row1_col0" class="data row1 col0" >210219 12:41:35</td>
+      <td id="T_c39bf_row1_col1" class="data row1 col1" >0.5</td>
+      <td id="T_c39bf_row1_col2" class="data row1 col2" >27.5</td>
+      <td id="T_c39bf_row1_col3" class="data row1 col3" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_c39bf_level0_row2" class="row_heading level0 row2" >2</th>
+      <td id="T_c39bf_row2_col0" class="data row2 col0" >210219 12:41:35</td>
+      <td id="T_c39bf_row2_col1" class="data row2 col1" >0.8</td>
+      <td id="T_c39bf_row2_col2" class="data row2 col2" >27.8</td>
+      <td id="T_c39bf_row2_col3" class="data row2 col3" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_c39bf_level0_row3" class="row_heading level0 row3" >3</th>
+      <td id="T_c39bf_row3_col0" class="data row3 col0" >210219 12:41:36</td>
+      <td id="T_c39bf_row3_col1" class="data row3 col1" >1.1</td>
+      <td id="T_c39bf_row3_col2" class="data row3 col2" >27.8</td>
+      <td id="T_c39bf_row3_col3" class="data row3 col3" >0.0</td>
+    </tr>
+    <tr>
+      <th id="T_c39bf_level0_row4" class="row_heading level0 row4" >4</th>
+      <td id="T_c39bf_row4_col0" class="data row4 col0" >210219 12:41:36</td>
+      <td id="T_c39bf_row4_col1" class="data row4 col1" >1.3</td>
+      <td id="T_c39bf_row4_col2" class="data row4 col2" >27.8</td>
+      <td id="T_c39bf_row4_col3" class="data row4 col3" >0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mpls.html" class="btn btn-neutral float-right" title="Matplotlib tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="qulee.html" class="btn btn-neutral float-left" title="Qulee QMS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, A.K.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

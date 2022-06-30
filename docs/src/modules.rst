@@ -5,4 +5,3 @@ aklab
    :maxdepth: 4
 
    aklab
-   setup

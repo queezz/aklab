@@ -8,12 +8,13 @@ from aklab.constants import *
 
 
 class QMS:
-    """Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.
+    """
+    Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.
     
     Parameters
     ----------
     datapath: string
-            path to converted to `csv` format Qulee QMS data.
+            path to converted to csv format Qulee QMS data.
     """
 
     def __init__(self, datapath):
@@ -25,8 +26,8 @@ class QMS:
         self.clr = generate_colors(self.masslist)
 
     def qms_file_parser(self):
-        """ " Given filepath to ULVAC's Qulee BGM QMS file, converted to *.csv,
-        Parses the header, extracts column names, QMS settings, and line number where data starts
+        """ 
+        Parses the QMS csv file header.
         """
         import codecs
         import datetime
@@ -81,7 +82,8 @@ class QMS:
             self.masslist = [int(i[1:]) for i in self.colnames if i.startswith("m")]
 
     def load_data(self):
-        """Generates DataFrame from qms data with proper datetime column for time
+        """
+        Generates DataFrame from qms data with proper datetime column for time
         """
         import pandas as pd
         from pandas import read_csv
@@ -103,7 +105,8 @@ class QMS:
         self.data = qmsdata
 
     def slice(self, delta):
-        """ Slice DataFrame by datetime interval
+        """
+        Slice DataFrame by datetime interval
 
         Parameters
         ----------
@@ -120,7 +123,8 @@ class QMS:
         return self.data.query(f"{a} < date < {b}")
 
     def plot(self, **kws):
-        """plot time traces
+        """
+        Plot time traces
         
         Parameters
         ----------
@@ -141,7 +145,7 @@ class QMS:
         bbox_to_anchor: list or tuple
             bbox_to_anchor argument for matplotlib legend
         """
-        import matplotlib.pylab as plt
+        import matplotlib.pyplot as plt
         from matplotlib.ticker import AutoMinorLocator
 
         fro, tto = kws.get("delta", [self.start, self.end])
@@ -271,7 +275,8 @@ def qmsplotticks(ax):
 
 
 def tocsv(filename, **kws):
-    """ Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.
+    """
+    Convert `*.qst` binary into a `*.csv`. Works only with Quelee QMS software installed.
 
     Parameters
     ----------
@@ -323,7 +328,8 @@ def tocsv(filename, **kws):
 
 
 def generate_colors(masslist, **kws):
-    """ Generate colors based on masslist
+    """
+    Generate colors based on masslist
     
     Parameters
     ----------
@@ -336,7 +342,7 @@ def generate_colors(masslist, **kws):
     clr: list
         list of colors
     """
-    import matplotlib.pylab as plt, numpy as np
+    import matplotlib.pyplot as plt, numpy as np
 
     cmap = kws.get("cmap", plt.cm.twilight)
 
@@ -353,14 +359,15 @@ def generate_colors(masslist, **kws):
 
 
 def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
-    """ Provided dir, reads all converted Quelee *.csv's and plots into a PDF
+    """
+    Plot QMS files in a directory or from a list.
 
     Parameters
     ----------
-    ls: list of absolute paths to files to plot
-        OR
+    ls: list 
+        list of absolute paths to files to plot
     dir: string
-            directory to scan and plot
+        directory to scan and plot
     out: string 
         output pdf file name or absolute path
     ext: string
@@ -370,11 +377,11 @@ def plot_qms_dir(dir="", ls=[], out="batch_qms_plot.pdf", **kws):
     anchor: list
         Matplotlib bbox_to_inches [1,1]
     rasterized: bool
-        Matplotlib's rasterized option, when there are too many lines for a PDF
+        Matplotlib s rasterized option, when there are too many lines for a PDF
     ylim: list or tuple
-           by default [1e-14,1e-5]        
+           by default [1e-14,1e-5] 
     """
-    import os, matplotlib.pylab as plt, numpy as np
+    import os, matplotlib.pyplot as plt, numpy as np
     from matplotlib.backends.backend_pdf import PdfPages
     import aklab.mpls as akmpl
 

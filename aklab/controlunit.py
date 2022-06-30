@@ -126,7 +126,7 @@ class Raspi:
         plt.xticks(rotation=25, ha="right")
 
         gridalpha = kws.get("gridalpha", [0.1, 0.3])
-        [akmp.grid_visual(ax, gridalpha=gridalpha) for ax in axs]
+        [akmp.grid_visual(ax, alpha=gridalpha) for ax in axs]
         [akmp.ticks_visual(ax) for ax in axs]
         axs[0].set_yscale("log")
 

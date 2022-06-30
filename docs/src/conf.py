@@ -13,7 +13,8 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(".."))
+# sphinx-apidoc -o .\src ..\aklab 'setup.py' -f
+sys.path.insert(0, os.path.abspath("..."))
 
 
 # -- Project information -----------------------------------------------------
@@ -34,7 +35,8 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.githubpages",
     "jupyter_sphinx",
-    "jupyter_sphinx.execute",
+    "sphinx.ext.napoleon",
+    "myst_nb",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

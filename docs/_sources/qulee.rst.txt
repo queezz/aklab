@@ -1,8 +1,11 @@
-.. _intro_chapter:
+.. _qms:
 
 =====================================================
-Qulee QMS parsing and converting
+Qulee QMS
 =====================================================
+
+Read and plot
+-------------
 
 Use :class:`~aklab.qulee.QMS` to read a converted `*.csv` QMS file.
 
@@ -12,10 +15,16 @@ Use :class:`~aklab.qulee.QMS` to read a converted `*.csv` QMS file.
     qms = QMS('../data/S1_210208_131938.CSV')
     qms.plot()
 
+Data formatting
+---------------
+
+Data is formatted as in this example. :code:`.iloc[:,:8]` is used to reduce the output table size.
+
 .. jupyter-execute::
          
     fmt = {i:'{:.1e}' for i in qms.data.keys()[4:]}
-    qms.data.head(5).style.format(fmt)
+    fmt['date'] = lambda t: t.strftime("%y%m%d %H:%M:%S")
+    qms.data.head(5).iloc[:,:8].style.format(fmt,precision=2)
 
 Use :meth:`~aklab.qulee.QMS.slice` to get a portion of the data.
 
@@ -23,4 +32,4 @@ Use :meth:`~aklab.qulee.QMS.slice` to get a portion of the data.
      
     from datetime import datetime as dt
     sliced = qms.slice([dt(2021,2,8,13,19,40),dt(2021,2,8,13,19,41)])
-    sliced.style.format(fmt,precision=2) 
+    sliced.iloc[:,:8].style.format(fmt,precision=2)

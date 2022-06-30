@@ -27,9 +27,13 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/thebelab-helper.js"></script>
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -42,9 +46,10 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
   <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+  <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
+  <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="setup module" href="setup.html" />
     <link rel="prev" title="aklab" href="modules.html" /> 
 </head>
 
@@ -91,7 +96,9 @@
             
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS parsing and converting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qulee.html">Qulee QMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="controlunit.html">Controlunit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpls.html">Matplotlib tools</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">aklab</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">aklab package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
@@ -108,7 +115,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-aklab">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 </li>
 </ul>
@@ -231,29 +237,40 @@
 <dt class="sig sig-object py" id="aklab.Recombination.convert_itoj">
 <span class="sig-name descname"><span class="pre">convert_itoj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.73</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">69.68</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.97e-07</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#convert_itoj"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.convert_itoj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add description</p>
-<p>i: float
-k1: float
-k2: float
-c1: float</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> (<em>float</em>) – </p></li>
+<li><p><strong>k1</strong> (<em>float</em>) – </p></li>
+<li><p><strong>k2</strong> (<em>float</em>) – </p></li>
+<li><p><strong>c1</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="aklab.Recombination.disp_table">
 <span class="sig-name descname"><span class="pre">disp_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">28</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titlefontname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/Recombination.html#disp_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.Recombination.disp_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add description</p>
-<p>df: pandas.DataFrame
-index: None
-save: bool
-dpi: int
-figsize: None 
-fontsize: int
-titlefontname: string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.DataFrame</em>) – </p></li>
+<li><p><strong>index</strong> (<em>None</em>) – </p></li>
+<li><p><strong>save</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>dpi</strong> (<em>int</em>) – </p></li>
+<li><p><strong>figsize</strong> (<em>None</em>) – </p></li>
+<li><p><strong>fontsize</strong> (<em>int</em>) – </p></li>
+<li><p><strong>titlefontname</strong> (<em>string</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
 <section id="module-aklab.constants">
 <span id="aklab-constants-module"></span><h2>aklab.constants module<a class="headerlink" href="#module-aklab.constants" title="Permalink to this headline">¶</a></h2>
-<p>package constants</p>
 </section>
 <section id="module-aklab.controlunit">
 <span id="aklab-controlunit-module"></span><h2>aklab.controlunit module<a class="headerlink" href="#module-aklab.controlunit" title="Permalink to this headline">¶</a></h2>
@@ -266,12 +283,13 @@ titlefontname: string</p>
 <dt class="sig sig-object py" id="aklab.controlunit.Raspi.convert_signals">
 <span class="sig-name descname"><span class="pre">convert_signals</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/controlunit.html#Raspi.convert_signals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.controlunit.Raspi.convert_signals" title="Permalink to this definition">¶</a></dt>
 <dd><p>convert ADC signals from raw volts to proper units</p>
-<dl class="simple">
-<dt>self.pu: numpy.array</dt><dd><p>upstream pressure, plasma chamber</p>
-</dd>
-<dt>self.pd: numpy.array</dt><dd><p>downstream pressure, permeation chamber</p>
-</dd>
-<dt>self.ip:   numpy.array</dt><dd><p>plasma current</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self.pu</strong> (<em>numpy.array</em>) – upstream pressure, plasma chamber</p></li>
+<li><p><strong>self.pd</strong> (<em>numpy.array</em>) – downstream pressure, permeation chamber</p></li>
+<li><p><strong>self.ip</strong> (<em>numpy.array</em>) – plasma current</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -306,7 +324,7 @@ converted ones</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Langmuirprobe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/langmuir.html#Langmuirprobe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.langmuir.Langmuirprobe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Add docstring
-<em>TODO</em>: 
+<em>TODO</em>:
 - add base path to data as an argument to this class
 - move plot functions from <cite>__init__</cite> to separate method
 - separate calculations over dataframe from plots</p>
@@ -356,14 +374,18 @@ converted ones</p>
 <span class="sig-name descname"><span class="pre">figprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">246</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#figprep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.figprep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create matplotlib figure with given width in points
 for <cite>kws</cite> see <cite>set_size</cite></p>
-<dl class="simple">
-<dt>width: float</dt><dd><p>figure width in points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>float</em>) – figure width in points</p></li>
+<li><p><strong>dpi</strong> (<em>float</em>) – figure dpi, use to increase displayed figure in a notebook</p></li>
+</ul>
 </dd>
-<dt>dpi: float</dt><dd><p>figure dpi, use to increase displayed figure in a notebook</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>subplots</strong> – (fig, axs), a matplotlib.pylab.subplots</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>subplots: tuple</dt><dd><p>(fig, axs), a matplotlib.pylab.subplots</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
@@ -379,14 +401,14 @@ for <cite>kws</cite> see <cite>set_size</cite></p>
 <span class="sig-name descname"><span class="pre">font_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">13</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'serif'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Sans'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#font_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.font_setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set-up font for matplotlib using rc, see <a class="reference external" href="https://matplotlib.org/stable/tutorials/text/text_props.html">https://matplotlib.org/stable/tutorials/text/text_props.html</a>
 specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Helvetica’ …]</p>
-<dl class="simple">
-<dt>family: string</dt><dd><p>[ ‘serif’ | ‘sans-serif’ | ‘cursive’ | ‘fantasy’ | ‘monospace’ ]</p>
-</dd>
-<dt>weight: string</dt><dd><p>[ ‘normal’ | ‘bold’ | ‘heavy’ | ‘light’ | ‘ultrabold’ | ‘ultralight’]</p>
-</dd>
-<dt>size: float</dt><dd><p>18 by default</p>
-</dd>
-<dt>color: string</dt><dd><p>any matplotlib color</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family</strong> (<em>string</em>) – [ ‘serif’ | ‘sans-serif’ | ‘cursive’ | ‘fantasy’ | ‘monospace’ ]</p></li>
+<li><p><strong>weight</strong> (<em>string</em>) – [ ‘normal’ | ‘bold’ | ‘heavy’ | ‘light’ | ‘ultrabold’ | ‘ultralight’]</p></li>
+<li><p><strong>size</strong> (<em>float</em>) – 18 by default</p></li>
+<li><p><strong>color</strong> (<em>string</em>) – any matplotlib color</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -395,10 +417,12 @@ specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Hel
 <dt class="sig sig-object py" id="aklab.mpls.grid_visual">
 <span class="sig-name descname"><span class="pre">grid_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.1,</span> <span class="pre">0.3]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#grid_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.grid_visual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets grid on and adjusts the grid style.</p>
-<dl class="simple">
-<dt>ax: matplotlib.pylab.axes</dt><dd><p>Axes where the grid will be displayed.</p>
-</dd>
-<dt>alpha: array-like</dt><dd><p>alpha = [minor alpha, major alpha] - transparancy of grid lines</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.pylab.axes</em>) – Axes where the grid will be displayed.</p></li>
+<li><p><strong>alpha</strong> (<em>array-like</em>) – alpha = [minor alpha, major alpha] - transparancy of grid lines</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -412,16 +436,14 @@ specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Hel
 <dl class="py function">
 <dt class="sig sig-object py" id="aklab.mpls.ltexp">
 <span class="sig-name descname"><span class="pre">ltexp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">short</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#ltexp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.ltexp" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>Converts float to the scientific notation LaTeX string,</dt><dd><p><span class="math notranslate nohighlight">\(1.23e31 \rightarrow  1.23\times 10^{31}\)</span></p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>val: float</dt><dd><p>number to convert</p>
-</dd>
-<dt>decplace: int</dt><dd><p>number of decimal places to display in the pre-exponent</p>
-</dd>
-<dt>short: bool</dt><dd><p>if True, only shows exponent part</p>
+<dd><p>Converts float to the scientific notation LaTeX string, (1.23e31 rightarrow  1.23times 10^{31} )</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>val</strong> (<em>float</em>) – number to convert</p></li>
+<li><p><strong>decplace</strong> (<em>int</em>) – number of decimal places to display in the pre-exponent</p></li>
+<li><p><strong>short</strong> (<em>bool</em>) – if True, only shows exponent part</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -436,18 +458,20 @@ specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Hel
 <dt class="sig sig-object py" id="aklab.mpls.set_size">
 <span class="sig-name descname"><span class="pre">set_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'golden'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#set_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.set_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set figure dimensions to avoid scaling in LaTeX.</p>
-<dl class="simple">
-<dt>width: float or string</dt><dd><p>Document width in points, or string of predined document type</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>float</em><em> or </em><em>string</em>) – Document width in points, or string of predined document type</p></li>
+<li><p><strong>fraction</strong> (<em>float</em><em>, </em><em>optional</em>) – Fraction of the width which you wish the figure to occupy</p></li>
+<li><p><strong>subplots</strong> (<em>array-like</em><em>, </em><em>optional</em>) – The number of rows and columns of subplots.</p></li>
+<li><p><strong>ratio</strong> (<em>float</em><em> or </em><em>string.</em>) – ratio = fig_hight_pt/fig_width_pt. If ‘golden’ equals to golden ratio</p></li>
+</ul>
 </dd>
-<dt>fraction: float, optional</dt><dd><p>Fraction of the width which you wish the figure to occupy</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>fig_dim</strong> – Dimensions of figure in inches</p>
 </dd>
-<dt>subplots: array-like, optional</dt><dd><p>The number of rows and columns of subplots.</p>
-</dd>
-<dt>ratio: float or string.</dt><dd><p>ratio = fig_hight_pt/fig_width_pt. If ‘golden’ equals to golden ratio</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>fig_dim: tuple</dt><dd><p>Dimensions of figure in inches</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>
@@ -457,10 +481,12 @@ specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Hel
 <span class="sig-name descname"><span class="pre">set_tick_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#set_tick_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.set_tick_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set matplotlib axis tick sizes
 For some reason the length from style is ignored.</p>
-<dl class="simple">
-<dt>ax: matplotlib.pylab.axes</dt><dd><p>axes for adjustment</p>
-</dd>
-<dt>size: array-like</dt><dd><p>size = [width_major, length_major, width_minor, length_minor]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.pylab.axes</em>) – axes for adjustment</p></li>
+<li><p><strong>size</strong> (<em>array-like</em>) – size = [width_major, length_major, width_minor, length_minor]</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -475,12 +501,13 @@ For some reason the length from style is ignored.</p>
 <dt class="sig sig-object py" id="aklab.mpls.ticks_visual">
 <span class="sig-name descname"><span class="pre">ticks_visual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[7,</span> <span class="pre">4,</span> <span class="pre">1,</span> <span class="pre">0.8]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">which</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'both'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#ticks_visual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.ticks_visual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes auto minor and major ticks for matplotlib figure and adjusts ticks sizes.</p>
-<dl class="simple">
-<dt>ax: matplotlib.pylab.axes</dt><dd><p>axes</p>
-</dd>
-<dt>size: array-like</dt><dd><p>size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks</p>
-</dd>
-<dt>which: string</dt><dd><p>which = [‘x’| ‘y’ | ‘both’] - set auto minor locator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>matplotlib.pylab.axes</em>) – axes</p></li>
+<li><p><strong>size</strong> (<em>array-like</em>) – size = [l1,l2,w1,w2] length and width for major (1) and minor (2) ticks</p></li>
+<li><p><strong>which</strong> (<em>string</em>) – which = [‘x’| ‘y’ | ‘both’] - set auto minor locator</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -496,8 +523,9 @@ Created 2021/06/11 by queezz</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QMS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">datapath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Read Qulee QMS CSV file, generate pandas.DataFrame, plot data.</p>
-<dl class="simple">
-<dt>datapath: string</dt><dd><p>path to converted to <cite>csv</cite> format Qulee QMS data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>datapath</strong> (<em>string</em>) – path to converted to <cite>csv</cite> format Qulee QMS data.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -510,22 +538,18 @@ Created 2021/06/11 by queezz</p>
 <dt class="sig sig-object py" id="aklab.qulee.QMS.plot">
 <span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>plot time traces</p>
-<dl class="simple">
-<dt>masslist: list</dt><dd><p>Specify list of masses to plot. Plots all by default.</p>
-</dd>
-<dt>delta: list</dt><dd><p>delta = [self.start, self.end] by default, datetime.datetime “window”</p>
-</dd>
-<dt>ylim: list or tuple </dt><dd><p>axis ylims</p>
-</dd>
-<dt>gridalpha: float</dt><dd><p>transparancy of the grid lines</p>
-</dd>
-<dt>figsize: tuple</dt><dd><p>figure size, (8,6) by default</p>
-</dd>
-<dt>rasterized: bool</dt><dd><p>rasterized option for matplotlib</p>
-</dd>
-<dt>colors: list</dt><dd><p>list of colors for color cycle</p>
-</dd>
-<dt>bbox_to_anchor: list or tuple</dt><dd><p>bbox_to_anchor argument for matplotlib legend</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masslist</strong> (<em>list</em>) – Specify list of masses to plot. Plots all by default.</p></li>
+<li><p><strong>delta</strong> (<em>list</em>) – delta = [self.start, self.end] by default, datetime.datetime “window”</p></li>
+<li><p><strong>ylim</strong> (<em>list</em><em> or </em><em>tuple</em>) – axis ylims</p></li>
+<li><p><strong>gridalpha</strong> (<em>float</em>) – transparancy of the grid lines</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – figure size, (8,6) by default</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – rasterized option for matplotlib</p></li>
+<li><p><strong>colors</strong> (<em>list</em>) – list of colors for color cycle</p></li>
+<li><p><strong>bbox_to_anchor</strong> (<em>list</em><em> or </em><em>tuple</em>) – bbox_to_anchor argument for matplotlib legend</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -541,12 +565,15 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <dt class="sig sig-object py" id="aklab.qulee.QMS.slice">
 <span class="sig-name descname"><span class="pre">slice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#QMS.slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.QMS.slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slice DataFrame by datetime interval</p>
-<dl class="simple">
-<dt>delta: list</dt><dd><p>list of datetime.dateme objects for the start and the end of an interval</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>delta</strong> (<em>list</em>) – list of datetime.dateme objects for the start and the end of an interval</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>data: pandas.DataFrame</dt><dd><p>sliced qms dataframe</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – sliced qms dataframe</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -557,13 +584,18 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <dt class="sig sig-object py" id="aklab.qulee.generate_colors">
 <span class="sig-name descname"><span class="pre">generate_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">masslist</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#generate_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.generate_colors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate colors based on masslist</p>
-<dl class="simple">
-<dt>masslist: list</dt><dd><p>list of masses to be plotted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>masslist</strong> (<em>list</em>) – list of masses to be plotted</p></li>
+<li><p><strong>cmap</strong> (<em>matplotlib colormap for color cycle</em>) – </p></li>
+</ul>
 </dd>
-</dl>
-<p>cmap: matplotlib colormap for color cycle</p>
-<dl class="simple">
-<dt>clr: list</dt><dd><p>list of colors</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>clr</strong> – list of colors</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -572,22 +604,18 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <dt class="sig sig-object py" id="aklab.qulee.plot_qms_dir">
 <span class="sig-name descname"><span class="pre">plot_qms_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ls</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'batch_qms_plot.pdf'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#plot_qms_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.plot_qms_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provided dir, reads all converted Quelee <a href="#id3"><span class="problematic" id="id4">*</span></a>.csv’s and plots into a PDF</p>
-<dl class="simple">
-<dt>ls: list of absolute paths to files to plot</dt><dd><p>OR</p>
-</dd>
-<dt>dir: string</dt><dd><p>directory to scan and plot</p>
-</dd>
-<dt>out: string </dt><dd><p>output pdf file name or absolute path</p>
-</dd>
-<dt>ext: string</dt><dd><p>files extention, CSV by default</p>
-</dd>
-<dt>figsize: float</dt><dd><p>figure width, 500 by default</p>
-</dd>
-<dt>anchor: list</dt><dd><p>Matplotlib bbox_to_inches [1,1]</p>
-</dd>
-<dt>rasterized: bool</dt><dd><p>Matplotlib’s rasterized option, when there are too many lines for a PDF</p>
-</dd>
-<dt>ylim: list or tuple</dt><dd><p>by default [1e-14,1e-5]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ls</strong> (<em>list of absolute paths to files to plot</em>) – OR</p></li>
+<li><p><strong>dir</strong> (<em>string</em>) – directory to scan and plot</p></li>
+<li><p><strong>out</strong> (<em>string</em>) – output pdf file name or absolute path</p></li>
+<li><p><strong>ext</strong> (<em>string</em>) – files extention, CSV by default</p></li>
+<li><p><strong>figsize</strong> (<em>float</em>) – figure width, 500 by default</p></li>
+<li><p><strong>anchor</strong> (<em>list</em>) – Matplotlib bbox_to_inches [1,1]</p></li>
+<li><p><strong>rasterized</strong> (<em>bool</em>) – Matplotlib’s rasterized option, when there are too many lines for a PDF</p></li>
+<li><p><strong>ylim</strong> (<em>list</em><em> or </em><em>tuple</em>) – by default [1e-14,1e-5]</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -610,12 +638,15 @@ Parses the header, extracts column names, QMS settings, and line number where da
 <dd><p>Convert a time string of the Qulee format,
 ‘000:00:00.625’ -&gt; ‘hhh:mm:ss.ms’ to time in seconds.
 E.g ‘000:00:00.625’ to 0.625 (s)</p>
-<dl class="simple">
-<dt>t: string</dt><dd><p>Qulee time stamp string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>string</em>) – Qulee time stamp string</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>t: datetime.timedelta</dt><dd><p>datetime timedelta in seconds</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>t</strong> – datetime timedelta in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>datetime.timedelta</p>
 </dd>
 </dl>
 </dd></dl>
@@ -625,12 +656,15 @@ E.g ‘000:00:00.625’ to 0.625 (s)</p>
 <span class="sig-name descname"><span class="pre">t2sa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#t2sa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.t2sa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
 Just calls <cite>t2s</cite> in a loop.</p>
-<dl class="simple">
-<dt>ta: array-like</dt><dd><p>array of time-strings from Qulee QMS</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ta</strong> (<em>array-like</em>) – array of time-strings from Qulee QMS</p>
 </dd>
-</dl>
-<dl class="simple">
-<dt>timearray: numpy.array</dt><dd><p>numpy array with datetime.timedelta in seconds</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>timearray</strong> – numpy array with datetime.timedelta in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -639,8 +673,9 @@ Just calls <cite>t2s</cite> in a loop.</p>
 <dt class="sig sig-object py" id="aklab.qulee.tocsv">
 <span class="sig-name descname"><span class="pre">tocsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/qulee.html#tocsv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.qulee.tocsv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert <cite>*.qst</cite> binary into a <cite>*.csv</cite>. Works only with Quelee QMS software installed.</p>
-<dl class="simple">
-<dt>filename: string</dt><dd><p>path to <cite>*.qst</cite> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>string</em>) – path to <cite>*.qst</cite> file.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -658,16 +693,19 @@ Just calls <cite>t2s</cite> in a loop.</p>
 <span class="sig-name descname"><span class="pre">fft_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/signal.html#fft_filtering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.signal.fft_filtering" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lowpass filter
 <em>TODO</em>: calculate sampling time with numpy.gradient, no need to manually suply it</p>
-<dl class="simple">
-<dt>sample: array-like</dt><dd><p>signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample</strong> (<em>array-like</em>) – signal</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – sampling interval</p></li>
+<li><p><strong>fc</strong> (<em>float</em>) – upper frequency limit</p></li>
+</ul>
 </dd>
-<dt>dt: float</dt><dd><p>sampling interval</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>g</strong> – filtered signal</p>
 </dd>
-<dt>fc: float</dt><dd><p>upper frequency limit</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>g: np.array</dt><dd><p>filtered signal</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -767,22 +805,18 @@ Script to read data?</p>
 <dt class="sig sig-object py" id="aklab.vacuum.qms_ig_calibration">
 <span class="sig-name descname"><span class="pre">qms_ig_calibration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raspi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rangeis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yoffset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/vacuum.html#qms_ig_calibration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.vacuum.qms_ig_calibration" title="Permalink to this definition">¶</a></dt>
 <dd><p>QMS vs IG calibration</p>
-<dl class="simple">
-<dt>raspi: raspi.raspi</dt><dd><p>plasma control unit data class</p>
-</dd>
-<dt>qms: <cite>qulee.QMS</cite></dt><dd><p>QMS class with calibration data</p>
-</dd>
-<dt>rangeis: list-like</dt><dd><p>time interval [start,end], datetime.datetime</p>
-</dd>
-<dt>show_summary: bool</dt><dd><p>show summary</p>
-</dd>
-<dt>mass_select: string</dt><dd><p>“2”</p>
-</dd>
-<dt>style: bool</dt><dd><p>plot style, one of two</p>
-</dd>
-<dt>xoffset: None or float</dt><dd><p>offset</p>
-</dd>
-<dt>yoffset: None or float</dt><dd><p>offset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raspi</strong> (<em>raspi.raspi</em>) – plasma control unit data class</p></li>
+<li><p><strong>qms</strong> (<cite>qulee.QMS</cite>) – QMS class with calibration data</p></li>
+<li><p><strong>rangeis</strong> (<em>list-like</em>) – time interval [start,end], datetime.datetime</p></li>
+<li><p><strong>show_summary</strong> (<em>bool</em>) – show summary</p></li>
+<li><p><strong>mass_select</strong> (<em>string</em>) – “2”</p></li>
+<li><p><strong>style</strong> (<em>bool</em>) – plot style, one of two</p></li>
+<li><p><strong>xoffset</strong> (<em>None</em><em> or </em><em>float</em>) – offset</p></li>
+<li><p><strong>yoffset</strong> (<em>None</em><em> or </em><em>float</em>) – offset</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -801,8 +835,6 @@ Script to read data?</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="setup.html" class="btn btn-neutral float-right" title="setup module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="modules.html" class="btn btn-neutral float-left" title="aklab" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

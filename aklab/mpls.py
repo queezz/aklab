@@ -213,23 +213,3 @@ def figprep(width=246, **kws):
     subplots = kws.get("subplots", [1, 1])
     return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=200)
 
-
-def figprep(width=246, dpi=200, **kws):
-    """ Create matplotlib figure with given width in points
-    for `kws` see `set_size`
-    
-    Parameters
-    ----------
-    width: float
-        figure width in points
-    dpi: float
-        figure dpi, use to increase displayed figure in a notebook
-
-    Returns
-    -------
-    subplots: tuple
-            (fig, axs), a matplotlib.pylab.subplots
-    """
-    subplots = kws.get("subplots", [1, 1])
-    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi)
-
