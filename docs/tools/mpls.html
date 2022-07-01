@@ -240,7 +240,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">mpls</span> <span class="k">as</span> <span class="n">akmp</span>
-
 <span class="n">akmp</span><span class="o">.</span><span class="n">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">akmp</span><span class="o">.</span><span class="n">set_size</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
@@ -250,30 +249,26 @@
 <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;$x=</span><span class="si">{</span><span class="n">akmp</span><span class="o">.</span><span class="n">ltexp</span><span class="p">(</span><span class="mf">1.23e29</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0.5, &#39;$x=1.2\\times 10^{29}$&#39;)
-</pre></div>
-</div>
-<img alt="../_images/1b95050e6d0f4413eec48d588327d04065542c228157bd83783a1fb3bc3b2b67.png" src="../_images/1b95050e6d0f4413eec48d588327d04065542c228157bd83783a1fb3bc3b2b67.png" />
+<img alt="../_images/b45bb55f1cb749fc8a633017879494bb5572660fc45217733bf0580039612080.png" src="../_images/b45bb55f1cb749fc8a633017879494bb5572660fc45217733bf0580039612080.png" />
 </div>
 </div>
 <div class="section" id="figprep">
 <h3><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.figprep" title="aklab.mpls.figprep"><code class="xref py py-func docutils literal notranslate"><span class="pre">figprep()</span></code></a><a class="headerlink" href="#figprep" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">akmp</span><span class="o">.</span><span class="n">figprep</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">dpi</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">akmp</span><span class="o">.</span><span class="n">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">akmp</span><span class="o">.</span><span class="n">figprep</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="n">subplots</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">ratio</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;Figure size 204.234x126.224 with 3 Axes&gt;,
- array([&lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;], dtype=object))
-</pre></div>
-</div>
-<img alt="../_images/404306b552d83b634ba9c30851426ac41f2219e697699c1b4c309739eebd3531.png" src="../_images/404306b552d83b634ba9c30851426ac41f2219e697699c1b4c309739eebd3531.png" />
+<img alt="../_images/99ced1b02cdb9edabd10286f4dc8be3010b9c0a68cb31344d6fb1d265e6e7037.png" src="../_images/99ced1b02cdb9edabd10286f4dc8be3010b9c0a68cb31344d6fb1d265e6e7037.png" />
 </div>
 </div>
 </div>

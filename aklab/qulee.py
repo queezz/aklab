@@ -156,7 +156,8 @@ class QMS:
 
         figsize = kws.get("figsize", (8, 6))
 
-        fig = plt.figure(figsize=figsize, facecolor="w")
+        facecolor = kws.get("fc", "w")
+        fig = plt.figure(figsize=figsize, facecolor=facecolor)
         ax = plt.gca()
 
         masslist = kws.get("masslist", self.masslist)
@@ -231,7 +232,7 @@ def t2s(t):
 def t2sa(ta):
     """
     Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.
-    Just calls `t2s` in a loop.
+    Just calls :func:`~akalab.qulee.t2s` in a loop.
 
     Parameters
     ----------

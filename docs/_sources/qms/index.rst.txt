@@ -21,11 +21,11 @@ If a new version is required, we need to request Ulvac directly.
 
 .. |Qulee QSC| raw:: html
 
-   <a href="https://showcase.ulvac.co.jp/ja/products/process-gas-monitor/gas-analyzer-software/gas-analyzer-software/quleeqcsver.4.0.html" target="_blank"></a>      
+   <a href="https://showcase.ulvac.co.jp/ja/products/process-gas-monitor/gas-analyzer-software/gas-analyzer-software/quleeqcsver.4.0.html" target="_blank">Qulee QSC</a>      
 
 .. |Qulee BGM| raw:: html
    
-   <a href="<https://www.ulvac-es.co.jp/component-guide/structure/qulee/" target="_blank">Qulee BGM series</a>
+   <a href="https://www.ulvac-es.co.jp/component-guide/structure/qulee/" target="_blank">Qulee BGM series</a>
 
 .. toctree::
     :maxdepth: 2
