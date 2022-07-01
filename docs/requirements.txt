@@ -7,3 +7,4 @@ setuptools==61.2.0
 statsmodels==0.13.2
 xarray==0.20.1
 jupyter_sphinx
+myst_nb
