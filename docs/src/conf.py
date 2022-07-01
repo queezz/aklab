@@ -74,10 +74,20 @@ pygments_style = "sphinx"
 #
 # html_theme = "sphinx_rtd_theme"
 # html_theme = "python_docs_theme"
-html_theme = "renku"
+# html_theme = "renku" # pip install renku-sphinx-theme
+html_theme = "pydata_sphinx_theme"  # conda install pydata-sphinx-theme --channel conda-forge
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+html_logo = "_static/echelle.png"
+
+html_theme_options = {
+    "logo": {"text": "AK Lab"},
+    "pygment_light_style": "tango",
+    "pygment_dark_style": "native",
+    "favicons": [{"rel": "icon", "sizes": "32x32", "href": "echelle.ico",},],
+}
 

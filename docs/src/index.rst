@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to aklab's documentation!
+AK Lab python tools
 =================================
 
 `github.com/queezz/aklab <https://github.com/queezz/aklab>`_
