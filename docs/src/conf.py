@@ -19,6 +19,7 @@ import sys
 # xcopy .\_build\html\ .\ /s /y /d
 
 sys.path.insert(0, os.path.abspath("..."))
+sys.path.insert(0, os.path.abspath(".../aklab"))
 
 
 # -- Project information -----------------------------------------------------
