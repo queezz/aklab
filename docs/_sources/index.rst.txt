@@ -9,13 +9,13 @@ AK Lab python tools
 `github.com/queezz/aklab <https://github.com/queezz/aklab>`_
 
 .. toctree::
-   :maxdepth: 3
+   :glob:
+   :maxdepth: 2
    :caption: Contents:
    
-   qulee
+   qms/index
    controlunit
-   mpls
-   dirutil
+   tools/index
    modules
 
 
