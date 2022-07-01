@@ -14,7 +14,7 @@ AK Lab python tools
    :caption: Contents:
    
    qms/index
-   controlunit
+   controlunit/index
    tools/index
    modules
 

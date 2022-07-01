@@ -1,0 +1,33 @@
+---
+file_format: mystnb
+kernelspec:
+  name: python3
+otherkey1: val1
+otherkey2: val2
+---
+# Read QMS data
+
+## Read and plot
+```{code-cell} ipython3
+from aklab.qulee import QMS
+qms = QMS('../../../data/S1_210208_131938.CSV')
+qms.plot()
+```
+
+## Data format
+
+Data is formatted as in this example. `.iloc[:,:8]` is used to reduce the output table size.
+
+```{code-cell} ipython3
+fmt = {i:'{:.1e}' for i in qms.data.keys()[4:]}
+fmt['date'] = lambda t: t.strftime("%y%m%d %H:%M:%S")
+qms.data.head(5).iloc[:,:8].style.format(fmt,precision=2)
+```
+## Slice
+Use {meth}`~aklab.qulee.QMS.slice` to get a portion of the data.
+
+```{code-cell} ipython3
+from datetime import datetime as dt
+sliced = qms.slice([dt(2021,2,8,13,19,40),dt(2021,2,8,13,19,41)])
+sliced.iloc[:,:8].style.format(fmt,precision=2)
+```
