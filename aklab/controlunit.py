@@ -2,6 +2,7 @@
 Tools to read logger data from plasma control unit https://github.com/queezz/ControlUnit
 """
 
+from re import S
 import pandas as pd
 from aklab import mpls as akmp
 from aklab import convert
@@ -50,7 +51,7 @@ class Raspi:
             self.tc.insert(
                 0, "date", start + pd.to_timedelta(self.tc["time"], unit="s")
             )
-            self.end = self.tc["date"].iloc[-1].to_pydatetime()
+            self.end = self.tc["date"].iloc[-2].to_pydatetime()
             # just for convenience, df - dataframe.
             self.df_tc = self.tc
         except FileNotFoundError:
@@ -62,7 +63,7 @@ class Raspi:
             self.adc.insert(
                 0, "date", start + pd.to_timedelta(self.adc["time"], unit="s")
             )
-            self.end = self.adc["date"].iloc[-1].to_pydatetime()
+            self.end = self.adc["date"].iloc[-2].to_pydatetime()
             # just for convenience, df - dataframe.
             self.df_adc = self.adc
         except FileNotFoundError:
@@ -200,11 +201,18 @@ class Raspi:
         plt.sca(ax)  # set current axis
         plt.xticks(rotation=25, ha="right")
         ax = axs[0]
-        txt = self.start.strftime("%Y, %d %b, %a, %H:%M")
-        txt += "     "
-        txt += timedelta_to_str(self.end - self.start)
         ax.text(
-            -0.05, 1.07, txt, transform=ax.transAxes,
+            -0.05,
+            1.07,
+            self.start.strftime("%Y, %d %b, %a, %H:%M"),
+            transform=ax.transAxes,
+        )
+        ax = axs[2]
+        ax.text(
+            -0.05,
+            -0.8,
+            timedelta_to_str(self.end - self.start),
+            transform=ax.transAxes,
         )
 
 
@@ -226,6 +234,7 @@ def plot_raspi_batch(ts=[], bpth=".", out="batch_raspi_plot.pdf", **kws):
     import aklab.mpls as akmpl
     from aklab import constants
     from tqdm import tqdm_notebook
+    import gc
 
     figsize = kws.get("figsize", 500)
     rasterized = kws.get("rasterized", True)
@@ -242,7 +251,11 @@ def plot_raspi_batch(ts=[], bpth=".", out="batch_raspi_plot.pdf", **kws):
                 fig.set_size_inches(akmpl.set_size(figsize))
                 akmpl.set_tick_size(plt.gca(), [1, 4, 0.5, 2])
                 pdf.savefig(dpi=300, bbox_inches="tight")
+                fig.clf()
                 plt.close()
+                del raspi
+                raspi = "string"
+                gc.collect
             except Exception as e:
                 print(f"Skipping {i}\n{e}")
 
