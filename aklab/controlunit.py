@@ -154,10 +154,7 @@ class Convert:
     Contains convertion modules for sensors in use.
     """
 
-    def __init__():
-        pass
-
-    def pfeiffer_sg(self, signal):
+    def pfeiffer_sg(signal):
         """
         Calculate pressure in Tors (Pa) from Pfeiffer cold cathode Single Gauge. 
         It seems that coefficients are slightly off, tune them for better results.
@@ -174,7 +171,7 @@ class Convert:
         """
         return 10 ** (1.667 * signal - 11.46)
 
-    def ionization_gauge(self, signal, exponent, log=False):
+    def ionization_gauge(signal, exponent, log=False):
         """
         Calculate pressure in Tors (Pa) from 
         Bayard-alpert ionization vacuum gauge.
@@ -187,7 +184,7 @@ class Convert:
 
         # Look up formula for log-scale in the manual.
 
-    def hall_sensor(self, signal):
+    def hall_sensor(signal):
         """
         Convert Hall-effect current sensor signal to Amps.
         An Arduion or Raspberry Pi sensor based on ACS712
