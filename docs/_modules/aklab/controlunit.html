@@ -185,6 +185,7 @@
 <span class="sd">Tools to read logger data from plasma control unit https://github.com/queezz/ControlUnit</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">S</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">mpls</span> <span class="k">as</span> <span class="n">akmp</span>
 <span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">convert</span>
@@ -233,7 +234,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
                 <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
             <span class="c1"># just for convenience, df - dataframe.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">df_tc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
@@ -245,7 +246,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
                 <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
             <span class="c1"># just for convenience, df - dataframe.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">df_adc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
@@ -383,11 +384,18 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>  <span class="c1"># set current axis</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y, </span><span class="si">%d</span><span class="s2"> %b, </span><span class="si">%a</span><span class="s2">, %H:%M&quot;</span><span class="p">)</span>
-        <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;     &quot;</span>
-        <span class="n">txt</span> <span class="o">+=</span> <span class="n">timedelta_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-            <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+            <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span>
+            <span class="mf">1.07</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y, </span><span class="si">%d</span><span class="s2"> %b, </span><span class="si">%a</span><span class="s2">, %H:%M&quot;</span><span class="p">),</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span>
+            <span class="o">-</span><span class="mf">0.8</span><span class="p">,</span>
+            <span class="n">timedelta_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
         <span class="p">)</span></div></div>
 
 
@@ -409,6 +417,7 @@
     <span class="kn">import</span> <span class="nn">aklab.mpls</span> <span class="k">as</span> <span class="nn">akmpl</span>
     <span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">constants</span>
     <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm_notebook</span>
+    <span class="kn">import</span> <span class="nn">gc</span>
 
     <span class="n">figsize</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
     <span class="n">rasterized</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rasterized&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -425,7 +434,11 @@
                 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">akmpl</span><span class="o">.</span><span class="n">set_size</span><span class="p">(</span><span class="n">figsize</span><span class="p">))</span>
                 <span class="n">akmpl</span><span class="o">.</span><span class="n">set_tick_size</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
                 <span class="n">pdf</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
                 <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">del</span> <span class="n">raspi</span>
+                <span class="n">raspi</span> <span class="o">=</span> <span class="s2">&quot;string&quot;</span>
+                <span class="n">gc</span><span class="o">.</span><span class="n">collect</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
