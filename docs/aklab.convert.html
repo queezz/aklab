@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>aklab &#8212; aklab  documentation</title>
+    <title>aklab.convert module &#8212; aklab  documentation</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -50,8 +50,8 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="aklab package" href="aklab.html" />
-    <link rel="prev" title="Notebook title" href="tools/test.html" />
+    <link rel="next" title="aklab.dirutil module" href="aklab.dirutil.html" />
+    <link rel="prev" title="aklab.controlunit module" href="aklab.controlunit.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="docsearch:language" content="None">
   </head>
@@ -116,7 +116,7 @@
 </li>
 
 <li class="toctree-l1 current active nav-item">
- <a class="current reference internal nav-link" href="#">
+ <a class="reference internal nav-link" href="modules.html">
   aklab
  </a>
 </li>
@@ -159,17 +159,17 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="aklab.html">
    aklab package
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="aklab.Recombination.html">
      aklab.Recombination module
@@ -185,8 +185,8 @@
      aklab.controlunit module
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="aklab.convert.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      aklab.convert module
     </a>
    </li>
@@ -275,32 +275,48 @@
               
               <article class="bd-article" role="main">
                 
-  <div class="section" id="aklab">
-<h1>aklab<a class="headerlink" href="#aklab" title="Permalink to this headline">#</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="aklab.html">aklab package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="aklab.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="aklab.Recombination.html">aklab.Recombination module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.constants.html">aklab.constants module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.controlunit.html">aklab.controlunit module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.convert.html">aklab.convert module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.dirutil.html">aklab.dirutil module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.interactive.html">aklab.interactive module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.langmuir.html">aklab.langmuir module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.mpls.html">aklab.mpls module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.qulee.html">aklab.qulee module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.readbinary.html">aklab.readbinary module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.signal.html">aklab.signal module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.specparser.html">aklab.specparser module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="aklab.vacuum.html">aklab.vacuum module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="aklab.html#module-aklab">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <div class="section" id="module-aklab.convert">
+<span id="aklab-convert-module"></span><h1>aklab.convert module<a class="headerlink" href="#module-aklab.convert" title="Permalink to this headline">#</a></h1>
+<p>Convertion modules for sensors in use.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.convert.hall_sensor">
+<span class="sig-prename descclassname"><span class="pre">aklab.convert.</span></span><span class="sig-name descname"><span class="pre">hall_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/convert.html#hall_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.convert.hall_sensor" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert Hall-effect current sensor signal to Amps.
+An Arduion or Raspberry Pi sensor based on ACS712
+or a similar chip.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>signal</strong> (<em>np.array</em>) – analogue hall-sensor signal</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.convert.ionization_gauge">
+<span class="sig-prename descclassname"><span class="pre">aklab.convert.</span></span><span class="sig-name descname"><span class="pre">ionization_gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exponent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/convert.html#ionization_gauge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.convert.ionization_gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate pressure in Tors (Pa) from
+Bayard-alpert ionization vacuum gauge.
+A controller usually has two modes: linear and log outputs.
+In linear mode older converters do not ouotput exponent power,
+so it must be provided.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.convert.pfeiffer_sg">
+<span class="sig-prename descclassname"><span class="pre">aklab.convert.</span></span><span class="sig-name descname"><span class="pre">pfeiffer_sg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/convert.html#pfeiffer_sg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.convert.pfeiffer_sg" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate pressure in Tors (Pa) from Pfeiffer cold cathode Single Gauge.
+It seems that coefficients are slightly off, tune them for better results.</p>
+<p><a class="reference external" href="https://www.idealvac.com/files/brochures/TPG-361a.pdf">IdealVac Controller TPG361 docs</a></p>
+<p><a class="reference external" href="https://www.idealvac.com/files/brochures/Pfeiffer_Single_Gauge_TPG261.pdf">IdealVac Controller TPG261 docs</a></p>
+<p><a class="reference external" href="https://youtu.be/BiyPY4dFH_s">How to clean the Gauge</a></p>
+<p><a class="reference external" href="https://www.idealvac.com/files/brochures/Pfeiffer_PKR_251_Pirani_ColdCathode.pdf">IdealVac Gauge docs</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>signal</strong> (<em>np.array</em>) – Gauge analogue signal.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -311,17 +327,17 @@
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="tools/test.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="aklab.controlunit.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">Notebook title</p>
+          <p class="prev-next-title">aklab.controlunit module</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="aklab.html" title="next page">
+  <a class='right-next' id="next-link" href="aklab.dirutil.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">aklab package</p>
+      <p class="prev-next-title">aklab.dirutil module</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

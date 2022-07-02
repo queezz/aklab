@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="icon" sizes="32x32" type="image/ico" href="../../_static/echelle.ico" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -38,6 +39,8 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/thebelab-helper.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -183,7 +186,8 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">aklab.mpls</span> <span class="k">as</span> <span class="nn">akmp</span>
+<span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">mpls</span> <span class="k">as</span> <span class="n">akmp</span>
+<span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">convert</span>
 
 
 <div class="viewcode-block" id="Raspi"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi">[docs]</a><span class="k">class</span> <span class="nc">Raspi</span><span class="p">:</span>
@@ -204,73 +208,93 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bpath</span> <span class="o">=</span> <span class="n">bpath</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="n">timestamp</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
-        <span class="c1"># self.ppath = join(expanduser(&#39;~&#39;), &#39;Dropbox&#39;,&#39;lab&#39;,&#39;programs&#39;,&#39;OxygenExperiments&#39;,&#39;out&#39;,&#39;raspi&#39;,str(self.date))</span>
-        <span class="c1"># if not exists(self.ppath):</span>
-        <span class="c1">#     makedirs(f&#39;../../out/raspi/{self.date}&#39;) #必要に応じてmakedirできるようにしたほうが良い</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">convert_signals</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">update_signals</span><span class="p">()</span>
+        <span class="c1"># return if no adc data found</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span>
 
-<div class="viewcode-block" id="Raspi.load_data"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_signals</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_dataframes</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Raspi.load_data"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;load data&quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
         <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+        <span class="kn">import</span> <span class="nn">warnings</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">tc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bpath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;out_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="si">}</span><span class="s2">_temp.csv&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">adc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bpath</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;out_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">))</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="p">,</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="p">,</span> <span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fpth</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;out_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="si">}</span><span class="s2">_temp.csv&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bpath</span><span class="p">,</span> <span class="n">fpth</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
+            <span class="c1"># just for convenience, df - dataframe.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df_tc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature file not found: </span><span class="si">{</span><span class="n">fpth</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fpth</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;out_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">stamp</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bpath</span><span class="p">,</span> <span class="n">fpth</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to_pydatetime</span><span class="p">()</span>
+            <span class="c1"># just for convenience, df - dataframe.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df_adc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ADC file not found, conversion skipped: </span><span class="si">{</span><span class="n">fpth</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No data found in</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bpath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">=</span> <span class="mi">2</span></div>
 
 <div class="viewcode-block" id="Raspi.convert_signals"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi.convert_signals">[docs]</a>    <span class="k">def</span> <span class="nf">convert_signals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;convert ADC signals from raw volts to proper units</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-
-<span class="sd">        self.pu: numpy.array</span>
-<span class="sd">         upstream pressure, plasma chamber</span>
-<span class="sd">        self.pd: numpy.array</span>
-<span class="sd">         downstream pressure, permeation chamber</span>
-<span class="sd">        self.ip:   numpy.array</span>
-<span class="sd">         plasma current</span>
-
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert analogue signals.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># 11.46 convert Pfeiffer signal to pressure</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pu</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.667</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;P2&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mf">11.46</span><span class="p">)</span>
-        <span class="c1"># convert linear IG signal to pressure</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;P1&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;IGscale&quot;</span><span class="p">]</span>
-        <span class="c1"># plasma current from hall sensor</span>
-        <span class="k">def</span> <span class="nf">iconv</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-            <span class="k">return</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="mf">2.52</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">iconv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;Ip&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pu</span> <span class="o">=</span> <span class="n">convert</span><span class="o">.</span><span class="n">pfeiffer_sg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;P2&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pd</span> <span class="o">=</span> <span class="n">convert</span><span class="o">.</span><span class="n">ionization_gauge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;P1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;IGscale&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">convert</span><span class="o">.</span><span class="n">hall_sensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;Ip&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Raspi.update_signals"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi.update_signals">[docs]</a>    <span class="k">def</span> <span class="nf">update_signals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update corresponding columns in self.adc with</span>
-<span class="sd">        converted ones</span>
+<div class="viewcode-block" id="Raspi.update_dataframes"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi.update_dataframes">[docs]</a>    <span class="k">def</span> <span class="nf">update_dataframes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Insert columns with converted signals into self.adc</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;pu&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pu</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;pd&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pd</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Raspi.plot"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.Raspi.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Plot time traces&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot time traces for all signals.</span>
+
+<span class="sd">        Keyword Arguments</span>
+<span class="sd">        -----------------</span>
+<span class="sd">        lims: list</span>
+<span class="sd">            default lims = [[5e-8, 2e-6], [-0.2, 2.5], [0, 350]]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="nn">mdates</span>
         <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
         <span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">LogLocator</span><span class="p">,</span> <span class="n">AutoMinorLocator</span>
 
         <span class="n">fro</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fro&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
         <span class="n">tto</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tto&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>
+        <span class="n">rasterized</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rasterized&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="n">a</span> <span class="o">=</span> <span class="n">fro</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&quot;</span><span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="n">tto</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&quot;</span><span class="p">)</span>
-        <span class="n">df_adc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">df_tc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">df_adc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">df_tc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
         <span class="n">gs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -281,7 +305,13 @@
         <span class="n">plottrig</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">def</span> <span class="nf">plot_trig</span><span class="p">(</span><span class="n">axt</span><span class="p">):</span>
-            <span class="n">axt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">],</span> <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;QMS_signal&quot;</span><span class="p">],</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;trig&quot;</span><span class="p">)</span>
+            <span class="n">axt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">],</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;QMS_signal&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;C2&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;trig&quot;</span><span class="p">,</span>
+                <span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="n">axt</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
         <span class="k">if</span> <span class="n">plottrig</span><span class="p">:</span>
@@ -289,21 +319,42 @@
             <span class="p">[</span><span class="n">plot_trig</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">twins</span><span class="p">]</span>
             <span class="n">twins</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
 
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;pd&quot;</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Permeation Chamber&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;pu&quot;</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Plasma Chamber&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">locator_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;pd&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Permeation Chamber&quot;</span><span class="p">,</span>
+                <span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;pu&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+                <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Plasma Chamber&quot;</span><span class="p">,</span>
+                <span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">locator_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
 
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span>
+                <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_adc</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">][:</span><span class="mi">100</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+                <span class="s2">&quot;k&quot;</span><span class="p">,</span>
+                <span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">,</span>
+            <span class="p">)</span>
 
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;PresetT&quot;</span><span class="p">],</span> <span class="s2">&quot;C2--&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">df_tc</span><span class="p">[</span><span class="s2">&quot;PresetT&quot;</span><span class="p">],</span> <span class="s2">&quot;C2--&quot;</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
 
         <span class="n">gridalpha</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;gridalpha&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
         <span class="p">[</span><span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">gridalpha</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">]</span>
@@ -316,7 +367,9 @@
 
         <span class="n">lims</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lims&quot;</span><span class="p">,</span> <span class="p">[[</span><span class="mf">5e-8</span><span class="p">,</span> <span class="mf">2e-6</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">350</span><span class="p">]])</span>
         <span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axs</span><span class="p">,</span> <span class="n">lims</span><span class="p">)]</span>
-        <span class="n">axs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">locator_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># increas number of major ticks for T plot</span>
+        <span class="n">axs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">locator_params</span><span class="p">(</span>
+            <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">5</span>
+        <span class="p">)</span>  <span class="c1"># increas number of major ticks for T plot</span>
         <span class="n">locmax</span> <span class="o">=</span> <span class="n">LogLocator</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">subs</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,),</span> <span class="n">numticks</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
         <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">locmax</span><span class="p">)</span>
 
@@ -330,15 +383,71 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>  <span class="c1"># set current axis</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">txt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y, </span><span class="si">%d</span><span class="s2"> %b, </span><span class="si">%a</span><span class="s2">, %H:%M&quot;</span><span class="p">)</span>
+        <span class="n">txt</span> <span class="o">+=</span> <span class="s2">&quot;     &quot;</span>
+        <span class="n">txt</span> <span class="o">+=</span> <span class="n">timedelta_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-            <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y, </span><span class="si">%d</span><span class="s2"> %b, </span><span class="si">%a</span><span class="s2">, %H:%M&quot;</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-        <span class="p">)</span>
+            <span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.07</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">df_adc</span> <span class="o">=</span> <span class="n">df_adc</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">df_tc</span> <span class="o">=</span> <span class="n">df_tc</span></div></div>
 
-        <span class="c1"># return fig</span>
+<div class="viewcode-block" id="plot_raspi_batch"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.plot_raspi_batch">[docs]</a><span class="k">def</span> <span class="nf">plot_raspi_batch</span><span class="p">(</span><span class="n">ts</span><span class="o">=</span><span class="p">[],</span> <span class="n">bpth</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;batch_raspi_plot.pdf&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot Control Unit data for a list of files or a dir.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ts: list</span>
+<span class="sd">        list of timestamps to plot</span>
+<span class="sd">    bpth: string</span>
+<span class="sd">        path to data folder</span>
+<span class="sd">    out: string</span>
+<span class="sd">        ouptupt file name or path</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="kn">import</span> <span class="n">PdfPages</span>
+    <span class="kn">import</span> <span class="nn">aklab.mpls</span> <span class="k">as</span> <span class="nn">akmpl</span>
+    <span class="kn">from</span> <span class="nn">aklab</span> <span class="kn">import</span> <span class="n">constants</span>
+    <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm_notebook</span>
 
+    <span class="n">figsize</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+    <span class="n">rasterized</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rasterized&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">lims</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;lims&quot;</span><span class="p">,</span> <span class="p">[[</span><span class="mf">5e-8</span><span class="p">,</span> <span class="mf">2e-6</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">350</span><span class="p">]])</span>
+    <span class="k">with</span> <span class="n">PdfPages</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm_notebook</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">package_directory</span><span class="p">,</span> <span class="s2">&quot;notex.mplstyle&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">raspi</span> <span class="o">=</span> <span class="n">Raspi</span><span class="p">(</span><span class="n">bpth</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">raspi</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rasterized</span><span class="o">=</span><span class="n">rasterized</span><span class="p">,</span> <span class="n">lims</span><span class="o">=</span><span class="n">lims</span><span class="p">)</span>
+                <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+                <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="n">akmpl</span><span class="o">.</span><span class="n">set_size</span><span class="p">(</span><span class="n">figsize</span><span class="p">))</span>
+                <span class="n">akmpl</span><span class="o">.</span><span class="n">set_tick_size</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+                <span class="n">pdf</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="extract_timestamp"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.extract_timestamp">[docs]</a><span class="k">def</span> <span class="nf">extract_timestamp</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract time stamp from adc or tc csv file name</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename: string</span>
+<span class="sd">        basename of a Raspi logger file, ADC or TC</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="timedelta_to_str"><a class="viewcode-back" href="../../aklab.controlunit.html#aklab.controlunit.timedelta_to_str">[docs]</a><span class="k">def</span> <span class="nf">timedelta_to_str</span><span class="p">(</span><span class="n">td</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    from datetime.timedelta calculate</span>
+<span class="sd">    days, hours ans minuts, return formatted string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">td</span><span class="o">.</span><span class="n">days</span><span class="si">}</span><span class="s2"> days, </span><span class="si">{</span><span class="n">td</span><span class="o">.</span><span class="n">seconds</span><span class="o">//</span><span class="mi">3600</span><span class="si">}</span><span class="s2"> hours, </span><span class="si">{</span><span class="p">(</span><span class="n">td</span><span class="o">.</span><span class="n">seconds</span><span class="o">//</span><span class="mi">60</span><span class="p">)</span><span class="o">%</span><span class="mi">60</span><span class="si">}</span><span class="s2"> minutes&quot;</span></div>
 </pre></div>
 
               </article>

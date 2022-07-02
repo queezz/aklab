@@ -10,7 +10,9 @@ Submodules
    aklab.Recombination
    aklab.constants
    aklab.controlunit
+   aklab.convert
    aklab.dirutil
+   aklab.interactive
    aklab.langmuir
    aklab.mpls
    aklab.qulee

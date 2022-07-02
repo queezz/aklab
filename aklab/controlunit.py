@@ -3,7 +3,8 @@ Tools to read logger data from plasma control unit https://github.com/queezz/Con
 """
 
 import pandas as pd
-from . import mpls as akmp
+from aklab import mpls as akmp
+from aklab import convert
 
 
 class Raspi:
@@ -24,37 +25,62 @@ class Raspi:
         self.bpath = bpath
         self.stamp = timestamp
         self.date = date.today()
-        # self.ppath = join(expanduser('~'), 'Dropbox','lab','programs','OxygenExperiments','out','raspi',str(self.date))
-        # if not exists(self.ppath):
-        #     makedirs(f'../../out/raspi/{self.date}') #必要に応じてmakedirできるようにしたほうが良い
 
+        self.skip = 0
         self.load_data()
-        self.convert_signals()
-        self.update_signals()
+        # return if no adc data found
+        if self.skip == 2:
+            return
 
-    def load_data(self):
+        self.convert_signals()
+        self.update_dataframes()
+
+    def load_data(self) -> int:
         """load data"""
         from datetime import datetime
         from os.path import join
+        import warnings
 
-        self.tc = pd.read_csv(join(self.bpath, f"out_{self.stamp}_temp.csv"))
-        self.adc = pd.read_csv(join(self.bpath, f"out_{self.stamp}.csv"))
         start = datetime.strptime(self.stamp, "%Y%m%d_%H%M%S")
-        self.adc.insert(0, "date", start + pd.to_timedelta(self.adc["time"], unit="s"))
-        self.tc.insert(0, "date", start + pd.to_timedelta(self.tc["time"], unit="s"))
-        self.start = datetime.strptime(self.stamp, "%Y%m%d_%H%M%S")
-        self.end = self.tc["date"][len(self.tc) - 1].to_pydatetime()
+        self.start = start
+
+        try:
+            fpth = f"out_{self.stamp}_temp.csv"
+            self.tc = pd.read_csv(join(self.bpath, fpth))
+            self.tc.insert(
+                0, "date", start + pd.to_timedelta(self.tc["time"], unit="s")
+            )
+            self.end = self.tc["date"].iloc[-1].to_pydatetime()
+            # just for convenience, df - dataframe.
+            self.df_tc = self.tc
+        except FileNotFoundError:
+            warnings.warn(f"Temperature file not found: {fpth}")
+            self.skip = 1
+        try:
+            fpth = f"out_{self.stamp}.csv"
+            self.adc = pd.read_csv(join(self.bpath, fpth))
+            self.adc.insert(
+                0, "date", start + pd.to_timedelta(self.adc["time"], unit="s")
+            )
+            self.end = self.adc["date"].iloc[-1].to_pydatetime()
+            # just for convenience, df - dataframe.
+            self.df_adc = self.adc
+        except FileNotFoundError:
+            warnings.warn(f"ADC file not found, conversion skipped: {fpth}")
+            if self.skip == 1:
+                raise FileNotFoundError(f"No data found in\n{self.bpath}")
+            self.skip = 2
 
     def convert_signals(self):
         """
-        Convert analogue signals.s
+        Convert analogue signals.
         """
-        self.pu = Convert.pfeiffer_sg(self.adc["P2"])
-        self.pd = Convert.ionization_gauge(self.adc["P1"], self.adc["IGscale"])
-        self.ip = Convert.hall_sensor(self.adc["Ip"])
+        self.pu = convert.pfeiffer_sg(self.adc["P2"])
+        self.pd = convert.ionization_gauge(self.adc["P1"], self.adc["IGscale"])
+        self.ip = convert.hall_sensor(self.adc["Ip"])
         self.t = self.adc["date"]
 
-    def update_signals(self):
+    def update_dataframes(self):
         """
         Insert columns with converted signals into self.adc
         """
@@ -65,6 +91,12 @@ class Raspi:
     def plot(self, **kws):
         """
         Plot time traces for all signals.
+
+        Keyword Arguments
+        -----------------
+        lims: list
+            default lims = [[5e-8, 2e-6], [-0.2, 2.5], [0, 350]]
+
         """
         import matplotlib.dates as mdates
         import matplotlib.pylab as plt
@@ -72,11 +104,14 @@ class Raspi:
 
         fro = kws.get("fro", self.start)
         tto = kws.get("tto", self.end)
+        rasterized = kws.get("rasterized", True)
 
         a = fro.strftime("%Y%m%d%H%M%S")
         b = tto.strftime("%Y%m%d%H%M%S")
-        df_adc = self.adc.query(f"{a} < date < {b}")
-        df_tc = self.tc.query(f"{a} < date < {b}")
+        if not self.skip == 2:
+            df_adc = self.adc.query(f"{a} < date < {b}")
+        if not self.skip == 1:
+            df_tc = self.tc.query(f"{a} < date < {b}")
 
         fig = plt.figure(figsize=(12, 8), facecolor="w")
         gs = plt.GridSpec(4, 1)
@@ -87,7 +122,13 @@ class Raspi:
         plottrig = 0
 
         def plot_trig(axt):
-            axt.plot(df_adc["datetime"], df_adc["QMS_signal"], "C2", label="trig")
+            axt.plot(
+                df_adc["datetime"],
+                df_adc["QMS_signal"],
+                "C2",
+                label="trig",
+                rasterized=rasterized,
+            )
             axt.set_yticks([])
 
         if plottrig:
@@ -95,21 +136,42 @@ class Raspi:
             [plot_trig(ax) for ax in twins]
             twins[0].legend(loc=1, bbox_to_anchor=[0.2, 1.2])
 
-        ax = axs[0]
-        ax.plot(df_adc["date"], df_adc["pd"], "-", c="k", label="Permeation Chamber")
-        ax.plot(df_adc["date"], df_adc["pu"], "-", c="C3", label="Plasma Chamber")
-        ax.locator_params(axis="y", nbins=6)
+        if not self.skip == 2:
+            ax = axs[0]
+            ax.plot(
+                df_adc["date"],
+                df_adc["pd"],
+                "-",
+                c="k",
+                label="Permeation Chamber",
+                rasterized=rasterized,
+            )
+            ax.plot(
+                df_adc["date"],
+                df_adc["pu"],
+                "-",
+                c="C3",
+                label="Plasma Chamber",
+                rasterized=rasterized,
+            )
+            ax.locator_params(axis="y", nbins=6)
 
-        ax.legend(loc=1, ncol=2, bbox_to_anchor=[1.0, 1.2])
+            ax.legend(loc=1, ncol=2, bbox_to_anchor=[1.0, 1.2])
 
-        ax = axs[1]
+            ax = axs[1]
 
-        ax.plot(df_adc["date"], df_adc["ip"] - df_adc["ip"][:100].mean(), "k")
+            ax.plot(
+                df_adc["date"],
+                df_adc["ip"] - df_adc["ip"][:100].mean(),
+                "k",
+                rasterized=rasterized,
+            )
 
-        ax = axs[2]
-        ax.plot(df_tc["date"], df_tc["T"], c="k")
-        ax.plot(df_tc["date"], df_tc["PresetT"], "C2--")
-        plt.xticks(rotation=25, ha="right")
+        if not self.skip == 1:
+            ax = axs[2]
+            ax.plot(df_tc["date"], df_tc["T"], c="k", rasterized=rasterized)
+            ax.plot(df_tc["date"], df_tc["PresetT"], "C2--", rasterized=rasterized)
+            plt.xticks(rotation=25, ha="right")
 
         gridalpha = kws.get("gridalpha", [0.1, 0.3])
         [akmp.grid_visual(ax, alpha=gridalpha) for ax in axs]
@@ -138,61 +200,68 @@ class Raspi:
         plt.sca(ax)  # set current axis
         plt.xticks(rotation=25, ha="right")
         ax = axs[0]
+        txt = self.start.strftime("%Y, %d %b, %a, %H:%M")
+        txt += "     "
+        txt += timedelta_to_str(self.end - self.start)
         ax.text(
-            -0.05,
-            1.07,
-            self.start.strftime("%Y, %d %b, %a, %H:%M"),
-            transform=ax.transAxes,
+            -0.05, 1.07, txt, transform=ax.transAxes,
         )
 
-        self.df_adc = df_adc
-        self.df_tc = df_tc
 
-
-class Convert:
+def plot_raspi_batch(ts=[], bpth=".", out="batch_raspi_plot.pdf", **kws):
     """
-    Contains convertion modules for sensors in use.
+    Plot Control Unit data for a list of files or a dir.
+    
+    Parameters
+    ----------
+    ts: list
+        list of timestamps to plot
+    bpth: string
+        path to data folder
+    out: string
+        ouptupt file name or path
     """
+    import os, matplotlib.pyplot as plt, numpy as np
+    from matplotlib.backends.backend_pdf import PdfPages
+    import aklab.mpls as akmpl
+    from aklab import constants
+    from tqdm import tqdm_notebook
 
-    def pfeiffer_sg(signal):
-        """
-        Calculate pressure in Tors (Pa) from Pfeiffer cold cathode Single Gauge. 
-        It seems that coefficients are slightly off, tune them for better results.
+    figsize = kws.get("figsize", 500)
+    rasterized = kws.get("rasterized", True)
+    lims = kws.get("lims", [[5e-8, 2e-6], [-0.2, 2.5], [0, 350]])
+    with PdfPages(out) as pdf:
+        for i in tqdm_notebook(ts):
+            try:
+                plt.style.use(
+                    os.path.join(constants.package_directory, "notex.mplstyle")
+                )
+                raspi = Raspi(bpth, i)
+                raspi.plot(rasterized=rasterized, lims=lims)
+                fig = plt.gcf()
+                fig.set_size_inches(akmpl.set_size(figsize))
+                akmpl.set_tick_size(plt.gca(), [1, 4, 0.5, 2])
+                pdf.savefig(dpi=300, bbox_inches="tight")
+                plt.close()
+            except Exception as e:
+                print(f"Skipping {i}\n{e}")
 
-        .. _SO: https://www.idealvac.com/files/brochures/TPG-361a.pdf
-        .. _SO: https://www.idealvac.com/files/brochures/Pfeiffer_Single_Gauge_TPG261.pdf
-        .. _SO: https://youtu.be/BiyPY4dFH_s
-        .. _SO: https://www.idealvac.com/files/brochures/Pfeiffer_PKR_251_Pirani_ColdCathode.pdf
 
-        Parameters
-        ----------
-        signal: np.array
-            Gauge analogue signal.
-        """
-        return 10 ** (1.667 * signal - 11.46)
+def extract_timestamp(filename):
+    """
+    Extract time stamp from adc or tc csv file name
 
-    def ionization_gauge(signal, exponent, log=False):
-        """
-        Calculate pressure in Tors (Pa) from 
-        Bayard-alpert ionization vacuum gauge.
-        A controller usually has two modes: linear and log outputs.
-        In linear mode older converters do not ouotput exponent power, 
-        so it must be provided.
-        """
-        if not log:
-            return signal * 10 ** exponent
+    Parameters
+    ----------
+    filename: string
+        basename of a Raspi logger file, ADC or TC
+    """
+    return "_".join(filename.split("_")[1:3]).split(".")[0]
 
-        # Look up formula for log-scale in the manual.
 
-    def hall_sensor(signal):
-        """
-        Convert Hall-effect current sensor signal to Amps.
-        An Arduion or Raspberry Pi sensor based on ACS712
-        or a similar chip. 
-
-        Parameters
-        ----------
-        signal: np.array
-            analogue hall-sensor signal
-        """
-        return 5 / 1 * (signal - 2.52)
+def timedelta_to_str(td):
+    """
+    from datetime.timedelta calculate
+    days, hours ans minuts, return formatted string
+    """
+    return f"{td.days} days, {td.seconds//3600} hours, {(td.seconds//60)%60} minutes"

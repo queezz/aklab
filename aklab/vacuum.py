@@ -6,7 +6,15 @@ import aklab.mpls as akmp
 
 
 def qms_ig_calibration(
-    raspi, qms, rangeis, gain=1, show_summary=False, mass_select="2", style=False, xoffset=None, yoffset=None
+    raspi,
+    qms,
+    rangeis,
+    gain=1,
+    show_summary=False,
+    mass_select="2",
+    style=False,
+    xoffset=None,
+    yoffset=None,
 ):
     """
     QMS vs IG calibration
@@ -36,8 +44,12 @@ def qms_ig_calibration(
 
     a = rangeis[0].strftime("%Y%m%d%H%M%S")
     b = rangeis[1].strftime("%Y%m%d%H%M%S")
-    raspi_calib = raspi.adc.query(f"{a} < date < {b}").reset_index(drop=True)[["date", "time", "pd"]]
-    qms_calib = qms.data.query(f"{a} < date < {b}").reset_index(drop=True)[[mass, "tsec"]]
+    raspi_calib = raspi.adc.query(f"{a} < date < {b}").reset_index(drop=True)[
+        ["date", "time", "pd"]
+    ]
+    qms_calib = qms.data.query(f"{a} < date < {b}").reset_index(drop=True)[
+        [mass, "tsec"]
+    ]
     fitting_time = raspi_calib["date"][len(raspi_calib) - 1] - raspi_calib["date"][0]
 
     num_raspi = len(raspi_calib)
@@ -118,10 +130,92 @@ def qms_ig_calibration(
             return False, False
     else:
         fig = plt.figure(figsize=(16, 9), dpi=50)
-        ax = fig.add_subplot(1, 1, 1, xlabel="QMS Current [A]", ylabel=r"$P_{\rm per}$ [Torr]")
+        ax = fig.add_subplot(
+            1, 1, 1, xlabel="QMS Current [A]", ylabel=r"$P_{\rm per}$ [Torr]"
+        )
         ax.scatter(x, y, label="QMSsignal-IG")
         ax.plot(x, c1 + h, label="Fitting")
-        ax.legend(bbox_to_anchor=(1, 1), loc="upper right", borderaxespad=0, fontsize=28)
+        ax.legend(
+            bbox_to_anchor=(1, 1), loc="upper right", borderaxespad=0, fontsize=28
+        )
         akmp.ticks_visual(ax)
         akmp.grid_visual(ax)
         return k1, c1
+
+
+def mean_free_path(p, gas="Air"):
+    """
+    Given pressure in [Pa] returns mean free path in [m].
+    TODO: find the source for the constatns.
+    
+    Parameters
+    ----------
+    p: float
+        Pressure in Pa
+    gas: string
+        gas = ["Xe" | "H2O" | "CO2" | "Cl" | "Kr" |
+        "Ar" | "N2" | "Air" | "O2" | "Hg" | "H2" |
+        "Ne" | "He" |
+
+    Returns
+    -------
+    float
+        Mean free path for given gas at given pressure.
+    """
+    import scipy.constants as sc
+
+    k = dict()
+    # in 1e-3 cm*Torr
+    k.update(
+        [
+            ("Xe", 3),
+            ("H2O", 3.4),
+            ("CO2", 3.34),
+            ("Cl", 3.47),
+            ("Kr", 4.05),
+            ("Ar", 5.07),
+            ("N2", 5.1),
+            ("Air", 5.1),
+            ("O2", 5.4),
+            ("Hg", 6.3),
+            ("H2", 9.3),
+            ("Ne", 10.4),
+            ("He", 14.6),
+        ]
+    )
+    ksi = dict()
+    # in m*Pa
+    for a, b in k.items():
+        ksi[a] = b * sc.torr * 1e-3 * 1e-2
+    return ksi[gas] / p
+
+
+def mass_k(mass):
+    """
+    Returns relative to H2 sensitivity for QMS or IG.
+    Ion current of the respective mass, multiplied by the 
+    returned value and by the H2 calibration coeffitient
+    will correspond to this mass partial pressure (or fluence).
+
+    Parameters
+    ----------
+    mass: int
+        mass [2 | 4 | 18 | 32 | 44 | 28]
+    
+    Returns
+    -------
+    float
+        relative sensitivity of a gas
+    """
+    k = {
+        2: 1,
+        4: 0.44 / 0.19,
+        18: 0.44 / 1.1,
+        32: 0.44 / 0.87,
+        44: 0.44 / 1.6,
+        28: 0.44,
+    }
+    if not mass in k.keys():
+        return 1
+    else:
+        return k[mass]

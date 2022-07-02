@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="icon" sizes="32x32" type="image/ico" href="../../_static/echelle.ico" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -38,6 +39,8 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/thebelab-helper.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -336,7 +339,8 @@
 
         <span class="n">figsize</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;figsize&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
-        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">facecolor</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fc&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">facecolor</span><span class="p">)</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 
         <span class="n">masslist</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;masslist&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">masslist</span><span class="p">)</span>
@@ -411,7 +415,7 @@
 <div class="viewcode-block" id="t2sa"><a class="viewcode-back" href="../../aklab.qulee.html#aklab.qulee.t2sa">[docs]</a><span class="k">def</span> <span class="nf">t2sa</span><span class="p">(</span><span class="n">ta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert an array of Qulee time stamp strings to array of datetime.timedelta in seconds.</span>
-<span class="sd">    Just calls `t2s` in a loop.</span>
+<span class="sd">    Just calls :func:`~akalab.qulee.t2s` in a loop.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>

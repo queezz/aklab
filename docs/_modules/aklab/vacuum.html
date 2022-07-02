@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="icon" sizes="32x32" type="image/ico" href="../../_static/echelle.ico" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -38,6 +39,8 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/thebelab-helper.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -186,7 +189,15 @@
 
 
 <div class="viewcode-block" id="qms_ig_calibration"><a class="viewcode-back" href="../../aklab.vacuum.html#aklab.vacuum.qms_ig_calibration">[docs]</a><span class="k">def</span> <span class="nf">qms_ig_calibration</span><span class="p">(</span>
-    <span class="n">raspi</span><span class="p">,</span> <span class="n">qms</span><span class="p">,</span> <span class="n">rangeis</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">show_summary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mass_select</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yoffset</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">raspi</span><span class="p">,</span>
+    <span class="n">qms</span><span class="p">,</span>
+    <span class="n">rangeis</span><span class="p">,</span>
+    <span class="n">gain</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">show_summary</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">mass_select</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">xoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">yoffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    QMS vs IG calibration</span>
@@ -216,8 +227,12 @@
 
     <span class="n">a</span> <span class="o">=</span> <span class="n">rangeis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&quot;</span><span class="p">)</span>
     <span class="n">b</span> <span class="o">=</span> <span class="n">rangeis</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">%H%M%S&quot;</span><span class="p">)</span>
-    <span class="n">raspi_calib</span> <span class="o">=</span> <span class="n">raspi</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)[[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;pd&quot;</span><span class="p">]]</span>
-    <span class="n">qms_calib</span> <span class="o">=</span> <span class="n">qms</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)[[</span><span class="n">mass</span><span class="p">,</span> <span class="s2">&quot;tsec&quot;</span><span class="p">]]</span>
+    <span class="n">raspi_calib</span> <span class="o">=</span> <span class="n">raspi</span><span class="o">.</span><span class="n">adc</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span>
+        <span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;pd&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
+    <span class="n">qms_calib</span> <span class="o">=</span> <span class="n">qms</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2"> &lt; date &lt; </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span>
+        <span class="p">[</span><span class="n">mass</span><span class="p">,</span> <span class="s2">&quot;tsec&quot;</span><span class="p">]</span>
+    <span class="p">]</span>
     <span class="n">fitting_time</span> <span class="o">=</span> <span class="n">raspi_calib</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="n">raspi_calib</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">raspi_calib</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="n">num_raspi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raspi_calib</span><span class="p">)</span>
@@ -298,13 +313,95 @@
             <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;QMS Current [A]&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$P_{\rm per}$ [Torr]&quot;</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span>
+            <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;QMS Current [A]&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$P_{\rm per}$ [Torr]&quot;</span>
+        <span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QMSsignal-IG&quot;</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c1</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Fitting&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">28</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
+            <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">28</span>
+        <span class="p">)</span>
         <span class="n">akmp</span><span class="o">.</span><span class="n">ticks_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
         <span class="n">akmp</span><span class="o">.</span><span class="n">grid_visual</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">k1</span><span class="p">,</span> <span class="n">c1</span></div>
+
+
+<div class="viewcode-block" id="mean_free_path"><a class="viewcode-back" href="../../aklab.vacuum.html#aklab.vacuum.mean_free_path">[docs]</a><span class="k">def</span> <span class="nf">mean_free_path</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">gas</span><span class="o">=</span><span class="s2">&quot;Air&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given pressure in [Pa] returns mean free path in [m].</span>
+<span class="sd">    TODO: find the source for the constatns.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    p: float</span>
+<span class="sd">        Pressure in Pa</span>
+<span class="sd">    gas: string</span>
+<span class="sd">        gas = [&quot;Xe&quot; | &quot;H2O&quot; | &quot;CO2&quot; | &quot;Cl&quot; | &quot;Kr&quot; |</span>
+<span class="sd">        &quot;Ar&quot; | &quot;N2&quot; | &quot;Air&quot; | &quot;O2&quot; | &quot;Hg&quot; | &quot;H2&quot; |</span>
+<span class="sd">        &quot;Ne&quot; | &quot;He&quot; |</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        Mean free path for given gas at given pressure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">scipy.constants</span> <span class="k">as</span> <span class="nn">sc</span>
+
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="c1"># in 1e-3 cm*Torr</span>
+    <span class="n">k</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;Xe&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;H2O&quot;</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;CO2&quot;</span><span class="p">,</span> <span class="mf">3.34</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Cl&quot;</span><span class="p">,</span> <span class="mf">3.47</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Kr&quot;</span><span class="p">,</span> <span class="mf">4.05</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Ar&quot;</span><span class="p">,</span> <span class="mf">5.07</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;N2&quot;</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Air&quot;</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;O2&quot;</span><span class="p">,</span> <span class="mf">5.4</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Hg&quot;</span><span class="p">,</span> <span class="mf">6.3</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;H2&quot;</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Ne&quot;</span><span class="p">,</span> <span class="mf">10.4</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;He&quot;</span><span class="p">,</span> <span class="mf">14.6</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">ksi</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="c1"># in m*Pa</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ksi</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">sc</span><span class="o">.</span><span class="n">torr</span> <span class="o">*</span> <span class="mf">1e-3</span> <span class="o">*</span> <span class="mf">1e-2</span>
+    <span class="k">return</span> <span class="n">ksi</span><span class="p">[</span><span class="n">gas</span><span class="p">]</span> <span class="o">/</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="mass_k"><a class="viewcode-back" href="../../aklab.vacuum.html#aklab.vacuum.mass_k">[docs]</a><span class="k">def</span> <span class="nf">mass_k</span><span class="p">(</span><span class="n">mass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns relative to H2 sensitivity for QMS or IG.</span>
+<span class="sd">    Ion current of the respective mass, multiplied by the </span>
+<span class="sd">    returned value and by the H2 calibration coeffitient</span>
+<span class="sd">    will correspond to this mass partial pressure (or fluence).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mass: int</span>
+<span class="sd">        mass [2 | 4 | 18 | 32 | 44 | 28]</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        relative sensitivity of a gas</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="mf">0.44</span> <span class="o">/</span> <span class="mf">0.19</span><span class="p">,</span>
+        <span class="mi">18</span><span class="p">:</span> <span class="mf">0.44</span> <span class="o">/</span> <span class="mf">1.1</span><span class="p">,</span>
+        <span class="mi">32</span><span class="p">:</span> <span class="mf">0.44</span> <span class="o">/</span> <span class="mf">0.87</span><span class="p">,</span>
+        <span class="mi">44</span><span class="p">:</span> <span class="mf">0.44</span> <span class="o">/</span> <span class="mf">1.6</span><span class="p">,</span>
+        <span class="mi">28</span><span class="p">:</span> <span class="mf">0.44</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mass</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">k</span><span class="p">[</span><span class="n">mass</span><span class="p">]</span></div>
 </pre></div>
 
               </article>

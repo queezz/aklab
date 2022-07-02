@@ -186,8 +186,18 @@
     </a>
    </li>
    <li class="toctree-l2">
+    <a class="reference internal" href="aklab.convert.html">
+     aklab.convert module
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="aklab.dirutil.html">
      aklab.dirutil module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="aklab.interactive.html">
+     aklab.interactive module
     </a>
    </li>
    <li class="toctree-l2">
@@ -269,6 +279,22 @@
 <span id="aklab-signal-module"></span><h1>aklab.signal module<a class="headerlink" href="#module-aklab.signal" title="Permalink to this headline">#</a></h1>
 <p>Signal processing tools: filter, smooth, etc.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="aklab.signal.bspline">
+<span class="sig-prename descclassname"><span class="pre">aklab.signal.</span></span><span class="sig-name descname"><span class="pre">bspline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/signal.html#bspline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.signal.bspline" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate n samples on a bspline</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cv</strong> (<em>list</em><em> or </em><em>np.array</em><em>(</em><em>)</em>) – Array of control vertices</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Number of samples to return</p></li>
+<li><p><strong>degree</strong> – Curve degree</p></li>
+<li><p><strong>periodic</strong> (<em>bool</em>) – True - Curve is closed, False - Curve is open</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="aklab.signal.fft_filtering">
 <span class="sig-prename descclassname"><span class="pre">aklab.signal.</span></span><span class="sig-name descname"><span class="pre">fft_filtering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/signal.html#fft_filtering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.signal.fft_filtering" title="Permalink to this definition">#</a></dt>
 <dd><p>Lowpass filter
@@ -286,6 +312,48 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.signal.index_of_nearest">
+<span class="sig-prename descclassname"><span class="pre">aklab.signal.</span></span><span class="sig-name descname"><span class="pre">index_of_nearest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/signal.html#index_of_nearest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.signal.index_of_nearest" title="Permalink to this definition">#</a></dt>
+<dd><p>Index of the nearest value in an array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signal</strong> (<em>array</em>) – </p></li>
+<li><p><strong>value</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>index of the nearest value in the signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.signal.poly_smooth">
+<span class="sig-prename descclassname"><span class="pre">aklab.signal.</span></span><span class="sig-name descname"><span class="pre">poly_smooth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/signal.html#poly_smooth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.signal.poly_smooth" title="Permalink to this definition">#</a></dt>
+<dd><p>Fit data with a polinomial and return interpolated signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>list</em><em> or </em><em>np.array</em>) – </p></li>
+<li><p><strong>y</strong> (<em>list</em><em> or </em><em>np.array</em>) – </p></li>
+<li><p><strong>order</strong> (<em>int</em>) – order of the polinomial</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – multiplier of the number of data points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>interpolated x,y</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>

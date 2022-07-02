@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="icon" sizes="32x32" type="image/ico" href="../../_static/echelle.ico" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -38,6 +39,8 @@
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/thebelab-helper.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -210,7 +213,9 @@
             <span class="n">ls</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ls</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
 
         <span class="n">srcls</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">]</span>
-        <span class="n">targls</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">targ</span><span class="p">,</span> <span class="n">add_sufix</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ls</span><span class="p">]</span>
+        <span class="n">targls</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">targ</span><span class="p">,</span> <span class="n">add_sufix</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ls</span>
+        <span class="p">]</span>
 
         <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
             <span class="kn">import</span> <span class="nn">shutil</span>
@@ -242,6 +247,55 @@
     <span class="n">c</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}{</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
+
+<div class="viewcode-block" id="docs"><a class="viewcode-back" href="../../aklab.dirutil.html#aklab.dirutil.docs">[docs]</a><span class="k">def</span> <span class="nf">docs</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    On Windows and Mac, returns Documents or Desktop folder</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n: int</span>
+<span class="sd">        n = 0 - Desktop</span>
+<span class="sd">        n = 5 - Documents</span>
+<span class="sd">        n = 40 - Current User folder</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">platform</span>
+
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">ctypes.wintypes</span>
+
+    <span class="n">sfx</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Desktop&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;Documents&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="n">CSIDL_PERSONAL</span> <span class="o">=</span> <span class="n">n</span>  <span class="c1"># My Documents</span>
+        <span class="n">SHGFP_TYPE_CURRENT</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Want current, not default value</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_unicode_buffer</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">wintypes</span><span class="o">.</span><span class="n">MAX_PATH</span><span class="p">)</span>
+        <span class="n">ctypes</span><span class="o">.</span><span class="n">windll</span><span class="o">.</span><span class="n">shell32</span><span class="o">.</span><span class="n">SHGetFolderPathW</span><span class="p">(</span>
+            <span class="mi">0</span><span class="p">,</span> <span class="n">CSIDL_PERSONAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SHGFP_TYPE_CURRENT</span><span class="p">,</span> <span class="n">buf</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">buf</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="n">sfx</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="n">sfx</span><span class="p">[</span><span class="n">n</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="platf"><a class="viewcode-back" href="../../aklab.dirutil.html#aklab.dirutil.platf">[docs]</a><span class="k">def</span> <span class="nf">platf</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    string</span>
+<span class="sd">        OS name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">platform</span>
+
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;win&quot;</span>
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;os x&quot;</span>
+    <span class="k">elif</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;linux&quot;</span></div>
 </pre></div>
 
               </article>
