@@ -3,7 +3,7 @@ Tools to read logger data from plasma control unit https://github.com/queezz/Con
 """
 
 import pandas as pd
-import aklab.mpls as akmp
+from . import mpls as akmp
 
 
 class Raspi:
@@ -46,40 +46,26 @@ class Raspi:
         self.end = self.tc["date"][len(self.tc) - 1].to_pydatetime()
 
     def convert_signals(self):
-        """convert ADC signals from raw volts to proper units
-
-        Parameters
-        ----------
-
-        self.pu: numpy.array
-         upstream pressure, plasma chamber
-        self.pd: numpy.array
-         downstream pressure, permeation chamber
-        self.ip:   numpy.array
-         plasma current
-
         """
-        # 11.46 convert Pfeiffer signal to pressure
-        self.pu = 10 ** (1.667 * self.adc["P2"] - 11.46)
-        # convert linear IG signal to pressure
-        self.pd = self.adc["P1"] * 10 ** self.adc["IGscale"]
-        # plasma current from hall sensor
-        def iconv(v):
-            return 5 / 1 * (v - 2.52)
-
-        self.ip = iconv(self.adc["Ip"])
+        Convert analogue signals.s
+        """
+        self.pu = Convert.pfeiffer_sg(self.adc["P2"])
+        self.pd = Convert.ionization_gauge(self.adc["P1"], self.adc["IGscale"])
+        self.ip = Convert.hall_sensor(self.adc["Ip"])
         self.t = self.adc["date"]
 
     def update_signals(self):
-        """Update corresponding columns in self.adc with
-        converted ones
+        """
+        Insert columns with converted signals into self.adc
         """
         self.adc.insert(1, "pu", self.pu)
         self.adc.insert(1, "pd", self.pd)
         self.adc.insert(1, "ip", self.ip)
 
     def plot(self, **kws):
-        """Plot time traces"""
+        """
+        Plot time traces for all signals.
+        """
         import matplotlib.dates as mdates
         import matplotlib.pylab as plt
         from matplotlib.ticker import LogLocator, AutoMinorLocator
@@ -136,7 +122,9 @@ class Raspi:
 
         lims = kws.get("lims", [[5e-8, 2e-6], [-0.2, 2.5], [0, 350]])
         [ax.set_ylim(l) for ax, l in zip(axs, lims)]
-        axs[-1].locator_params(axis="y", nbins=5)  # increas number of major ticks for T plot
+        axs[-1].locator_params(
+            axis="y", nbins=5
+        )  # increas number of major ticks for T plot
         locmax = LogLocator(base=10, subs=(1.0,), numticks=100)
         axs[0].yaxis.set_major_locator(locmax)
 
@@ -151,11 +139,63 @@ class Raspi:
         plt.xticks(rotation=25, ha="right")
         ax = axs[0]
         ax.text(
-            -0.05, 1.07, self.start.strftime("%Y, %d %b, %a, %H:%M"), transform=ax.transAxes,
+            -0.05,
+            1.07,
+            self.start.strftime("%Y, %d %b, %a, %H:%M"),
+            transform=ax.transAxes,
         )
 
         self.df_adc = df_adc
         self.df_tc = df_tc
 
-        # return fig
 
+class Convert:
+    """
+    Contains convertion modules for sensors in use.
+    """
+
+    def __init__():
+        pass
+
+    def pfeiffer_sg(self, signal):
+        """
+        Calculate pressure in Tors (Pa) from Pfeiffer cold cathode Single Gauge. 
+        It seems that coefficients are slightly off, tune them for better results.
+
+        .. _SO: https://www.idealvac.com/files/brochures/TPG-361a.pdf
+        .. _SO: https://www.idealvac.com/files/brochures/Pfeiffer_Single_Gauge_TPG261.pdf
+        .. _SO: https://youtu.be/BiyPY4dFH_s
+        .. _SO: https://www.idealvac.com/files/brochures/Pfeiffer_PKR_251_Pirani_ColdCathode.pdf
+
+        Parameters
+        ----------
+        signal: np.array
+            Gauge analogue signal.
+        """
+        return 10 ** (1.667 * signal - 11.46)
+
+    def ionization_gauge(self, signal, exponent, log=False):
+        """
+        Calculate pressure in Tors (Pa) from 
+        Bayard-alpert ionization vacuum gauge.
+        A controller usually has two modes: linear and log outputs.
+        In linear mode older converters do not ouotput exponent power, 
+        so it must be provided.
+        """
+        if not log:
+            return signal * 10 ** exponent
+
+        # Look up formula for log-scale in the manual.
+
+    def hall_sensor(self, signal):
+        """
+        Convert Hall-effect current sensor signal to Amps.
+        An Arduion or Raspberry Pi sensor based on ACS712
+        or a similar chip. 
+
+        Parameters
+        ----------
+        signal: np.array
+            analogue hall-sensor signal
+        """
+        return 5 / 1 * (signal - 2.52)
