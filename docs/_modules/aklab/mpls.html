@@ -375,7 +375,8 @@
 
 
 <div class="viewcode-block" id="figprep"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.figprep">[docs]</a><span class="k">def</span> <span class="nf">figprep</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">246</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Create matplotlib figure with given width in points</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create matplotlib figure with given width in points</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -404,12 +405,31 @@
 
 
 <div class="viewcode-block" id="vec"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.vec">[docs]</a><span class="k">def</span> <span class="nf">vec</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw a vector from point a to point b. Uses complex numbers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a,b: complex</span>
+<span class="sd">        start and end for the vector.</span>
+<span class="sd">    kws: dict</span>
+<span class="sd">        keyword arguments for matplotlib.pyplot.plot</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">real</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">imag</span><span class="p">],</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="plot_circ"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.plot_circ">[docs]</a><span class="k">def</span> <span class="nf">plot_circ</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span><span class="n">j</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot a circle.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    r: float</span>
+<span class="sd">        radius</span>
+<span class="sd">    o: complex</span>
+<span class="sd">        origin</span>
+<span class="sd">    kws: dict</span>
+<span class="sd">        keyword arguments for matplotlib.pyplot.plot</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">polygon</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
@@ -420,6 +440,59 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cx</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">o</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">cy</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">o</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span></div>
+
+
+<span class="c1"># Drawing examples</span>
+
+
+<div class="viewcode-block" id="hand"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.hand">[docs]</a><span class="k">def</span> <span class="nf">hand</span><span class="p">(</span><span class="n">minute</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">48</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw clock hand</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">minute</span>
+    <span class="k">if</span> <span class="n">hour</span><span class="p">:</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">hours</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">360</span> <span class="o">*</span> <span class="n">minute</span><span class="p">)</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">24</span>
+    <span class="n">ab</span> <span class="o">=</span> <span class="n">l</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">phi</span><span class="p">))</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">ab</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">angle</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">ab</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">angle</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">kws</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>
+    <span class="n">vec</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">o</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">vec</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="n">o</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">vec</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">o</span><span class="p">,</span> <span class="n">o</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+    <span class="n">vec</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">o</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">o</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plot_clock_face"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.plot_clock_face">[docs]</a><span class="k">def</span> <span class="nf">plot_clock_face</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot clock face</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">)]</span>
+    <span class="n">ms</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">)]</span>
+    <span class="n">plot_circ</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="n">o</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">vec</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="mf">1.05</span><span class="p">,</span> <span class="n">o</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C3&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ms</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">vec</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">g</span><span class="p">,</span> <span class="n">o</span> <span class="o">+</span> <span class="n">g</span> <span class="o">*</span> <span class="mf">1.15</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">gs</span><span class="p">]</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="p">[</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">o</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="mf">1.25</span><span class="p">)</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="n">p</span> <span class="o">*</span> <span class="mf">1.25</span><span class="p">)</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gs</span><span class="p">)</span>
+    <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="show_analog_time"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.show_analog_time">[docs]</a><span class="k">def</span> <span class="nf">show_analog_time</span><span class="p">(</span><span class="n">hours</span><span class="p">,</span> <span class="n">minutes</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw a clock with two hands</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">plot_clock_face</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">hand</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span> <span class="n">hours</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">r</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="n">o</span><span class="p">)</span>
+    <span class="n">hand</span><span class="p">(</span><span class="n">minutes</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="n">r</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span></div>
+
 </pre></div>
 
               </article>

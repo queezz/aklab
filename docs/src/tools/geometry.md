@@ -36,6 +36,7 @@ ax.set_aspect('equal')
 ```
 
 ```{code-cell} ipython3
+from aklab.mpls import show_analog_time
 show_analog_time(6,5,r=1,o=np.pi*3/2+0.5j)
 x = np.linspace(0,np.pi*2,50)
 plt.plot(x,np.sin(x),'C1')
