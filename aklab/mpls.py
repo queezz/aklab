@@ -192,7 +192,8 @@ def set_tick_size(ax, size):
 
 
 def figprep(width=246, subplots=[1, 1], dpi=100, **kws):
-    """ Create matplotlib figure with given width in points
+    """
+    Create matplotlib figure with given width in points
     
     Parameters
     ----------
@@ -221,12 +222,31 @@ def polygon(n=6):
 
 
 def vec(a, b, **kws):
+    """
+    Draw a vector from point a to point b. Uses complex numbers.
+
+    Parameters
+    ----------
+    a,b: complex
+        start and end for the vector.
+    kws: dict
+        keyword arguments for matplotlib.pyplot.plot
+    """
     plt.plot([a.real, b.real], [a.imag, b.imag], "-", **kws)
 
 
 def plot_circ(r=1, o=0 + 0j, **kws):
     """
     Plot a circle.
+
+    Parameters
+    ----------
+    r: float
+        radius
+    o: complex
+        origin
+    kws: dict
+        keyword arguments for matplotlib.pyplot.plot
     """
     cx, cy = polygon(100)
     c = kws.get("c", "k")
@@ -237,3 +257,56 @@ def plot_circ(r=1, o=0 + 0j, **kws):
         except:
             pass
     plt.plot(cx * r + o.real, cy * r + o.imag, c=c, ls=ls, **kws)
+
+
+# Drawing examples
+
+
+def hand(minute, hours=0, l=2, o=0, angle=np.pi / 48, hour=False, **kws):
+    """
+    Draw clock hand
+    """
+    phi = np.pi / 2 - np.pi / 30 * minute
+    if hour:
+        phi = np.pi / 2 - np.pi * (1 / 6 * hours + 1 / 360 * minute)
+        angle = np.pi / 24
+    ab = l * np.exp(1j * (phi))
+    a = ab / np.cos(angle) / 2 * np.exp(1j * angle)
+    b = ab / np.cos(angle) / 2 * np.exp(-1j * angle)
+    c = kws.get("c", "k")
+    vec(o, a + o, c=c)
+    vec(o, b + o, c=c)
+    vec(a + o, o + a + b, c=c)
+    vec(b + o, a + b + o, c=c)
+
+
+def plot_clock_face(r=2, o=0, fontsize=10):
+    """
+    Plot clock face
+    """
+    gs = [r * np.exp(1j * (-np.pi / 6 + np.pi / 2 - np.pi / 6 * i)) for i in range(12)]
+    ms = [r * np.exp(1j * (np.pi / 30 * i)) for i in range(60)]
+    plot_circ(r, o=o)
+    [vec(o + g * 1.05, o + g * 1.1, c="C3") for g in ms]
+    [vec(o + g, o + g * 1.15, c="C2", lw=1.5) for g in gs]
+
+    ax = plt.gca()
+    [
+        ax.text((o + p * 1.25).real, (o + p * 1.25).imag, t + 1, va="center", ha="center", fontsize=fontsize)
+        for t, p in enumerate(gs)
+    ]
+
+
+def show_analog_time(hours, minutes, r=2, c="C0", o=0, fontsize=10):
+    """
+    Draw a clock with two hands
+    """
+
+    plot_clock_face(r, o=o, fontsize=fontsize)
+    hand(minutes, hours, l=r * 0.9, hour=True, c=c, o=o)
+    hand(minutes, l=r * 0.95, c=c, o=o)
+
+    plt.axis("off")
+    plt.gcf().set_dpi(200)
+    plt.gca().set_aspect("equal")
+

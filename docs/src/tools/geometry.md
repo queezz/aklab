@@ -5,6 +5,7 @@ kernelspec:
 otherkey1: val1
 otherkey2: val2
 ---
+
 # Geometry
 
 ## Examples
@@ -32,4 +33,10 @@ vec(1j*(d), 1j*d + x-d,c='C0')
 
 plot_circ(r=d,o=x-d+1j*d,ls='-.',c='C2')
 ax.set_aspect('equal')
+```
+
+```{code-cell} ipython3
+show_analog_time(6,5,r=1,o=np.pi*3/2+0.5j)
+x = np.linspace(0,np.pi*2,50)
+plt.plot(x,np.sin(x),'C1')
 ```

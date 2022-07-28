@@ -1,7 +1,20 @@
 Tools
 ===============
 
-A collection of frequently used tools with |matplotlib|, |os|, etc.
+A collection of frequently used tools with |matplotlib|, |os|, and others.
+
+:doc:`mpls`
+-----------
+Various matpltolib shortcuts, like convenient axes.
+
+.. image:: ../_static/subplots.png
+
+:doc:`geometry`
+----------------------------
+Using :func:`~aklab.mpls.vec` and complex numbers to draw lines.
+
+.. image:: ../_static/geometry.png
+
 
 .. |matplotlib| raw:: html
 
