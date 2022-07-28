@@ -17,5 +17,5 @@ A collection of frequently used tools with |matplotlib|, |os|, etc.
 
     mpls
     dirutil
-    test    
+    geometry    
 
