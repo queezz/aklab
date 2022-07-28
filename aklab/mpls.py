@@ -224,7 +224,7 @@ def vec(a, b, **kws):
     plt.plot([a.real, b.real], [a.imag, b.imag], "-", **kws)
 
 
-def plot_circ(r=1, **kws):
+def plot_circ(r=1, o=0 + 0j, **kws):
     """
     Plot a circle.
     """
@@ -236,4 +236,4 @@ def plot_circ(r=1, **kws):
             kws.pop(i)
         except:
             pass
-    plt.plot(cx * r, cy * r, c=c, ls=ls, **kws)
+    plt.plot(cx * r + o.real, cy * r + o.imag, c=c, ls=ls, **kws)
