@@ -3,6 +3,7 @@ Convinience function for Matplotlib
 """
 
 import matplotlib.pylab as plt
+import numpy as np
 
 
 def ticks_visual(ax, size=[7, 4, 1, 0.8], which="both"):
@@ -207,7 +208,32 @@ def figprep(width=246, subplots=[1, 1], dpi=100, **kws):
     tuple
             (fig, axs), matplotlib.pylab.subplots
     """
-    return plt.subplots(
-        subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi
-    )
+    return plt.subplots(subplots[0], subplots[1], figsize=set_size(width, **kws), dpi=dpi)
 
+
+def polygon(n=6):
+    """
+    Calculate vertices for an n-gone, inscirbed in a unit circle.
+    First vertice at 1.
+    """
+    t = np.arange(0, np.pi * 2 * (n + 1) / n, 2 * np.pi / n)
+    return (np.cos(t), np.sin(t))
+
+
+def vec(a, b, **kws):
+    plt.plot([a.real, b.real], [a.imag, b.imag], "-", **kws)
+
+
+def plot_circ(r=1, **kws):
+    """
+    Plot a circle.
+    """
+    cx, cy = polygon(100)
+    c = kws.get("c", "k")
+    ls = kws.get("ls", "-")
+    for i in ["c", "ls"]:
+        try:
+            kws.pop(i)
+        except:
+            pass
+    plt.plot(cx * r, cy * r, c=c, ls=ls, **kws)
