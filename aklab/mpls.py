@@ -259,6 +259,61 @@ def plot_circ(r=1, o=0 + 0j, **kws):
     plt.plot(cx * r + o.real, cy * r + o.imag, c=c, ls=ls, **kws)
 
 
+def multiple_formatter(denominator=2, number=np.pi, latex="\pi"):
+    """
+    Formatter with letters, multiple of pi
+    """
+
+    def gcd(a, b):
+        while b:
+            a, b = b, a % b
+        return a
+
+    def _multiple_formatter(x, pos):
+        den = denominator
+        num = int(np.rint(den * x / number))
+        com = gcd(num, den)
+        (num, den) = (int(num / com), int(den / com))
+        if den == 1:
+            if num == 0:
+                return r"$0$"
+            if num == 1:
+                return r"$%s$" % latex
+            elif num == -1:
+                return r"$-%s$" % latex
+            else:
+                return r"$%s%s$" % (num, latex)
+        else:
+            mm = ""
+            if num < 0:
+                mm = "-"
+            if num == 1:
+                return r"$\frac{%s}{%s}$" % (latex, den)
+            elif num == -1:
+                return f"${mm}\\frac{{{latex}}}{{{den}}}$"
+            else:
+                return f"${mm}\\frac{{{abs(num)}}}{{{den}}}{latex}$"
+
+    return _multiple_formatter
+
+
+class Multiple:
+    """
+    Matplotlib formatter
+    """
+
+    def __init__(self, denominator=2, number=np.pi, latex="\pi"):
+        self.denominator = denominator
+        self.number = number
+        self.latex = latex
+
+    def locator(self):
+        return plt.MultipleLocator(self.number / self.denominator)
+
+    def formatter(self):
+        return plt.FuncFormatter(multiple_formatter(self.denominator, self.number, self.latex))
+
+
 # Drawing examples
 
 
