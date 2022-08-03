@@ -378,20 +378,44 @@ def show_analog_time(hours, minutes, r=2, c="C0", o=0, fontsize=10):
 #  ===========================================================
 
 
-def plot_color_gradient(cmap_name):
+def plot_color_gradients(category, cmap_list):
     """
-    Plot matplotlib colormap.
+    Create figure and adjust figure height to number of colormaps
+    Modified from https://matplotlib.org/stable/tutorials/colors/colormaps.html
     """
+    cmaps = {}
+
     gradient = np.linspace(0, 1, 256)
     gradient = np.vstack((gradient, gradient))
-    _, ax = plt.subplots(figsize=(6.4, 0.5))
-    ax.imshow(gradient, aspect="auto", cmap=plt.get_cmap(cmap_name))
+
+    nrows = len(cmap_list)
+    figh = 0.35 + 0.15 + (nrows + (nrows - 1) * 0.1) * 0.22
+    fig, axs = plt.subplots(nrows=nrows + 1, figsize=(6.4, figh))
+    fig.subplots_adjust(top=1 - 0.35 / figh, bottom=0.15 / figh, left=0.2, right=0.99)
+    axs[0].set_title(f"{category} colormaps", fontsize=14)
+
+    for ax, name in zip(axs, cmap_list):
+        ax.imshow(gradient, aspect="auto", cmap=plt.get_cmap(name))
+        if not type(name) == str:
+            name = name.name
+        ax.text(-0.01, 0.5, name, va="center", ha="right", fontsize=10, transform=ax.transAxes)
+
+    # Turn off *all* ticks & spines, not just the ones with colormaps.
+    for ax in axs:
+        ax.set_axis_off()
+
+    # Save colormap list for later.
+    cmaps[category] = cmap_list
 
 
-contrastedges = mpl.colors.LinearSegmentedColormap.from_list(
-    "contrastedges",
-    list(zip([0.0, 0.01, 0.2, 0.5, 0.99, 1.0], ["w", "skyblue", "Royalblue", "orange", "OrangeRed", "k"])),
-)
+colmaps = {
+    "contrastedges": mpl.colors.LinearSegmentedColormap.from_list(
+        "contrastedges",
+        list(
+            zip([0.0, 0.01, 0.2, 0.5, 0.99, 1.0], ["w", "skyblue", "Royalblue", "orange", "OrangeRed", "k"])
+        ),
+    )
+}
 
 
 #  ===========================================================

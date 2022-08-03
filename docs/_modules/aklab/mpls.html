@@ -186,6 +186,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
@@ -497,7 +498,11 @@
         <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">multiple_formatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">denominator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latex</span><span class="p">))</span></div></div>
 
 
+<span class="c1">#  ===========================================================</span>
+<span class="c1">#</span>
 <span class="c1"># Drawing examples</span>
+<span class="c1">#</span>
+<span class="c1">#  ===========================================================</span>
 
 
 <div class="viewcode-block" id="hand"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.hand">[docs]</a><span class="k">def</span> <span class="nf">hand</span><span class="p">(</span><span class="n">minute</span><span class="p">,</span> <span class="n">hours</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">48</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">):</span>
@@ -548,6 +553,61 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span></div>
 
+
+<span class="c1">#  ===========================================================</span>
+<span class="c1">#</span>
+<span class="c1"># Custom clormaps</span>
+<span class="c1">#</span>
+<span class="c1">#  ===========================================================</span>
+
+
+<div class="viewcode-block" id="plot_color_gradient"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.plot_color_gradient">[docs]</a><span class="k">def</span> <span class="nf">plot_color_gradient</span><span class="p">(</span><span class="n">cmap_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot matplotlib colormap.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">gradient</span><span class="p">,</span> <span class="n">gradient</span><span class="p">))</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap_name</span><span class="p">))</span></div>
+
+
+<span class="n">contrastedges</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span>
+    <span class="s2">&quot;contrastedges&quot;</span><span class="p">,</span>
+    <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="s2">&quot;skyblue&quot;</span><span class="p">,</span> <span class="s2">&quot;Royalblue&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;OrangeRed&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">])),</span>
+<span class="p">)</span>
+
+
+<span class="c1">#  ===========================================================</span>
+<span class="c1">#</span>
+<span class="c1"># 3D and images</span>
+<span class="c1">#</span>
+<span class="c1">#  ===========================================================</span>
+
+
+<div class="viewcode-block" id="complex_mesh"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.complex_mesh">[docs]</a><span class="k">def</span> <span class="nf">complex_mesh</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">ylim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate complex meshgrid.</span>
+<span class="sd">    Useful for complex function plots and for genera 3D plots.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape: array like</span>
+<span class="sd">        shape = (nx,ny)</span>
+<span class="sd">    xlim: array like</span>
+<span class="sd">        limits for real coordinate</span>
+<span class="sd">    ylim: array like</span>
+<span class="sd">        limits for imaginary coordintae</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float X and complex Y meshgrids. </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">shape</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">nx</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">ny</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Yc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">Yc</span></div>
 </pre></div>
 
               </article>

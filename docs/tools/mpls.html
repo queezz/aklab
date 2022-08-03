@@ -207,6 +207,11 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#subplots">
+     Subplots
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#figprep">
      <code class="xref py py-func docutils literal notranslate">
       <span class="pre">
@@ -217,7 +222,17 @@
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#custom-ticks-locator">
-     Custom ticks locator.
+     Custom ticks locator
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#d-plot-using-complex-mesh">
+     3D plot using complex mesh
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#d-plot-of-a-complex-funciton">
+     2D plot of a complex funciton
     </a>
    </li>
   </ul>
@@ -245,7 +260,8 @@
 <h1>Matplotlib Tools<a class="headerlink" href="#matplotlib-tools" title="Permalink to this headline">#</a></h1>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
-<p>Subplots with</p>
+<div class="section" id="subplots">
+<h3>Subplots<a class="headerlink" href="#subplots" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.font_setup" title="aklab.mpls.font_setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">font_setup()</span></code></a> and <code class="docutils literal notranslate"><span class="pre">matplotlib.pylab.subplots_adjust</span></code></p></li>
 <li><p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.ticks_visual" title="aklab.mpls.ticks_visual"><code class="xref py py-func docutils literal notranslate"><span class="pre">ticks_visual()</span></code></a> to change style of ticks and ticks labels, and <a class="reference internal" href="../aklab.mpls.html#aklab.mpls.grid_visual" title="aklab.mpls.grid_visual"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_visual()</span></code></a> for gird.</p></li>
@@ -272,6 +288,7 @@
 <img alt="../_images/5a3bce15265cf8eb3540aa6a26385a1321e175fb69dd7151566a5e88322c513e.png" src="../_images/5a3bce15265cf8eb3540aa6a26385a1321e175fb69dd7151566a5e88322c513e.png" />
 </div>
 </div>
+</div>
 <div class="section" id="figprep">
 <h3><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.figprep" title="aklab.mpls.figprep"><code class="xref py py-func docutils literal notranslate"><span class="pre">figprep()</span></code></a><a class="headerlink" href="#figprep" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
@@ -288,7 +305,7 @@
 </div>
 </div>
 <div class="section" id="custom-ticks-locator">
-<h3>Custom ticks locator.<a class="headerlink" href="#custom-ticks-locator" title="Permalink to this headline">#</a></h3>
+<h3>Custom ticks locator<a class="headerlink" href="#custom-ticks-locator" title="Permalink to this headline">#</a></h3>
 <p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.multiple_formatter" title="aklab.mpls.multiple_formatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">multiple_formatter()</span></code></a> and <a class="reference internal" href="../aklab.mpls.html#aklab.mpls.Multiple" title="aklab.mpls.Multiple"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multiple</span></code></a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -316,6 +333,70 @@
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/f888d70bc3e09a0c93f4f59c60f90091361ee75630bbf232a27c82ebc163d6d0.png" src="../_images/f888d70bc3e09a0c93f4f59c60f90091361ee75630bbf232a27c82ebc163d6d0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="d-plot-using-complex-mesh">
+<h3>3D plot using complex mesh<a class="headerlink" href="#d-plot-using-complex-mesh" title="Permalink to this headline">#</a></h3>
+<p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.complex_mesh" title="aklab.mpls.complex_mesh"><code class="xref py py-func docutils literal notranslate"><span class="pre">complex_mesh()</span></code></a> generates 2D comlex mesh which can be used as an argument to a function.
+If the resulting matrix is converted to real values, it could be plotted using a 3D plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Yc</span> <span class="o">=</span> <span class="n">akmp</span><span class="o">.</span><span class="n">complex_mesh</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">],[</span><span class="o">-</span><span class="n">b</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="o">-</span><span class="n">b</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">Yc</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">Yc</span><span class="o">.</span><span class="n">imag</span>
+
+<span class="n">W</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">Z</span><span class="p">)))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Real&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Imaginary&#39;</span><span class="p">)</span>
+<span class="c1">#ax.plot_wireframe(X, Y, W, rstride=5, cstride=5,lw=0.4,color=&#39;y&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mf">40.</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">75</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/41499517205330ab341109611461fa29d62384e0260eacef4ea9bd8a55bc259a.png" src="../_images/41499517205330ab341109611461fa29d62384e0260eacef4ea9bd8a55bc259a.png" />
+</div>
+</div>
+</div>
+<div class="section" id="d-plot-of-a-complex-funciton">
+<h3>2D plot of a complex funciton<a class="headerlink" href="#d-plot-of-a-complex-funciton" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">compf</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">move</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mf">0.7</span>
+<span class="n">rotate</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">z</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">compf</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">rotate</span><span class="p">(</span><span class="n">z</span><span class="p">))))))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">500</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Yc</span> <span class="o">=</span> <span class="n">akmp</span><span class="o">.</span><span class="n">complex_mesh</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">],[</span><span class="o">-</span><span class="n">b</span><span class="p">,</span><span class="n">b</span><span class="p">],[</span><span class="o">-</span><span class="n">b</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">X</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="n">Yc</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">Yc</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">Yc</span>
+
+<span class="n">W</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+<span class="n">colormaps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nipy_spectral&#39;</span><span class="p">,</span> <span class="s1">&#39;gist_ncar&#39;</span><span class="p">,</span> <span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">akmp</span><span class="o">.</span><span class="n">contrastedges</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">akmp</span><span class="o">.</span><span class="n">contrastedges</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x2b5c7047250&gt;
+</pre></div>
+</div>
+<img alt="../_images/c42880a8754af30a4f8892085fb32d1840a9185a66d072e6da43606526700f05.png" src="../_images/c42880a8754af30a4f8892085fb32d1840a9185a66d072e6da43606526700f05.png" />
 </div>
 </div>
 </div>

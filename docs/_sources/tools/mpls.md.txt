@@ -9,7 +9,7 @@ otherkey2: val2
 
 ## Examples
 
-Subplots with 
+### Subplots
 - {func}`~aklab.mpls.font_setup` and `matplotlib.pylab.subplots_adjust`
 - {func}`~aklab.mpls.ticks_visual` to change style of ticks and ticks labels, and {func}`~aklab.mpls.grid_visual` for gird.
 - {func}`~aklab.mpls.ltexp` for formatting numbers from $1.23e29$ into $1.2 \times 10^{29}$.
@@ -35,7 +35,7 @@ akmp.font_setup(size=6)
 akmp.figprep(200,subplots=[3,1],dpi=100,ratio=2)
 plt.gcf().set_facecolor('w')
 ```
-### Custom ticks locator.
+### Custom ticks locator
 {func}`~aklab.mpls.multiple_formatter` and {class}`~aklab.mpls.Multiple`.
 
 ```{code-cell} ipython3
@@ -58,4 +58,50 @@ minor = akmp.Multiple(den*4, tau, tex)
 ax.xaxis.set_major_locator(major.locator())
 ax.xaxis.set_minor_locator(minor.locator())
 ax.xaxis.set_major_formatter(major.formatter())
+```
+
+### 3D plot using complex mesh
+{func}`~aklab.mpls.complex_mesh` generates 2D comlex mesh which can be used as an argument to a function.
+If the resulting matrix is converted to real values, it could be plotted using a 3D plot.
+
+```{code-cell} ipython3
+import matplotlib as mpl
+
+n = 60
+b = 3
+
+X, Yc = akmp.complex_mesh([n,n],[-b,b],[-b,b])
+Z = X + Yc
+Y = Yc.imag
+
+W = abs(np.cos(np.angle(Z)))
+
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.plot_surface(X, Y, W, rstride=1, cstride=1, cmap=mpl.cm.jet)
+ax.set_xlabel('Real')
+ax.set_ylabel('Imaginary')
+#ax.plot_wireframe(X, Y, W, rstride=5, cstride=5,lw=0.4,color='y')
+ax.view_init(elev=40., azim=75)
+fig.set_dpi(200)
+```
+### 2D plot of a complex funciton
+
+```{code-cell} ipython3
+compf = lambda z: (z**2 + z**3 + z**4)/(z-1)
+move = lambda z: (z - 0)*0.7
+rotate = lambda z: z*np.exp(1j*np.pi*1/2)
+f = lambda z: (np.cos(np.angle(compf(move(rotate(z))))))
+
+fig, ax = plt.subplots()
+
+b = 3
+n=500
+X, Yc = akmp.complex_mesh([n,n],[-b,b],[-b,b])
+extent = [X.min(),X.max(),Yc.imag.min(),Yc.imag.max()]
+Z = X + Yc
+
+W = f(Z)
+
+colormaps = ['nipy_spectral', 'gist_ncar', 'jet', akmp.contrastedges]
+plt.imshow(W,extent=extent,cmap=akmp.contrastedges,origin='lower')
 ```
