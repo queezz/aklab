@@ -9,7 +9,10 @@ otherkey2: val2
 
 ## Examples
 
-All in one
+Subplots with 
+- {func}`~aklab.mpls.font_setup` and `matplotlib.pylab.subplots_adjust`
+- {func}`~aklab.mpls.ticks_visual` to change style of ticks and ticks labels, and {func}`~aklab.mpls.grid_visual` for gird.
+- {func}`~aklab.mpls.ltexp` for formatting numbers from $1.23e29$ into $1.2 \times 10^{29}$.
 
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
@@ -31,4 +34,28 @@ plt.gcf().set_facecolor('w')
 akmp.font_setup(size=6)
 akmp.figprep(200,subplots=[3,1],dpi=100,ratio=2)
 plt.gcf().set_facecolor('w')
+```
+### Custom ticks locator.
+{func}`~aklab.mpls.multiple_formatter` and {class}`~aklab.mpls.Multiple`.
+
+```{code-cell} ipython3
+import numpy as np
+
+akmp.font_setup(size=14)
+fig, ax = plt.subplots()
+x = np.linspace(-1*np.pi,np.pi,100)
+plt.plot(x,np.sin(x))
+
+plt.axvline(0,lw=0.5)
+plt.axhline(0,lw=0.5)
+
+tau = np.pi
+den = 2
+tex = r'\pi'
+major = akmp.Multiple(den, tau,tex)
+minor = akmp.Multiple(den*4, tau, tex)
+
+ax.xaxis.set_major_locator(major.locator())
+ax.xaxis.set_minor_locator(minor.locator())
+ax.xaxis.set_major_formatter(major.formatter())
 ```

@@ -3,6 +3,7 @@ Convinience function for Matplotlib
 """
 
 import matplotlib.pylab as plt
+import matplotlib as mpl
 import numpy as np
 
 
@@ -314,7 +315,11 @@ class Multiple:
         return plt.FuncFormatter(multiple_formatter(self.denominator, self.number, self.latex))
 
 
+#  ===========================================================
+#
 # Drawing examples
+#
+#  ===========================================================
 
 
 def hand(minute, hours=0, l=2, o=0, angle=np.pi / 48, hour=False, **kws):
@@ -365,3 +370,58 @@ def show_analog_time(hours, minutes, r=2, c="C0", o=0, fontsize=10):
     plt.gcf().set_dpi(200)
     plt.gca().set_aspect("equal")
 
+
+#  ===========================================================
+#
+# Custom clormaps
+#
+#  ===========================================================
+
+
+def plot_color_gradient(cmap_name):
+    """
+    Plot matplotlib colormap.
+    """
+    gradient = np.linspace(0, 1, 256)
+    gradient = np.vstack((gradient, gradient))
+    _, ax = plt.subplots(figsize=(6.4, 0.5))
+    ax.imshow(gradient, aspect="auto", cmap=plt.get_cmap(cmap_name))
+
+
+contrastedges = mpl.colors.LinearSegmentedColormap.from_list(
+    "contrastedges",
+    list(zip([0.0, 0.01, 0.2, 0.5, 0.99, 1.0], ["w", "skyblue", "Royalblue", "orange", "OrangeRed", "k"])),
+)
+
+
+#  ===========================================================
+#
+# 3D and images
+#
+#  ===========================================================
+
+
+def complex_mesh(shape, xlim, ylim):
+    """
+    Generate complex meshgrid.
+    Useful for complex function plots and for genera 3D plots.
+
+    Parameters
+    ----------
+    shape: array like
+        shape = (nx,ny)
+    xlim: array like
+        limits for real coordinate
+    ylim: array like
+        limits for imaginary coordintae
+
+    Returns
+    -------
+    float X and complex Y meshgrids. 
+
+    """
+    nx, ny = shape
+    x = np.linspace(xlim[0], xlim[1], nx)
+    y = np.linspace(ylim[0] * 1j, ylim[1] * 1j, ny)
+    X, Yc = np.meshgrid(x, y)
+    return X, Yc

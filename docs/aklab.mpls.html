@@ -48,7 +48,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="aklab.qulee module" href="aklab.qulee.html" />
@@ -279,6 +280,23 @@
   <div class="section" id="module-aklab.mpls">
 <span id="aklab-mpls-module"></span><h1>aklab.mpls module<a class="headerlink" href="#module-aklab.mpls" title="Permalink to this headline">#</a></h1>
 <p>Convinience function for Matplotlib</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="aklab.mpls.Multiple">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">Multiple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">denominator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.141592653589793</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\\pi'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#Multiple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.Multiple" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Matplotlib formatter</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.mpls.Multiple.formatter">
+<span class="sig-name descname"><span class="pre">formatter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#Multiple.formatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.Multiple.formatter" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aklab.mpls.Multiple.locator">
+<span class="sig-name descname"><span class="pre">locator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#Multiple.locator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.Multiple.locator" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="aklab.mpls.figprep">
 <span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">figprep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">246</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subplots</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kws</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#figprep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.figprep" title="Permalink to this definition">#</a></dt>
@@ -365,6 +383,12 @@ specific for <cite>family</cite> fontnames: [‘Sans’ | ‘Courier’ | ‘Hel
 </ul>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aklab.mpls.multiple_formatter">
+<span class="sig-prename descclassname"><span class="pre">aklab.mpls.</span></span><span class="sig-name descname"><span class="pre">multiple_formatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">denominator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.141592653589793</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\\pi'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aklab/mpls.html#multiple_formatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#aklab.mpls.multiple_formatter" title="Permalink to this definition">#</a></dt>
+<dd><p>Formatter with letters, multiple of pi</p>
 </dd></dl>
 
 <dl class="py function">

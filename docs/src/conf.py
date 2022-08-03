@@ -47,6 +47,7 @@ extensions = [
     "myst_nb",  # conda install -c conda-forge myst-nb
     "sphinx_copybutton",  # conda install -c conda-forge sphinx-copybutton
 ]
+myst_enable_extensions = ["dollarmath", "amsmath"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -80,9 +81,7 @@ pygments_style = "sphinx"
 # html_theme = "sphinx_rtd_theme"
 # html_theme = "python_docs_theme"
 # html_theme = "renku" # pip install renku-sphinx-theme
-html_theme = (
-    "pydata_sphinx_theme"  # conda install pydata-sphinx-theme --channel conda-forge
-)
+html_theme = "pydata_sphinx_theme"  # conda install pydata-sphinx-theme --channel conda-forge
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

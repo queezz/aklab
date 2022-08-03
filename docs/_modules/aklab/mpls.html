@@ -442,6 +442,61 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cx</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">o</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">cy</span> <span class="o">*</span> <span class="n">r</span> <span class="o">+</span> <span class="n">o</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="multiple_formatter"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.multiple_formatter">[docs]</a><span class="k">def</span> <span class="nf">multiple_formatter</span><span class="p">(</span><span class="n">denominator</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">latex</span><span class="o">=</span><span class="s2">&quot;\pi&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Formatter with letters, multiple of pi</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">while</span> <span class="n">b</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+    <span class="k">def</span> <span class="nf">_multiple_formatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+        <span class="n">den</span> <span class="o">=</span> <span class="n">denominator</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">den</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">number</span><span class="p">))</span>
+        <span class="n">com</span> <span class="o">=</span> <span class="n">gcd</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">com</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">den</span> <span class="o">/</span> <span class="n">com</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">den</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;$0$&quot;</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="si">%s</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="n">latex</span>
+            <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;$-</span><span class="si">%s</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="n">latex</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;$</span><span class="si">%s%s</span><span class="s2">$&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">latex</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mm</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">mm</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
+            <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s2">&quot;$\frac{</span><span class="si">%s</span><span class="s2">}{</span><span class="si">%s</span><span class="s2">}$&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">latex</span><span class="p">,</span> <span class="n">den</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">num</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">mm</span><span class="si">}</span><span class="se">\\</span><span class="s2">frac</span><span class="se">{{</span><span class="si">{</span><span class="n">latex</span><span class="si">}</span><span class="se">}}{{</span><span class="si">{</span><span class="n">den</span><span class="si">}</span><span class="se">}}</span><span class="s2">$&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">mm</span><span class="si">}</span><span class="se">\\</span><span class="s2">frac</span><span class="se">{{</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="si">}</span><span class="se">}}{{</span><span class="si">{</span><span class="n">den</span><span class="si">}</span><span class="se">}}</span><span class="si">{</span><span class="n">latex</span><span class="si">}</span><span class="s2">$&quot;</span>
+
+    <span class="k">return</span> <span class="n">_multiple_formatter</span></div>
+
+
+<div class="viewcode-block" id="Multiple"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.Multiple">[docs]</a><span class="k">class</span> <span class="nc">Multiple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Matplotlib formatter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">denominator</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">latex</span><span class="o">=</span><span class="s2">&quot;\pi&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">denominator</span> <span class="o">=</span> <span class="n">denominator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latex</span> <span class="o">=</span> <span class="n">latex</span>
+
+<div class="viewcode-block" id="Multiple.locator"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.Multiple.locator">[docs]</a>    <span class="k">def</span> <span class="nf">locator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">denominator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Multiple.formatter"><a class="viewcode-back" href="../../aklab.mpls.html#aklab.mpls.Multiple.formatter">[docs]</a>    <span class="k">def</span> <span class="nf">formatter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">multiple_formatter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">denominator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latex</span><span class="p">))</span></div></div>
+
+
 <span class="c1"># Drawing examples</span>
 
 

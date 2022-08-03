@@ -48,6 +48,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Dirutil" href="dirutil.html" />
@@ -213,6 +215,11 @@
      </code>
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#custom-ticks-locator">
+     Custom ticks locator.
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -234,11 +241,16 @@
               
               <article class="bd-article" role="main">
                 
-  <div class="section" id="matplotlib-tools">
+  <div class="tex2jax_ignore mathjax_ignore section" id="matplotlib-tools">
 <h1>Matplotlib Tools<a class="headerlink" href="#matplotlib-tools" title="Permalink to this headline">#</a></h1>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
-<p>All in one</p>
+<p>Subplots with</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.font_setup" title="aklab.mpls.font_setup"><code class="xref py py-func docutils literal notranslate"><span class="pre">font_setup()</span></code></a> and <code class="docutils literal notranslate"><span class="pre">matplotlib.pylab.subplots_adjust</span></code></p></li>
+<li><p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.ticks_visual" title="aklab.mpls.ticks_visual"><code class="xref py py-func docutils literal notranslate"><span class="pre">ticks_visual()</span></code></a> to change style of ticks and ticks labels, and <a class="reference internal" href="../aklab.mpls.html#aklab.mpls.grid_visual" title="aklab.mpls.grid_visual"><code class="xref py py-func docutils literal notranslate"><span class="pre">grid_visual()</span></code></a> for gird.</p></li>
+<li><p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.ltexp" title="aklab.mpls.ltexp"><code class="xref py py-func docutils literal notranslate"><span class="pre">ltexp()</span></code></a> for formatting numbers from <span class="math notranslate nohighlight">\(1.23e29\)</span> into <span class="math notranslate nohighlight">\(1.2 \times 10^{29}\)</span>.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -272,6 +284,38 @@
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/119062c32ab618d3c9cc02e1046c07027b39ea05262e02eda3fcb38df9926926.png" src="../_images/119062c32ab618d3c9cc02e1046c07027b39ea05262e02eda3fcb38df9926926.png" />
+</div>
+</div>
+</div>
+<div class="section" id="custom-ticks-locator">
+<h3>Custom ticks locator.<a class="headerlink" href="#custom-ticks-locator" title="Permalink to this headline">#</a></h3>
+<p><a class="reference internal" href="../aklab.mpls.html#aklab.mpls.multiple_formatter" title="aklab.mpls.multiple_formatter"><code class="xref py py-func docutils literal notranslate"><span class="pre">multiple_formatter()</span></code></a> and <a class="reference internal" href="../aklab.mpls.html#aklab.mpls.Multiple" title="aklab.mpls.Multiple"><code class="xref py py-class docutils literal notranslate"><span class="pre">Multiple</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">akmp</span><span class="o">.</span><span class="n">font_setup</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">den</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">tex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\pi&#39;</span>
+<span class="n">major</span> <span class="o">=</span> <span class="n">akmp</span><span class="o">.</span><span class="n">Multiple</span><span class="p">(</span><span class="n">den</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span><span class="n">tex</span><span class="p">)</span>
+<span class="n">minor</span> <span class="o">=</span> <span class="n">akmp</span><span class="o">.</span><span class="n">Multiple</span><span class="p">(</span><span class="n">den</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">tex</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">major</span><span class="o">.</span><span class="n">locator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">minor</span><span class="o">.</span><span class="n">locator</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">major</span><span class="o">.</span><span class="n">formatter</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/f888d70bc3e09a0c93f4f59c60f90091361ee75630bbf232a27c82ebc163d6d0.png" src="../_images/f888d70bc3e09a0c93f4f59c60f90091361ee75630bbf232a27c82ebc163d6d0.png" />
 </div>
 </div>
 </div>
