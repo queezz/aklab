@@ -235,6 +235,11 @@
      2D plot of a complex funciton
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-colormap">
+     Plot colormap
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -387,17 +392,72 @@ If the resulting matrix is converted to real values, it could be plotted using a
 
 <span class="n">W</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
 
-<span class="n">colormaps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nipy_spectral&#39;</span><span class="p">,</span> <span class="s1">&#39;gist_ncar&#39;</span><span class="p">,</span> <span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">akmp</span><span class="o">.</span><span class="n">contrastedges</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">akmp</span><span class="o">.</span><span class="n">contrastedges</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="n">colormaps</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nipy_spectral&#39;</span><span class="p">,</span> <span class="s1">&#39;gist_ncar&#39;</span><span class="p">,</span> <span class="s1">&#39;jet&#39;</span><span class="p">,</span> <span class="n">akmp</span><span class="o">.</span><span class="n">colmaps</span><span class="p">[</span><span class="s2">&quot;contrastedges&quot;</span><span class="p">]]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">akmp</span><span class="o">.</span><span class="n">colmaps</span><span class="p">[</span><span class="s2">&quot;contrastedges&quot;</span><span class="p">],</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x2b5c7047250&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x1da0d859c10&gt;
 </pre></div>
 </div>
 <img alt="../_images/c42880a8754af30a4f8892085fb32d1840a9185a66d072e6da43606526700f05.png" src="../_images/c42880a8754af30a4f8892085fb32d1840a9185a66d072e6da43606526700f05.png" />
 </div>
+</div>
+<p>Contourplots are also helpful.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">compf</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">ls</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">cs</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;real axis&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">compf</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">ls</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>     <span class="s1">&#39;r&#39;</span> <span class="p">]</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">ls</span><span class="p">,</span><span class="n">colors</span><span class="o">=</span><span class="n">cs</span><span class="p">,</span><span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;imaginary axis&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">axes</span>
+<span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axs</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/eb76e153def7bab6be2df7dead6109748ac4ecc246136f801be48c4bd90d2d39.png" src="../_images/eb76e153def7bab6be2df7dead6109748ac4ecc246136f801be48c4bd90d2d39.png" />
+</div>
+</div>
+</div>
+<div class="section" id="plot-colormap">
+<h3>Plot colormap<a class="headerlink" href="#plot-colormap" title="Permalink to this headline">#</a></h3>
+<p><code class="xref py py-const docutils literal notranslate"><span class="pre">colmaps</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">akmp</span><span class="o">.</span><span class="n">plot_color_gradients</span><span class="p">(</span>
+    <span class="s2">&quot;Selected&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="s2">&quot;plasma&quot;</span><span class="p">,</span> <span class="s2">&quot;inferno&quot;</span><span class="p">,</span> <span class="s2">&quot;magma&quot;</span><span class="p">,</span> <span class="s2">&quot;cividis&quot;</span><span class="p">,</span> <span class="n">akmp</span><span class="o">.</span><span class="n">colmaps</span><span class="p">[</span><span class="s2">&quot;contrastedges&quot;</span><span class="p">]]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b90ae70e28a73147a01970e7d194f1c9d17ff361ed68d69724d07e3eeeffa019.png" src="../_images/b90ae70e28a73147a01970e7d194f1c9d17ff361ed68d69724d07e3eeeffa019.png" />
+</div>
+</div>
+<p>Or simply</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">akmp</span><span class="o">.</span><span class="n">colmaps</span><span class="p">[</span><span class="s2">&quot;contrastedges&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div style="vertical-align: middle;"><strong>contrastedges</strong> </div><div class="cmap"><img alt="contrastedges colormap" title="contrastedges" style="border: 1px solid #555;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAABACAYAAABsv8+/AAAAHHRFWHRUaXRsZQBjb250cmFzdGVkZ2VzIGNvbG9ybWFwu3xcZgAAACJ0RVh0RGVzY3JpcHRpb24AY29udHJhc3RlZGdlcyBjb2xvcm1hcCYssiMAAAAwdEVYdEF1dGhvcgBNYXRwbG90bGliIHYzLjUuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZ8JaeJwAAAAydEVYdFNvZnR3YXJlAE1hdHBsb3RsaWIgdjMuNS4yLCBodHRwczovL21hdHBsb3RsaWIub3Jn7PznuwAAAc1JREFUeJzt1rFuE0EUQNFn8/9/AP9DCR8BFRQUSEjIuxQbR4rx4iSyEOie0zyNZjUzsVLcw7qu68zMhy8/Zmbm49dtfv7+c2ZmltPMzMy6PJ3L43q9WF/un9fr9XNOf/7u2efsfXfa23/6/v1zbvydv/0+r/s9LvfP8zjbBcfDNt8cLta39s/ree3+8lfv2/9uub7/3Hfd690P77j3fS8/Z3nhu6+fd5zt//A8Hq0789b+vc5xj3v+p3f84/e8/7bNt5+2+e5hHgcAyBEAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIIEAAAECQAACBIAABAkAAAgSAAAQJAAAIAgAQAAQQIAAIJ+AT+PJY74Ds56AAAAAElFTkSuQmCC"></div><div style="vertical-align: middle; max-width: 514px; display: flex; justify-content: space-between;"><div style="float: left;"><div title="#ffffffff" style="display: inline-block; width: 1em; height: 1em; margin: 0; vertical-align: middle; border: 1px solid #555; background-color: #ffffffff;"></div> under</div><div style="margin: 0 auto; display: inline-block;">bad <div title="#00000000" style="display: inline-block; width: 1em; height: 1em; margin: 0; vertical-align: middle; border: 1px solid #555; background-color: #00000000;"></div></div><div style="float: right;">over <div title="#000000ff" style="display: inline-block; width: 1em; height: 1em; margin: 0; vertical-align: middle; border: 1px solid #555; background-color: #000000ff;"></div></div></div></div>
 </div>
 </div>
 </div>

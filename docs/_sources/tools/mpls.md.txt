@@ -102,6 +102,45 @@ Z = X + Yc
 
 W = f(Z)
 
-colormaps = ['nipy_spectral', 'gist_ncar', 'jet', akmp.contrastedges]
-plt.imshow(W,extent=extent,cmap=akmp.contrastedges,origin='lower')
+colormaps = ['nipy_spectral', 'gist_ncar', 'jet', akmp.colmaps["contrastedges"]]
+plt.imshow(W,extent=extent,cmap=akmp.colmaps["contrastedges"],origin='lower')
+```
+
+Contourplots are also helpful.
+
+```{code-cell} ipython3
+plt.subplot(2,2,1)
+f = lambda z: abs(np.angle(compf(z)))
+W = f(Z)
+ls = [-np.pi/2,np.pi/2]
+cs = ['b']
+c1 = plt.contour(W,ls,colors=cs,extent=extent)
+plt.gca().set_title('real axis')
+
+plt.subplot(2,2,2)
+f = lambda z: np.angle(compf(z))
+W = f(Z)
+ls = [0]
+cs = ['b',     'r' ]
+c1 = plt.contour(W,ls,colors=cs,extent=extent)
+plt.gca().set_title('imaginary axis')
+
+axs= plt.gcf().axes
+[ax.set_aspect('equal') for ax in axs]
+plt.subplots_adjust(top=0.99, bottom=0.01, hspace=0.3, wspace=-0.1)
+```
+
+### Plot colormap
+{py:const}`~aklab.mpls.colmaps`
+
+```{code-cell} ipython3
+akmp.plot_color_gradients(
+    "Selected", ["viridis", "plasma", "inferno", "magma", "cividis", akmp.colmaps["contrastedges"]]
+)
+```
+
+Or simply
+
+```{code-cell} ipython3
+akmp.colmaps["contrastedges"]
 ```
